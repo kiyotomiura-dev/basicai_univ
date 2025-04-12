@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 実例① Copilot(画像生成)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); /* Light Blue/Sky Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .try-button { display: inline-block; background-color: #0ea5e9; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #0284c7; }
+    </style>
+</head>
+<body>
+     <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-sky-900">生成AIの実例①：Microsoft Copilot</h1>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Copilot_logo.svg/1024px-Microsoft_Copilot_logo.svg.png" alt="Microsoft Copilot Logo" class="w-16 h-16">
+        </div>
+
+        <div class="text-center mb-6">
+             <p class="text-lg text-gray-800 mb-3">Microsoftアカウントで無料で利用可能。<br>内部でDALL-E 3という高性能モデルが使われており、<span class="font-bold">複雑な指示にも比較的強い</span>のが特徴。</p>
+            <a href="https://copilot.microsoft.com/" target="_blank" class="try-button">
+                <i class="fas fa-external-link-alt mr-2"></i>Microsoft Copilotを使ってみる (無料)
+            </a>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center">
+            <h2 class="text-2xl font-bold text-center text-sky-800 mb-4">Copilotでの画像生成例</h2>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (研究室の猫):</p>
+                <p class="prompt-text">研究室で白衣を着て、フラスコを興味深そうに見つめている猫、リアルな写真スタイル、背景は少しぼかす</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                    <div class="image-placeholder">(生成画像3のイメージ)</div>
+                    <div class="image-placeholder">(生成画像4のイメージ)</div>
+                </div>
+                 <p class="text-xs text-right text-gray-500 mt-1">※通常、複数の候補画像が生成されます</p>
+            </div>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (プレゼン表紙):</p>
+                <p class="prompt-text">プレゼンテーションの表紙に使える背景画像、青と緑を基調とした抽象的で未来的なデザイン、明るい雰囲気、文字を入れるスペースを考慮して</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                    <div class="image-placeholder">(生成画像3のイメージ)</div>
+                    <div class="image-placeholder">(生成画像4のイメージ)</div>
+                </div>
+            </div>
+             <p class="text-center text-sm text-gray-700 mt-4">Copilotはチャット形式で「～の画像を作成して」と頼むだけで簡単に試せます！</p>
+        </div>
+
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-3 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

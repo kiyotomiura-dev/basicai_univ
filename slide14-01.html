@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生向け) - 無料の音楽・音声生成AIを使ってみよう！</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); /* Purple Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .tool-card { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .tool-card:hover { transform: scale(1.05); }
+        .tool-logo { height: 50px; margin-bottom: 10px; object-fit: contain; }
+        .highlight { background-color: #e9d5ff; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-purple-800">無料で音楽と声を作ろう！<br>無料の音楽・音声生成AIを使ってみよう！</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3a7.svg" alt="Microphone emoji" class="w-16 h-16">
+            </div>
+        </div>
+
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-8 max-w-3xl mx-auto text-center">
+            <p class="text-xl text-gray-700">まずは無料で体験！手軽に始められる音楽・音声生成AIサービスを紹介します。</p>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center">
+            <p class="text-lg text-center text-gray-800 mb-8">
+                「こんな音楽や声があったらいいな」と思ったことはありませんか？<br>
+                生成AIを使えば、<span class="highlight text-purple-900">言葉で指示するだけでオリジナルの音楽や音声</span>を作成できます！
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+                <div class="tool-card">
+                    <i class="fas fa-music text-purple-600 text-5xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">無料の音楽生成AI</h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 text-left">
+                        <li><strong>Suno AI:</strong> 簡単操作で本格的な楽曲生成。無料プランあり。</li>
+                        <li><strong>Stable Audio:</strong> 高品質な音楽や効果音を生成可能。（無料枠あり）</li>
+                        <li><strong>Soundful:</strong> ロイヤリティフリー音楽を生成。（無料プランあり）</li>
+                    </ul>
+                    <p class="text-xs text-gray-500 mt-2">※無料プランには制限がある場合があります。</p>
+                </div>
+                <div class="tool-card">
+                    <i class="fas fa-microphone text-blue-600 text-5xl mb-4"></i>
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">無料の音声生成AI</h3>
+                    <ul class="list-disc list-inside text-sm text-gray-600 text-left">
+                        <li><strong>VALL-E X (Microsoft):</strong> 自然な音声を生成。多言語対応。（利用条件あり）</li>
+                        <li><strong>Descript:</strong> 音声編集ツール内のAIテキスト読み上げ機能。（無料プランあり）</li>
+                        <li><strong>Murf AI:</strong> プロフェッショナルな音声合成。（無料トライアルあり）</li>
+                    </ul>
+                    <p class="text-xs text-gray-500 mt-2">※サービスによっては登録が必要です。</p>
+                </div>
+            </div>
+
+            <p class="text-center mt-8 text-gray-700">
+                次のスライドから、プロンプトの作成方法を見ていきましょう！
+            </p>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">2 / 7</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AI活用入門 (大学生向け) - 実例② Stable Diffusion</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); /* Violet light Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .link-button { display: inline-block; background-color: #a78bfa; /* Violet-400 */ color: white; padding: 8px 15px; margin-top: 5px; margin-right: 5px; border-radius: 6px; text-decoration: none; font-size: 0.8rem; transition: background-color 0.3s; }
+        .link-button:hover { background-color: #8b5cf6; /* Violet-500 */ }
+    </style>
+</head>
+<body>
+     <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-violet-900">生成AIの実例②：Stable Diffusion (Web版)</h1>
+             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Stable_Diffusion_logo.png/900px-Stable_Diffusion_logo.png?20231116163017" alt="Stable Diffusion Logo" class="w-auto h-12"> </div>
+
+        <div class="text-center mb-6">
+             <p class="text-lg text-gray-800 mb-3">オープンソースを基盤とした画像生成AI。様々なWebサイトやサービスで無料で試せる。<br><span class="font-bold">モデルや設定の自由度が高く、多様なスタイルの画像を生成できる</span>のが魅力。</p>
+             <p class="text-sm text-gray-600 mb-2">無料で試せるサイトの例 (利用条件や広告に注意):</p>
+             <div>
+                 <a href="https://stablediffusionweb.com/" target="_blank" class="link-button"><i class="fas fa-link mr-1"></i>Stable Diffusion Online</a>
+                 <a href="https://huggingface.co/spaces" target="_blank" class="link-button"><i class="fas fa-link mr-1"></i>Hugging Face Spaces (検索)</a>
+                 <a href="https://dreamstudio.ai/" target="_blank" class="link-button"><i class="fas fa-link mr-1"></i>DreamStudio (無料クレジット)</a>
+                 </div>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center">
+            <h2 class="text-2xl font-bold text-center text-violet-800 mb-4">Stable Diffusionでの画像生成例</h2>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (大学生):</p>
+                <p class="prompt-text">a photorealistic portrait of a university student studying late at night in a library, warm lighting, detailed background, looking tired but focused</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                </div>
+            </div>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (未来都市):</p>
+                <p class="prompt-text">an illustration of a futuristic city with flying cars and towering skyscrapers, neon lights, anime style, vibrant colors, cyberpunk aesthetic</p>
+                 <div class="image-grid">
+                    <div class="image-placeholder">(生成画像1のイメージ)</div>
+                    <div class="image-placeholder">(生成画像2のイメージ)</div>
+                </div>
+            </div>
+             <p class="text-center text-sm text-gray-700 mt-4">Stable Diffusionは、プロンプト以外にも<span class="font-bold">「ステップ数」「CFGスケール」</span>などのパラメータ調整や、<span class="font-bold">特定の画風に特化したモデル</span>の利用で、よりこだわった画像生成が可能です。</p>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">15-4 / 20</span>
+        </div>
+    </div>
+</body>
+</html>

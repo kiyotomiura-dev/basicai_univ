@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AIの基礎 (大学生・教員向け) - AI理解度テスト</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .quiz-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .quiz-option {
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            border: 2px solid transparent;
+        }
+        .quiz-option:hover {
+            transform: translateX(5px);
+        }
+        .answer-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .correct {
+            border-color: green !important;
+        }
+        .correct .answer-icon {
+            background-color: green !important;
+            color: white !important;
+        }
+        .incorrect {
+            border-color: red !important;
+        }
+        .incorrect .answer-icon {
+            background-color: red !important;
+            color: white !important;
+        }
+        .explanation {
+            margin-top: 10px;
+            padding: 15px;
+            background-color: #f0f9ff;
+            border-radius: 8px;
+            border: 1px solid #e0f2f7;
+        }
+        .hidden {
+            display: none;
+        }
+        .question-number {
+            background-color: #fce4ec;
+            color: #e91e63;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            flex-shrink:0;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">生成AI理解度テスト</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e0.svg" alt="Brain emoji" class="w-16 h-16">
+            </div>
+        </div>
+
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-3xl mx-auto text-center">
+            <p class="text-xl text-gray-700">AIと生成AIに関する基本的な知識を確認しましょう。</p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 mb-6">
+            <div class="quiz-card bg-pink-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q1</div>
+                    <h3 class="font-bold text-gray-800">AI（人工知能）の定義として最も適切なものはどれですか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'ai_definition', '解説：AIは、コンピュータが人間のような知的な振る舞いを模倣できるようにする技術の総称です。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">コンピュータが人間のような知的な振る舞いを模倣できるようにする技術</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'ai_definition', '解説：AIは、コンピュータが人間のような知的な振る舞いを模倣できるようにする技術の総称です。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">ロボットを制御するための技術</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'ai_definition', '解説：AIは、コンピュータが人間のような知的な振る舞いを模倣できるようにする技術の総称です。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">大量のデータを保存するための技術</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'ai_definition', '解説：AIは、コンピュータが人間のような知的な振る舞いを模倣できるようにする技術の総称です。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">インターネットを利用するための技術</p>
+                    </div>
+                </div>
+                <div id="explanation-ai_definition" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-blue-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q2</div>
+                    <h3 class="font-bold text-gray-800">特定のタスクに特化したAIは、一般的に何と呼ばれますか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'weak_ai', '解説：特定のタスクに特化したAIは「弱いAI」または「特化型AI」と呼ばれます。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">強いAI</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'weak_ai', '解説：特定のタスクに特化したAIは「弱いAI」または「特化型AI」と呼ばれます。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">弱いAI</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'weak_ai', '解説：特定のタスクに特化したAIは「弱いAI」または「特化型AI」と呼ばれます。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">汎用AI</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'weak_ai', '解説：特定のタスクに特化したAIは「弱いAI」または「特化型AI」と呼ばれます。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">超知能</p>
+                    </div>
+                </div>
+                <div id="explanation-weak_ai" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-purple-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q3</div>
+                    <h3 class="font-bold text-gray-800">文章、画像、音楽などの新しいコンテンツを生成するAI技術を何と呼びますか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'generative_ai', '解説：大量のデータから特徴を学習し、新しい成果物を生み出すAI技術は「生成AI」と呼ばれます。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">識別AI</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'generative_ai', '解説：大量のデータから特徴を学習し、新しい成果物を生み出すAI技術は「生成AI」と呼ばれます。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">生成AI</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'generative_ai', '解説：大量のデータから特徴を学習し、新しい成果物を生み出すAI技術は「生成AI」と呼ばれます。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">予測AI</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'generative_ai', '解説：大量のデータから特徴を学習し、新しい成果物を生み出すAI技術は「生成AI」と呼ばれます。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">強化学習</p>
+                    </div>
+                </div>
+                <div id="explanation-generative_ai" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-green-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q4</div>
+                    <h3 class="font-bold text-gray-800">生成AIが大量のデータから特徴を学習し、新しい成果物を生み出す仕組みの背景にある技術として、近年特に発展しているものは何ですか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'deep_learning', '解説：生成AIの発展には、深層学習（ディープラーニング）の技術が大きく貢献しています。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">エキスパートシステム</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'deep_learning', '解説：生成AIの発展には、深層学習（ディープラーニング）の技術が大きく貢献しています。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">深層学習</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'deep_learning', '解説：生成AIの発展には、深層学習（ディープラーニング）の技術が大きく貢献しています。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">ルールベースシステム</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'deep_learning', '解説：生成AIの発展には、深層学習（ディープラーニング）の技術が大きく貢献しています。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">遺伝的アルゴリズム</p>
+                    </div>
+                </div>
+                <div id="explanation-deep_learning" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-yellow-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q5</div>
+                    <h3 class="font-bold text-gray-800">ニューラルネットワークの基本的な構造において、入力された情報が最初に入る層は何と呼ばれますか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'input_layer', '解説：ニューラルネットワークの構造において、入力されたデータが最初に入る層は「入力層」です。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">入力層</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'input_layer', '解説：ニューラルネットワークの構造において、入力されたデータが最初に入る層は「入力層」です。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">隠れ層</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'input_layer', '解説：ニューラルネットワークの構造において、入力されたデータが最初に入る層は「入力層」です。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">出力層</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'input_layer', '解説：ニューラルネットワークの構造において、入力されたデータが最初に入る層は「入力層」です。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">活性化層</p>
+                    </div>
+                </div>
+                <div id="explanation-input_layer" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-indigo-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q6</div>
+                    <h3 class="font-bold text-gray-800">ニューラルネットワークにおいて、各層のノード（ニューロン）で行われる計算結果を次の層に伝える際に、非線形な変換を行う関数は何と呼ばれますか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'activation_function', '解説：活性化関数は、ニューラルネットワークに非線形性をもたらし、より複雑な関数の学習を可能にします。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">損失関数</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'activation_function', '解説：活性化関数は、ニューラルネットワークに非線形性をもたらし、より複雑な関数の学習を可能にします。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">活性化関数</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'activation_function', '解説：活性化関数は、ニューラルネットワークに非線形性をもたらし、より複雑な関数の学習を可能にします。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">勾配降下法</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'activation_function', '解説：活性化関数は、ニューラルネットワークに非線形性をもたらし、より複雑な関数の学習を可能にします。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">誤差関数</p>
+                    </div>
+                </div>
+                <div id="explanation-activation_function" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-teal-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q7</div>
+                    <h3 class="font-bold text-gray-800">ニューラルネットワークの学習において、モデルの予測と正解との誤差を計算し、その誤差をネットワーク全体に逆伝播させて重みを調整するアルゴリズムは何と呼ばれますか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'backpropagation', '解説：誤差逆伝播法（バックプロパゲーション）は、ニューラルネットワークの重みを効率的に学習させるための重要なアルゴリズムです。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">遺伝的アルゴリズム</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'backpropagation', '解説：誤差逆伝播法（バックプロパゲーション）は、ニューラルネットワークの重みを効率的に学習させるための重要なアルゴリズムです。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">誤差逆伝播法</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'backpropagation', '解説：誤差逆伝播法（バックプロパゲーション）は、ニューラルネットワークの重みを効率的に学習させるための重要なアルゴリズムです。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">強化学習</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'backpropagation', '解説：誤差逆伝播法（バックプロパゲーション）は、ニューラルネットワークの重みを効率的に学習させるための重要なアルゴリズムです。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">主成分分析</p>
+                    </div>
+                </div>
+                <div id="explanation-backpropagation" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-orange-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q8</div>
+                    <h3 class="font-bold text-gray-800">GAN（Generative Adversarial Network）は、主にどのような目的で使用される生成モデルですか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'gan', '解説：GANは、本物に近いリアルなデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">データの次元削減</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'gan', '解説：GANは、本物に近いリアルなデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">リアルなデータの生成</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'gan', '解説：GANは、本物に近いリアルなデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">時系列データの予測</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'gan', '解説：GANは、本物に近いリアルなデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">データのクラスタリング</p>
+                    </div>
+                </div>
+                <div id="explanation-gan" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-lime-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q9</div>
+                    <h3 class="font-bold text-gray-800">VAE（Variational Autoencoder）は、主にどのような目的で使用される生成モデルですか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'vae', '解説：VAEは、データの潜在的な構造を学習し、それに基づいて新しいデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">データの分類精度向上</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'vae', '解説：VAEは、データの潜在的な構造を学習し、それに基づいて新しいデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">データの潜在的な構造の学習と新しいデータの生成</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'vae', '解説：VAEは、データの潜在的な構造を学習し、それに基づいて新しいデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">自然言語の翻訳</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'vae', '解説：VAEは、データの潜在的な構造を学習し、それに基づいて新しいデータを生成することを目的とした生成モデルです。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">強化学習における報酬関数の設計</p>
+                    </div>
+                </div>
+                <div id="explanation-vae" class="explanation hidden"></div>
+            </div>
+
+            <div class="quiz-card bg-cyan-50 p-5">
+                <div class="flex items-center mb-3">
+                    <div class="question-number">Q10</div>
+                    <h3 class="font-bold text-gray-800">生成AIツールは、様々な領域で活用されています。文章生成AIの代表的な活用例として適切でないものはどれですか？</h3>
+                </div>
+                <div class="space-y-2 mb-3">
+                    <div class="quiz-option" onclick="checkAnswer(this, 'nlp_example', '解説：文章生成AIは、記事の作成、小説の執筆、メールの作成などに活用されますが、画像認識は主にコンピュータビジョンの領域です。')">
+                        <div class="answer-icon">A</div>
+                        <p class="text-gray-700">記事の作成</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'nlp_example', '解説：文章生成AIは、記事の作成、小説の執筆、メールの作成などに活用されますが、画像認識は主にコンピュータビジョンの領域です。')">
+                        <div class="answer-icon">B</div>
+                        <p class="text-gray-700">小説の執筆</p>
+                    </div>
+                    <div class="quiz-option correct-answer-option" onclick="checkAnswer(this, 'nlp_example', '解説：文章生成AIは、記事の作成、小説の執筆、メールの作成などに活用されますが、画像認識は主にコンピュータビジョンの領域です。')">
+                        <div class="answer-icon">C</div>
+                        <p class="text-gray-700">画像に写っているものを認識する</p>
+                    </div>
+                    <div class="quiz-option" onclick="checkAnswer(this, 'nlp_example', '解説：文章生成AIは、記事の作成、小説の執筆、メールの作成などに活用されますが、画像認識は主にコンピュータビジョンの領域です。')">
+                        <div class="answer-icon">D</div>
+                        <p class="text-gray-700">メールの作成</p>
+                    </div>
+                </div>
+                <div id="explanation-nlp_example" class="explanation hidden"></div>
+            </div>
+        </div>
+
+        <div class="bg-indigo-50 rounded-xl p-4 max-w-3xl mx-auto">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0">
+                    <i class="fas fa-check-double text-indigo-600"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold text-indigo-800 mb-1">お疲れ様でした。</h4>
+                    <p class="text-gray-700">生成AIに関する理解度テストは以上です。今回の結果を参考に、更なる学習を深めていただければ幸いです。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">30 / 48</span>
+        </div>
+    </div>
+
+    <script>
+        function checkAnswer(selectedOption, correctAnswerId, explanationText) {
+            const quizCard = selectedOption.closest('.quiz-card');
+            const options = quizCard.querySelectorAll('.quiz-option');
+            const explanationDiv = document.getElementById(`explanation-${correctAnswerId}`);
+
+            options.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                option.onclick = null; // 一度回答したら選択不可にする
+            });
+
+            const answerIcon = selectedOption.querySelector('.answer-icon');
+            if (selectedOption.classList.contains('correct-answer-option')) {
+                selectedOption.classList.add('correct');
+                answerIcon.textContent = '○';
+            } else {
+                selectedOption.classList.add('incorrect');
+                answerIcon.textContent = '×';
+                // 正解のオプションを強調表示
+                options.forEach(option => {
+                    if (option.classList.contains('correct-answer-option')) {
+                        option.classList.add('correct');
+                        const correctIcon = option.querySelector('.answer-icon');
+                        correctIcon.textContent = '○';
+                    }
+                });
+            }
+
+            explanationDiv.textContent = explanationText;
+            explanationDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

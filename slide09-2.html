@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成モデル② (大学生・教員向け) - 変分オートエンコーダ (VAE)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); /* Purple Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .learn-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; background-color: white; display: flex; flex-direction: column; }
+        .learn-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .card-content { flex-grow: 1; padding: 24px; }
+        .card-footer { padding: 16px 24px; background-color: rgba(0, 0, 0, 0.03); border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
+        .twemoji { width: 3rem; height: 3rem; }
+        /* 図解用スタイル */
+        .diagram-box {
+            border: 2px dashed;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 120px; /* 幅を確保 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.6); /* 半透明背景 */
+        }
+        .arrow {
+            font-size: 1.8rem; /* 矢印サイズ */
+            margin: 0 15px; /* 矢印の左右マージン */
+            color: #6b7280; /* 矢印の色 */
+        }
+        .latent-space {
+            border: 3px dotted #a78bfa; /* 紫の点線 */
+            border-radius: 50%; /* 円形 */
+            width: 130px;
+            height: 130px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle, rgba(233, 213, 255, 0.7) 0%, rgba(221, 214, 254, 0.3) 100%);
+        }
+        .latent-point {
+            width: 8px; height: 8px; background-color: #8b5cf6; border-radius: 50%; position: absolute;
+        }
+        .example-icon {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-4xl font-bold text-purple-800">生成モデル②：変分オートエンコーダ (VAE)</h1>
+            <div class="float-animation">
+                <i class="fas fa-atom text-purple-600 text-5xl"></i>
+            </div>
+        </div>
+
+        <div class="flex-grow flex items-center justify-center">
+            <div class="learn-card max-w-4xl w-full">
+                <div class="card-content">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-lightbulb text-purple-700 text-5xl mr-3"></i>
+                        <h2 class="text-2xl font-bold text-purple-700">変分オートエンコーダ (Variational Autoencoder: VAE)</h2>
+                    </div>
+                    <p class="text-gray-800 mb-4">
+                        <span class="font-bold">概要:</span> VAEは、入力データを低次元の潜在空間に確率的にエンコードし、その潜在変数から元のデータを再構成する生成モデルです。この過程を通じて、データの潜在的な構造を学習し、新たなデータを生成することができます。
+                    </p>
+
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">VAEの構造</h3>
+                        <div class="flex items-center justify-around">
+                            <div class="text-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Mnist_3.png/80px-Mnist_3.png" alt="手書き数字3" class="mx-auto border rounded p-1 bg-white mb-1"> <p class="font-bold text-sm">入力データ</p>
+                                <p class="text-xs text-gray-600">(例: 数字の画像)</p>
+                            </div>
+
+                            <i class="fas fa-arrow-right arrow"></i>
+
+                            <div class="diagram-box border-purple-400">
+                                <i class="fas fa-compress-alt text-purple-600 text-2xl mb-1"></i>
+                                <p class="font-bold text-purple-600">エンコーダ (Encoder)</p>
+                                <p class="text-xs text-gray-600">入力データを潜在空間の分布に変換</p>
+                            </div>
+
+                            <i class="fas fa-arrow-right arrow"></i>
+
+                            <div class="latent-space">
+                                <i class="fas fa-cube text-purple-600 text-2xl mb-1 opacity-70"></i>
+                                <p class="font-bold text-purple-600 text-sm">潜在空間 (Latent Space)</p>
+                                <p class="text-xs text-gray-600">(確率分布)</p>
+                                <span class="latent-point" style="top: 30%; left: 30%;"></span>
+                                <span class="latent-point" style="top: 40%; left: 65%;"></span>
+                                <span class="latent-point" style="top: 60%; left: 40%;"></span>
+                                <span class="latent-point" style="top: 70%; left: 70%;"></span>
+                                <div class="absolute bottom-[-25px] text-center">
+                                    <i class="fas fa-arrows-alt-h text-xs text-purple-700"></i>
+                                    <p class="text-xs text-purple-700">サンプリング</p>
+                                </div>
+                            </div>
+
+                            <i class="fas fa-arrow-right arrow"></i>
+
+                            <div class="diagram-box border-purple-400">
+                                <i class="fas fa-expand-alt text-purple-600 text-2xl mb-1"></i>
+                                <p class="font-bold text-purple-600">デコーダ (Decoder)</p>
+                                <p class="text-xs text-gray-600">潜在変数からデータを再構成</p>
+                            </div>
+
+                            <i class="fas fa-arrow-right arrow"></i>
+
+                            <div class="text-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Mnist_3.png/80px-Mnist_3.png" alt="再構築された数字3" class="mx-auto border rounded p-1 bg-white mb-1 opacity-80"> <p class="font-bold text-sm">再構成されたデータ</p>
+                                <p class="text-xs text-gray-600">または新規生成データ</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-center text-gray-700 mt-8">
+                            エンコーダは入力データの特徴を捉え、平均と分散という形で潜在空間に表現します。潜在空間は連続的な表現を持つため、この空間内の任意の点をサンプリングしてデコーダに入力することで、元のデータに類似した新しいデータを生成できます。
+                        </p>
+                    </div>
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">VAEの応用例</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex items-center bg-purple-50 p-3 rounded-lg">
+                                <span class="example-icon bg-purple-200 text-purple-700"><i class="fas fa-image"></i></span>
+                                <div>
+                                    <p class="font-bold text-purple-800">多様な画像生成</p>
+                                    <p class="text-xs text-gray-700">既存の画像データセットから、多様なバリエーションの画像を生成します。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-red-50 p-3 rounded-lg">
+                                <span class="example-icon bg-red-200 text-red-700"><i class="fas fa-search"></i></span>
+                                <div>
+                                    <p class="font-bold text-red-800">異常検知</p>
+                                    <p class="text-xs text-gray-700">正常データの潜在空間を学習し、異常なデータが潜在空間でどのように表現されるかを分析します。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-blue-50 p-3 rounded-lg">
+                                <span class="example-icon bg-blue-200 text-blue-700"><i class="fas fa-paint-brush"></i></span>
+                                <div>
+                                    <p class="font-bold text-blue-800">データの補完</p>
+                                    <p class="text-xs text-gray-700">一部が欠損したデータから、潜在空間を通じて欠損部分を補完します。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-green-50 p-3 rounded-lg">
+                                <span class="example-icon bg-green-200 text-green-700"><i class="fas fa-dna"></i></span>
+                                <div>
+                                    <p class="font-bold text-green-800">分子設計</p>
+                                    <p class="text-xs text-gray-700">既存の分子構造を潜在空間で表現し、新しい特性を持つ分子を生成します。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-yellow-50 p-3 rounded-lg">
+                                <span class="example-icon bg-yellow-200 text-yellow-700"><i class="fas fa-chart-line"></i></span>
+                                <div>
+                                    <p class="font-bold text-yellow-800">時系列データ生成</p>
+                                    <p class="text-xs text-gray-700">株価データやセンサーデータなどの時系列データのパターンを学習し、将来のデータを予測・生成します。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <p class="text-sm text-gray-600"><i class="fas fa-info-circle mr-1 text-yellow-500"></i><span class="font-bold">ポイント:</span> VAEは、データの特徴を確率的な分布として捉えることで、GANとは異なるアプローチで多様な生成を可能にします。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">11 / 48</span>
+        </div>
+    </div>
+</body>
+</html>

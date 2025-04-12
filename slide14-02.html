@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生向け) - 音楽と音声生成の基本「呪文 (プロンプト)」</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); /* Violet Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .interface-example { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
+        .prompt-input { width: 90%; border: 1px solid #ccc; border-radius: 6px; padding: 10px; margin-bottom: 10px; font-size: 0.9rem; }
+        .generate-button { background-color: #8b5cf6; color: white; border: none; border-radius: 8px; padding: 10px 25px; cursor: pointer; transition: background-color 0.3s; font-weight: bold; }
+        .generate-button:hover { background-color: #7c3aed; }
+        .image-placeholder { width: 80%; height: 200px; background-color: #f3f4f6; border: 1px dashed #d1d5db; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; margin-top: 15px; }
+        .highlight { background-color: #ddd6fe; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+        .tip-box { background-color: #fef3c7; border-left: 4px solid #fcd34d; padding: 10px 15px; border-radius: 4px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-violet-800">どうやって使うの？<br>「呪文 (プロンプト)」でイメージを伝えよう！</h1>
+            <i class="fas fa-magic text-violet-600 text-5xl"></i>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center justify-center">
+            <p class="text-xl text-center text-gray-700 mb-8">
+                音楽や音声生成AIにも、<span class="highlight text-violet-900">作りたい音楽や音声のイメージを言葉 (テキスト)</span> で伝えます。<br>
+                この指示のことを<span class="highlight text-violet-900">「プロンプト (Prompt)」</span>と言います。どんな指示を出してみましょうか？
+            </p>
+
+            <div class="interface-example">
+                <p class="text-center text-gray-500 text-sm mb-2">(音楽生成ツールのイメージ)</p>
+                <textarea class="prompt-input" rows="2" placeholder="例: 壮大なオーケストラ、映画のオープニング、希望に満ちた雰囲気"></textarea>
+            </div>
+
+            <div class="interface-example">
+                <p class="text-center text-gray-500 text-sm mb-2">(音声生成ツールのイメージ)</p>
+                <textarea class="prompt-input" rows="2" placeholder="例: 落ち着いた男性の声、ニュースキャスターのように、ゆっくりと話す"></textarea>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl w-full mb-8">
+                <h3 class="text-xl font-bold text-violet-700 mb-3"><i class="fas fa-music mr-2"></i> 音楽生成のプロンプト例</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li><span class="font-bold">ジャンル:</span> 明るくアップテンポなポップミュージック、落ち着いた雰囲気のジャズピアノ</li>
+                    <li><span class="font-bold">楽器:</span> ギターとドラムがメインのロック、フルートとバイオリンの美しいアンサンブル</li>
+                    <li><span class="font-bold">雰囲気:</span> 希望に満ちた感動的な曲、切なくて悲しいバラード</li>
+                    <li><span class="font-bold">テンポ:</span> BPM120の明るい曲</li>
+                    <li><span class="font-bold">具体的な指示:</span> イントロはピアノで始まり、サビは力強いボーカルが入る</li>
+                </ul>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-md max-w-3xl w-full mb-8">
+                <h3 class="text-xl font-bold text-violet-700 mb-3"><i class="fas fa-microphone mr-2"></i> 音声生成のプロンプト例</h3>
+                <ul class="list-disc list-inside space-y-1 text-gray-700">
+                    <li><span class="font-bold">声のトーン:</span> 優しく落ち着いた女性の声、力強く自信のある男性の声</li>
+                    <li><span class="font-bold">感情表現:</span> 悲しみを帯びた声で、楽しそうに明るい声で</li>
+                    <li><span class="font-bold">話すスピード:</span> ゆっくりと丁寧に、早口で活き活きと</li>
+                    <li><span class="font-bold">具体的な指示:</span> ニュースキャスターのように、子供が絵本を読んでいるように</li>
+                    <li><span class="font-bold">ターゲット層:</span> 大学生向けのプレゼンテーション、子供向けの読み聞かせ</li>
+                </ul>
+            </div>
+
+            <div class="tip-box max-w-3xl w-full">
+                <p class="font-bold text-yellow-800 text-sm"><i class="fas fa-star mr-1"></i>より良いプロンプトを書くために</p>
+                <p class="text-sm text-yellow-900">キーワードを組み合わせたり、具体的な表現を使うことで、AIはあなたのイメージをより理解しやすくなります。色々なプロンプトを試してみましょう！</p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">3 / 7</span>
+        </div>
+    </div>
+</body>
+</html>

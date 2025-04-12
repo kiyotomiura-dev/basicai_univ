@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMLスライドショー</title>
+    <style>
+        html, body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        .controls {
+            padding: 8px;
+            text-align: center;
+            background-color: rgba(240, 240, 240, 0.5); /* より透明に */
+            width: auto; /* 幅を自動に設定 */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: absolute;
+            bottom: 10px; /* 上から下に変更 */
+            left: 50%;
+            transform: translateX(-50%); /* 中央揃え */
+            z-index: 10;
+            box-sizing: border-box;
+            border-radius: 20px; /* 角を丸くする */
+            backdrop-filter: blur(3px); /* 背景をぼかす効果（対応ブラウザのみ） */
+            transition: opacity 0.3s;
+            opacity: 0.7; /* 通常時は少し透明に */
+        }
+        .controls:hover {
+            opacity: 1; /* ホバー時に完全に表示 */
+        }
+        .controls button {
+            padding: 5px 12px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            background-color: rgba(255, 255, 255, 0.7);
+            transition: background-color 0.2s;
+        }
+        .controls button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .controls span {
+            margin: 0 10px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            box-sizing: border-box;
+        }
+        #slide-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-sizing: border-box;
+            display: block;
+            overflow-y: auto; /* 縦方向のスクロールを可能に */
+            overflow-x: hidden; /* 横方向のスクロールを無効に */
+        }
+    </style>
+</head>
+<body>
+
+<div class="slide-container">
+    <iframe id="slide-frame" src=""></iframe>
+    <div class="controls">
+        <button id="prevBtn">←</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn">→</button>
+    </div>
+</div>
+
+<script>
+    // --- 設定箇所：表示したいHTMLファイル名をここに追加・編集してください ---
+    // slide01.html から slide20.html までを設定
+    const htmlFiles = [
+        "slide01.html", "slide02.html", "slide03.html", "slide04.html", "slide05.html",
+        "slide06.html", "slide07.html", "slide08.html", 
+        "slide09.html", "slide09-1.html", "slide09-2.html", "slide09-3.html", "slide09-4.html", "slide09-5.html", "slide09-6.html", "slide09-7.html", "slide09-8.html", "slide09-9.html",
+        "slide10.html", "slide11.html",
+        "slide12.html", "slide12-01.html", "slide12-02.html", "slide12-03.html", "slide12-04.html", "slide12-05.html", "slide12-06.html",
+        "slide13.html", "slide13-01.html", "slide13-02.html", "slide13-03.html", "slide13-04.html", "slide13-05.html", "slide13-06.html",
+        "slide14.html", "slide14-01.html", "slide14-02.html", "slide14-03.html", "slide14-04.html", "slide14-05.html", "slide14-06.html", "slide14-07.html", "slide14-08.html", "slide14-09.html",
+        "slide15.html",
+        "slide16.html", "slide17.html", "slide18.html", "slide19.html", "slide20.html"
+    ];
+    // --------------------------------------------------------------------
+
+    let currentIndex = 0;
+    const iframe = document.getElementById('slide-frame');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const pageInfo = document.getElementById('pageInfo');
+    const controls = document.querySelector('.controls');
+
+    // iframe内のドキュメントを横幅いっぱいに表示するための設定
+    function setupIframeContent() {
+        try {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // iframe読み込み完了後にスタイルを適用
+            iframe.onload = function() {
+                try {
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // スタイルタグを作成して追加
+                    const style = iframeDoc.createElement('style');
+                    style.textContent = `
+                        html, body {
+                            width: 100% !important;
+                            max-width: 100% !important;
+                            margin: 0 !important;
+                            padding: 0 !important;
+                            overflow-x: hidden !important;
+                        }
+                        body * {
+                            max-width: 100% !important;
+                            box-sizing: border-box !important;
+                        }
+                        img, video, table, pre, code {
+                            max-width: 100% !important;
+                            height: auto !important;
+                        }
+                    `;
+                    iframeDoc.head.appendChild(style);
+                } catch(e) {
+                    console.log('iframe content style error:', e);
+                }
+            };
+        } catch(e) {
+            console.log('iframe access error:', e);
+        }
+    }
+
+    function loadPage(index) {
+        if (index >= 0 && index < htmlFiles.length) {
+            currentIndex = index;
+            iframe.src = htmlFiles[currentIndex];
+            updateControls();
+            setupIframeContent();
+        }
+    }
+
+    function updateControls() {
+        pageInfo.textContent = `${currentIndex + 1} / ${htmlFiles.length}`;
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === htmlFiles.length - 1;
+    }
+
+    // コントロールの自動非表示
+    let controlsTimeout;
+    function showControls() {
+        controls.style.opacity = '0.7';
+        clearTimeout(controlsTimeout);
+        controlsTimeout = setTimeout(() => {
+            controls.style.opacity = '0.3';
+        }, 3000);
+    }
+
+    // マウス移動でコントロールを表示
+    document.addEventListener('mousemove', showControls);
+
+    prevBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            loadPage(currentIndex - 1);
+        }
+    });
+
+    nextBtn.addEventListener('click', () => {
+        if (currentIndex < htmlFiles.length - 1) {
+            loadPage(currentIndex + 1);
+        }
+    });
+
+    // キーボードでの操作
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' && currentIndex > 0) {
+            loadPage(currentIndex - 1);
+        } else if (e.key === 'ArrowRight' && currentIndex < htmlFiles.length - 1) {
+            loadPage(currentIndex + 1);
+        }
+    });
+
+    // 初期ページの読み込み
+    if (htmlFiles.length > 0) {
+        loadPage(0);
+        showControls(); // 初期表示時にコントロールを表示
+    } else {
+        pageInfo.textContent = "表示するファイルがありません";
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        iframe.src = 'about:blank'; // 何も表示しない
+    }
+</script>
+
+</body>
+</html>

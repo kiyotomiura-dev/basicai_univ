@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - 生成AI (Generative AI) のメカニズム</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .process-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .process-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .process-arrow {
+            position: relative;
+        }
+        .process-arrow:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -30px;
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 20px solid #e2e8f0;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">生成AI (Generative AI) のメカニズム</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5a5.svg" alt="Desktop computer emoji" class="w-16 h-16">
+            </div>
+        </div>
+
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-3xl mx-auto text-center">
+            <p class="text-xl text-gray-700">学習フェーズを経て、データ内の潜在的なパターンを抽出し、新たなデータを生成</p>
+        </div>
+
+        <div class="flex justify-between items-center mb-8">
+            <div class="process-arrow w-1/4">
+                <div class="process-card bg-blue-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4da.svg" alt="Books emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-700 mb-2">①学習 (Training)</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">大量のデータセットから統計的な特徴や構造を学習</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-arrow w-1/4">
+                <div class="process-card bg-purple-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f50d.svg" alt="Magnifying glass emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-purple-700 mb-2">②パターン認識 (Pattern Recognition)</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">学習データ内の規則性、相関関係、潜在空間を特定</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-arrow w-1/4">
+                <div class="process-card bg-green-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e0.svg" alt="Brain emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-green-700 mb-2">③生成 (Generation)</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">学習したパターンに基づいて、新しいデータポイントを生成</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-1/4">
+                <div class="process-card bg-pink-50 p-4 text-center pulse-animation">
+                    <div class="mb-3 flex justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5bc.svg" alt="Frame with picture emoji" class="w-16 h-16">
+                    </div>
+                    <h3 class="text-lg font-bold text-pink-700 mb-2">④出力 (Output)</h3>
+                    <div class="bg-white rounded-lg p-2">
+                        <p class="text-gray-700 text-sm">生成された新しいコンテンツ（テキスト、画像、音声など）</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white bg-opacity-80 rounded-xl p-5 mb-6">
+            <h3 class="text-xl font-bold text-indigo-800 text-center mb-4">例：大規模言語モデルによるテキスト生成</h3>
+
+            <div class="grid grid-cols-4 gap-4">
+                <div class="bg-blue-50 rounded-lg p-3">
+                    <div class="flex justify-center mb-2">
+                        <div class="bg-blue-100 rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                            <span class="font-bold text-blue-700">1</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-blue-700 mb-1">大量のテキストデータ</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-xs text-gray-700">書籍、論文、Webコンテンツなど、多様なテキストコーパスで学習</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 rounded-lg p-3">
+                    <div class="flex justify-center mb-2">
+                        <div class="bg-purple-100 rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                            <span class="font-bold text-purple-700">2</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-purple-700 mb-1">言語モデルの構築</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-xs text-gray-700">単語の出現頻度、文法構造、意味的関係性などを学習</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-3">
+                    <div class="flex justify-center mb-2">
+                        <div class="bg-green-100 rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                            <span class="font-bold text-green-700">3</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-green-700 mb-1">テキストの生成</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-xs text-gray-700">入力されたプロンプトに基づいて、統計的に最も可能性の高い単語を順次生成</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-pink-50 rounded-lg p-3">
+                    <div class="flex justify-center mb-2">
+                        <div class="bg-pink-100 rounded-full p-2 w-10 h-10 flex items-center justify-center">
+                            <span class="font-bold text-pink-700">4</span>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-pink-700 mb-1">自然なテキスト</h4>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-xs text-gray-700">人間が書いたような、文法的に正しく、意味の通るテキストが出力</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6 mb-4">
+            <div class="process-card bg-yellow-50 p-4">
+                <div class="flex items-center mb-2">
+                    <div class="bg-yellow-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mr-3">
+                        <i class="fas fa-chess text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-yellow-700">敵対的生成ネットワーク (GAN)</h3>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">生成器 (Generator) と識別器 (Discriminator) の2つのネットワークが競合しながら学習。</p>
+                <div class="bg-white rounded-lg p-2">
+                    <p class="text-xs text-gray-700">生成器はリアルなデータを生成しようとし、識別器は生成されたデータが本物か偽物かを判別しようとします。この競争を通じて、生成器はより高品質なデータを生成できるようになります。</p>
+                </div>
+            </div>
+
+            <div class="process-card bg-green-50 p-4">
+                <div class="flex items-center mb-2">
+                    <div class="bg-green-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mr-3">
+                        <i class="fas fa-language text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-green-700">Transformerモデル</h3>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">自己注意 (Self-Attention) 機構を核とし、文脈における単語間の依存関係を捉えることに優れています。</p>
+                <div class="bg-white rounded-lg p-2">
+                    <p class="text-xs text-gray-700">並列処理が可能であり、長距離の依存関係も捉えられるため、自然言語処理の分野で大きな進展をもたらしました（例：BERT, GPTシリーズ）。</p>
+                </div>
+            </div>
+
+            <div class="process-card bg-blue-50 p-4">
+                <div class="flex items-center mb-2">
+                    <div class="bg-blue-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mr-3">
+                        <i class="fas fa-image text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-blue-700">拡散モデル (Diffusion Model)</h3>
+                </div>
+                <p class="text-gray-700 text-sm mb-2">データに徐々にノイズを加えていき、その逆過程を学習することで、ノイズから高品質なデータを生成します。</p>
+                <div class="bg-white rounded-lg p-2">
+                    <p class="text-xs text-gray-700">特に画像生成において、非常にリアルで多様な画像を生成する能力を発揮しています（例：Stable Diffusion, DALL-E 3）。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-indigo-50 rounded-xl p-4 max-w-3xl mx-auto">
+            <div class="flex items-center">
+                <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0">
+                    <i class="fas fa-lightbulb text-indigo-600"></i>
+                </div>
+                <p class="text-gray-700">生成AIは、学習データの統計的な分布を捉え、その分布に従う新しいサンプルを生成しています。創造性を持つわけではありませんが、高度な数学的原理と計算によって、あたかも創造的なアウトプットを生み出しているように見えます。</p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">16 / 48</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生向け) - 実例１：Suno AI (BGM作成)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); /* Light Blue/Sky Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .try-button { display: inline-block; background-color: #0ea5e9; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #0284c7; }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-sky-900">生成AIの実例①：Suno AI</h1>
+            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3b9.svg" alt="Musical keyboard emoji" class="w-16 h-16">
+        </div>
+
+        <div class="text-center mb-6">
+            <p class="text-lg text-gray-800 mb-3">テキストで指示するだけで、簡単に本格的なBGMが作れる！<br><span class="font-bold">無料プラン</span>でも多くの機能が利用可能です。</p>
+            <a href="https://www.suno.ai/" target="_blank" class="try-button">
+                <i class="fas fa-external-link-alt mr-2"></i>Suno AIを試す (無料)
+            </a>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center">
+            <h2 class="text-2xl font-bold text-center text-sky-800 mb-4">Suno AIでのBGM生成例</h2>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (集中用ローファイ):</p>
+                <p class="prompt-text">calm and relaxing lo-fi hip hop for studying, with a slight rain sound effect, night cafe atmosphere</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成される音楽の波形イメージ)</div>
+                </div>
+                <p class="text-xs text-right text-gray-500 mt-1">※実際に生成される音楽は音声データです</p>
+            </div>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (アップテンポなポップ):</p>
+                <p class="prompt-text">energetic and upbeat pop song with a catchy melody</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成される音楽の波形イメージ)</div>
+                </div>
+            </div>
+
+            <p class="text-center text-sm text-gray-700 mt-4">色々なプロンプトを試して、自分の課題にぴったりのBGMを見つけてみましょう！</p>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">4 / 7</span>
+        </div>
+    </div>
+</body>
+</html>

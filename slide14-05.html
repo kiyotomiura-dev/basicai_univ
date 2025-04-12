@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生向け) - 実例３：Stable Audio (BGM作成)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 0 auto; position: relative; overflow: auto; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); /* Light Blue/Sky Gradient */ box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-radius: 12px; padding: 40px; display: flex; flex-direction: column; }
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .try-button { display: inline-block; background-color: #0ea5e9; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #0284c7; }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-sky-900">生成AIの実例③：Stable Audio</h1>
+            <img src="https://stableaudio.com/logo.svg" alt="Stable Audio Logo" class="w-32 h-auto">
+        </div>
+
+        <div class="text-center mb-6">
+            <p class="text-lg text-gray-800 mb-3">高品質な音楽や効果音の生成に期待！<br><span class="font-bold">無料枠</span>を利用して、その実力を試してみましょう。</p>
+            <a href="https://stableaudio.com/" target="_blank" class="try-button">
+                <i class="fas fa-external-link-alt mr-2"></i>Stable Audioを試す (無料枠があるか確認)
+            </a>
+        </div>
+
+        <div class="flex-grow flex flex-col items-center">
+            <h2 class="text-2xl font-bold text-center text-sky-800 mb-4">Stable AudioでのBGM生成例</h2>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (映画のようなサウンドトラック):</p>
+                <p class="prompt-text">epic orchestral soundtrack, inspiring and hopeful, cinematic</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成される音楽の波形イメージ)</div>
+                </div>
+                <p class="text-xs text-right text-gray-500 mt-1">※より複雑なプロンプトで多様な音楽が生成可能です</p>
+            </div>
+
+            <div class="example-card w-full max-w-3xl">
+                <p class="font-semibold mb-1">プロンプト例 (環境音):</p>
+                <p class="prompt-text">gentle rain falling on a window, distant thunder</p>
+                <div class="image-grid">
+                    <div class="image-placeholder">(生成される環境音の波形イメージ)</div>
+                </div>
+            </div>
+
+            <p class="text-center text-sm text-gray-700 mt-4">音楽だけでなく、効果音の生成にも挑戦して、表現の幅を広げてみましょう！</p>
+        </div>
+
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">6 / 7</span>
+        </div>
+    </div>
+</body>
+</html>

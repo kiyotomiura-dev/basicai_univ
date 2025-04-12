@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (中高生向け) - 生成AIの実例：音楽と音声</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif;
+            background-color: #f0f9ff;
+            overflow: auto;
+        }
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            margin: 0 auto;
+            position: relative;
+            overflow: auto;
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float-animation {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .pulse-animation {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        .audio-card {
+            border-radius: 16px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            transition: all 0.3s;
+            overflow: auto;
+        }
+        .audio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+        }
+        .waveform {
+            height: 60px;
+            width: 100%;
+            background-image: url('https://cdn.jsdelivr.net/gh/Maxim-Mazurok/waveform@master/waveform.svg');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.7;
+        }
+        .sound-wave {
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+        .wave-bar {
+            display: inline-block;
+            width: 4px;
+            margin: 0 2px;
+            border-radius: 2px;
+            background-color: #6366f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide flex flex-col">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-4xl font-bold text-indigo-800">生成AIの実例：音楽と音声</h1>
+            <div class="float-animation">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3b5.svg" alt="Music note emoji" class="w-16 h-16">
+            </div>
+        </div>
+        
+        <!-- Subtitle -->
+        <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+            <p class="text-xl text-gray-700">AIが作る音楽と声の世界！</p>
+        </div>
+        
+        <!-- Main content - Split view -->
+        <div class="grid grid-cols-2 gap-6 mb-6">
+            <!-- Left side: Music Generation -->
+            <div class="audio-card bg-purple-50 p-5">
+                <h3 class="text-xl font-bold text-purple-700 text-center mb-4">AI音楽生成</h3>
+                
+                <div class="bg-white rounded-lg p-4 mb-4">
+                    <div class="flex items-start mb-3">
+                        <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-music text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">AIが作れる音楽</h4>
+                            <p class="text-sm text-gray-700">言葉の指示だけで、様々なジャンルや雰囲気の音楽を作れます</p>
+                        </div>
+                    </div>
+                    
+                    <div class="waveform mb-3"></div>
+                    
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="bg-purple-50 rounded-lg p-2 text-center">
+                            <p class="text-xs text-gray-700">"元気が出るポップな曲を作って"</p>
+                        </div>
+                        <div class="bg-blue-50 rounded-lg p-2 text-center">
+                            <p class="text-xs text-gray-700">"悲しい雰囲気のピアノソロを作って"</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4">
+                    <h4 class="font-bold text-gray-800 text-center mb-3">代表的な音楽生成AI</h4>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="bg-purple-100 rounded-lg p-2 text-center">
+                            <i class="fas fa-headphones text-purple-600 text-xl mb-1"></i>
+                            <p class="text-xs font-bold text-gray-800">Suno</p>
+                        </div>
+                        <div class="bg-pink-100 rounded-lg p-2 text-center">
+                            <i class="fas fa-satellite-dish text-pink-600 text-xl mb-1"></i>
+                            <p class="text-xs font-bold text-gray-800">MusicLM</p>
+                        </div>
+                        <div class="bg-indigo-100 rounded-lg p-2 text-center">
+                            <i class="fas fa-guitar text-indigo-600 text-xl mb-1"></i>
+                            <p class="text-xs font-bold text-gray-800">AIVA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right side: Voice Generation -->
+            <div class="audio-card bg-blue-50 p-5">
+                <h3 class="text-xl font-bold text-blue-700 text-center mb-4">AI音声生成</h3>
+                
+                <div class="bg-white rounded-lg p-4 mb-4">
+                    <div class="flex items-start mb-3">
+                        <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-microphone text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 mb-1">AIが作れる音声</h4>
+                            <p class="text-sm text-gray-700">テキストから自然な人間の声を生成したり、声の特徴をコピーできます</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sound-wave mb-3">
+                        <!-- Voice waveform visualization -->
+                        <div class="wave-bar h-10"></div>
+                        <div class="wave-bar h-16"></div>
+                        <div class="wave-bar h-20"></div>
+                        <div class="wave-bar h-14"></div>
+                        <div class="wave-bar h-24"></div>
+                        <div class="wave-bar h-18"></div>
+                        <div class="wave-bar h-10"></div>
+                        <div class="wave-bar h-8"></div>
+                        <div class="wave-bar h-16"></div>
+                        <div class="wave-bar h-22"></div>
+                        <div class="wave-bar h-10"></div>
+                        <div class="wave-bar h-16"></div>
+                        <div class="wave-bar h-20"></div>
+                        <div class="wave-bar h-14"></div>
+                        <div class="wave-bar h-24"></div>
+                        <div class="wave-bar h-18"></div>
+                        <div class="wave-bar h-10"></div>
+                        <div class="wave-bar h-8"></div>
+                        <div class="wave-bar h-16"></div>
+                        <div class="wave-bar h-22"></div>
+                        <div class="wave-bar h-10"></div>
+                        <div class="wave-bar h-16"></div>
+                        <div class="wave-bar h-20"></div>
+                        <div class="wave-bar h-14"></div>
+                        <div class="wave-bar h-24"></div>
+                        <div class="wave-bar h-18"></div>
+                        <div class="wave-bar h-10"></div>
+                        <div class="wave-bar h-8"></div>
+                        <div class="wave-bar h-16"></div>
+                        <div class="wave-bar h-22"></div>
+                    </div>
+                    
+                    <div class="bg-blue-50 rounded-lg p-2 text-center mb-1">
+                        <p class="text-xs text-gray-700">"こんにちは、私はAIアシスタントです。どうぞよろしく！"</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg p-4">
+                    <h4 class="font-bold text-gray-800 text-center mb-3">音声生成AIの応用例</h4>
+                    <div class="grid grid-cols-3 gap-2">
+                        <div class="bg-blue-100 rounded-lg p-2 text-center">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4fa.svg" alt="TV emoji" class="w-8 h-8 mx-auto mb-1">
+                            <p class="text-xs text-gray-700">アニメの声優</p>
+                        </div>
+                        <div class="bg-green-100 rounded-lg p-2 text-center">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4da.svg" alt="Books emoji" class="w-8 h-8 mx-auto mb-1">
+                            <p class="text-xs text-gray-700">オーディオブック</p>
+                        </div>
+                        <div class="bg-yellow-100 rounded-lg p-2 text-center">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3ae.svg" alt="Game controller emoji" class="w-8 h-8 mx-auto mb-1">
+                            <p class="text-xs text-gray-700">ゲームキャラ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How it works section -->
+        <div class="bg-white bg-opacity-80 rounded-xl p-4 mb-6">
+            <h3 class="text-lg font-bold text-indigo-800 text-center mb-3">音楽・音声生成AIの仕組み</h3>
+            
+            <div class="flex justify-around items-center">
+                <div class="text-center">
+                    <div class="bg-blue-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                        <i class="fas fa-music text-blue-600"></i>
+                    </div>
+                    <p class="text-xs text-gray-700">大量の音楽・音声<br>データを学習</p>
+                </div>
+                <i class="fas fa-arrow-right text-gray-400"></i>
+                <div class="text-center">
+                    <div class="bg-purple-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                        <i class="fas fa-wave-square text-purple-600"></i>
+                    </div>
+                    <p class="text-xs text-gray-700">音の特徴や<br>パターンを把握</p>
+                </div>
+                <i class="fas fa-arrow-right text-gray-400"></i>
+                <div class="text-center">
+                    <div class="bg-green-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                        <i class="fas fa-keyboard text-green-600"></i>
+                    </div>
+                    <p class="text-xs text-gray-700">テキスト指示を<br>理解</p>
+                </div>
+                <i class="fas fa-arrow-right text-gray-400"></i>
+                <div class="text-center">
+                    <div class="bg-pink-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                        <i class="fas fa-brain text-pink-600"></i>
+                    </div>
+                    <p class="text-xs text-gray-700">指示に合わせた<br>特徴を組み合わせ</p>
+                </div>
+                <i class="fas fa-arrow-right text-gray-400"></i>
+                <div class="text-center">
+                    <div class="bg-red-100 rounded-full p-2 w-12 h-12 flex items-center justify-center mx-auto mb-1">
+                        <i class="fas fa-volume-up text-red-600"></i>
+                    </div>
+                    <p class="text-xs text-gray-700">新しい音楽や<br>音声を生成</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fun fact -->
+        <div class="bg-yellow-50 rounded-xl p-4 max-w-2xl mx-auto">
+            <div class="flex items-center">
+                <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0">
+                    <i class="fas fa-lightbulb text-yellow-600"></i>
+                </div>
+                <p class="text-gray-700">現在の音楽生成AIは、様々な楽器の音や歌声まで生成できます。将来は好きなアーティストの声で、自分だけのオリジナル曲が作れるかもしれません！</p>
+            </div>
+        </div>
+        
+        <!-- Page number -->
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">14 / 20</span>
+        </div>
+    </div>
+</body>
+</html>
