@@ -20,6 +20,7 @@
             height: 100%;
             position: relative;
             box-sizing: border-box;
+            touch-action: pan-y pinch-zoom; /* iframe 内のスクロールを許可 */
         }
         #slide-frame {
             width: 100%;
@@ -207,7 +208,7 @@
 
 <script>
     // --- 設定箇所：最後のページ番号を指定してください ---
-    const LAST_SLIDE_NUMBER = 26; // 最後のスライドの番号
+    const LAST_SLIDE_NUMBER = 50; // 最後のスライドの番号
     // ----------------------------------------------------
 
     const htmlFiles = [];
@@ -294,55 +295,90 @@
         nextBtn.disabled = currentIndex === LAST_PAGE_INDEX;
     }
 
-    // コントロールの自動非表示
-    let controlsTimeout;
-    function showControls() {
-        controls.style.opacity = '0.7';
-        clearTimeout(controlsTimeout);
-        controlsTimeout = setTimeout(() => {
-            controls.style.opacity = '0.3';
-        }, 3000);
+    function debounce(func, delay) {
+        let timeoutId;
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
     }
 
-    // マウス移動でコントロールを表示
-    document.addEventListener('mousemove', showControls);
+    const debouncedLoadPage = debounce(loadPage, 200); // 200ms の遅延
 
     prevBtn.addEventListener('click', () => {
         if (currentIndex > 0) {
-            loadPage(currentIndex - 1);
+            debouncedLoadPage(currentIndex - 1);
         }
     });
 
     nextBtn.addEventListener('click', () => {
         if (currentIndex < LAST_PAGE_INDEX) {
-            loadPage(currentIndex + 1);
+            debouncedLoadPage(currentIndex + 1);
         }
     });
 
-    // キーボードでの操作
+    let touchStartX = null;
+    const swipeThreshold = 50; // スワイプと認識する移動距離の閾値
+
+    slideContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].clientX;
+    });
+
+    slideContainer.addEventListener('touchend', (e) => {
+        if (touchStartX === null) {
+            return;
+        }
+
+        const touchEndX = e.changedTouches[0].clientX;
+        const deltaX = touchEndX - touchStartX;
+
+        if (deltaX > swipeThreshold) {
+            // 右スワイプ：前のページへ
+            if (currentIndex > 0) {
+                loadPage(currentIndex - 1);
+            }
+        } else if (deltaX < -swipeThreshold) {
+            // 左スワイプ：次のページへ
+            if (currentIndex < LAST_PAGE_INDEX) {
+                loadPage(currentIndex + 1);
+            }
+        }
+
+        touchStartX = null; // リセット
+    });
+
+    // ページ番号入力欄での変更を検出
+    currentPageInput.addEventListener('change', () => {
+        const pageNumber = parseInt(currentPageInput.value);
+        if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= LAST_PAGE_NUMBER) {
+            loadPage(pageNumber - 1); // 1-based から 0-based に変換
+        } else {
+            // 無効な値の場合、元のページに戻すなどの処理も考えられます
+            currentPageInput.value = currentIndex + 1;
+        }
+    });
+
+    // キーボードでの操作（Enterキーでページ遷移）
+    currentPageInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const pageNumber = parseInt(currentPageInput.value);
+            if (!isNaN(pageNumber) && pageNumber >= 1 && pageNumber <= LAST_PAGE_NUMBER) {
+                loadPage(pageNumber - 1); // 1-based から 0-based に変換
+            } else {
+                // 無効な値の場合、元のページに戻すなどの処理も考えられます
+                currentPageInput.value = currentIndex + 1;
+            }
+        }
+    });
+
+    // キーボードでの左右矢印キー操作（既存の処理）
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft' && currentIndex > 0) {
             loadPage(currentIndex - 1);
         } else if (e.key === 'ArrowRight' && currentIndex < LAST_PAGE_INDEX) {
             loadPage(currentIndex + 1);
-        }
-    });
-
-    // タッチ操作によるページ遷移
-    document.addEventListener('touchend', (e) => { // イベントリスナーを document に変更
-        const touchX = e.changedTouches[0].clientX;
-        const screenWidth = window.innerWidth;
-
-        if (touchX < screenWidth / 2) {
-            // 左半分をタッチ：前のページへ
-            if (currentIndex > 0) {
-                loadPage(currentIndex - 1);
-            }
-        } else {
-            // 右半分をタッチ：次のページへ
-            if (currentIndex < LAST_PAGE_INDEX) {
-                loadPage(currentIndex + 1);
-            }
         }
     });
 

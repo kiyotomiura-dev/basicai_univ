@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>システムプロンプト深掘り：AIの「基本OS」を設定</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #d946ef; display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
+        .info-box { background-color: #fae8ff; border-radius: 8px; padding: 20px; }
+        .info-box h2 { font-size: 1.4rem; font-weight: 600; color: #a21caf; margin-bottom: 15px; }
+        .info-box ul { list-style: none; padding: 0; }
+        .info-box li { font-size: 1.05rem; color: #86198f; margin-bottom: 10px; display: flex; align-items: flex-start; }
+        .info-box li i { color: #d946ef; margin-right: 8px; margin-top: 4px; width: 16px; text-align: center; }
+        .example-box { background-color: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px; padding: 20px; }
+        .example-box h2 { font-size: 1.4rem; font-weight: 600; color: #7e22ce; margin-bottom: 15px; text-align: center; }
+        /* --- 修正箇所： line-height を確実に指定 --- */
+        .prompt-code {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            white-space: pre-wrap;
+            font-size: 0.85em;
+            line-height: 1.7; /* 行間を広めに設定 */
+            margin-bottom: 15px;
+            overflow-x: auto; /* 横スクロールも可能に */
+        }
+        .prompt-code .comment { color: #6a9955; }
+        .prompt-code .role { color: #569cd6; font-weight: bold; }
+        .prompt-code .constraint { color: #ce9178; }
+        .prompt-code .instruction { color: #c586c0; }
+        .caution-box { margin-top: 15px; background-color: #fffbeb; border: 1px solid #fef3c7; border-radius: 6px; padding: 10px 15px; font-size: 0.9rem; color: #92400e; }
+        .caution-box strong { color: #b45309; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-fuchsia-800">システムプロンプトを使いこなす</h1>
+             <div>
+                 <i class="fas fa-cogs text-fuchsia-400 text-4xl"></i>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- システムプロンプトの効果 -->
+            <div class="info-box">
+                <h2>システムプロンプトの主な効果</h2>
+                <ul>
+                    <li><i class="fas fa-check"></i><strong>一貫性UP:</strong> 会話全体を通してAIの振る舞いを安定させる。</li>
+                    <li><i class="fas fa-check"></i><strong>安全性向上:</strong> 不適切な発言や行動を抑制するルールを設定。</li>
+                    <li><i class="fas fa-check"></i><strong>専門性の注入:</strong> 特定分野の知識や思考法を持つように指示。</li>
+                    <li><i class="fas fa-check"></i><strong>効率化:</strong> 毎回同じ指示を繰り返す手間を省く。</li>
+                    <li><i class="fas fa-check"></i><strong>特定の振る舞いの強制:</strong> 出力形式や対話スタイルを指定。</li>
+                </ul>
+                <div class="caution-box">
+                    <strong>注意点:</strong> 過度な制約はAIの柔軟性や創造性を損なう可能性あり。モデルによって解釈が異なる場合も。ユーザー指示との矛盾にも注意。
+                </div>
+             </div>
+
+            <!-- 高度な設定例 -->
+            <div class="example-box">
+                <h2>高度な設定例：批判的思考アナリスト</h2>
+                <code class="prompt-code">
+<span class="comment"># システムプロンプト</span>
+
+<span class="role">## あなたについて</span>
+<span class="role">- あなたは、常に客観的データと論理に基づき、あらゆる主張に対して批判的思考（クリティカルシンキング）を適用する経験豊富なデータアナリストです。</span>
+<span class="role">- 感情的な意見や根拠のない推測を排除し、事実に基づいた分析と、潜在的なリスクやバイアスを指摘することを最優先します。</span>
+
+<span class="constraint">## 回答の基本方針</span>
+<span class="constraint">- ユーザーの主張や質問に対し、まずその根拠となるデータや事実を確認します。</span>
+<span class="constraint">- 提示された情報に偏りや不足がないか、論理的な飛躍がないかを必ず検証します。</span>
+<span class="constraint">- 別の視点や反論の可能性を常に考慮し、多角的な分析結果を提示します。</span>
+<span class="constraint">- 回答は、以下の構造に従ってください：</span>
+<span class="constraint">  1. 主張/質問の要約</span>
+<span class="constraint">  2. 関連データの分析と評価</span>
+<span class="constraint">  3. 論理的な妥当性の検証</span>
+<span class="constraint">  4. 潜在的リスク/バイアスの指摘</span>
+<span class="constraint">  5. 結論（断定は避け、可能性として提示）</span>
+
+<span class="instruction">## 禁止事項</span>
+<span class="instruction">- 個人的な感情や意見の表明。</span>
+<span class="instruction">- 未確認情報の断定的な提示。</span>
+<span class="instruction">- ユーザーへの過度な同調。</span>
+                </code>
+                 <p class="text-sm text-center text-gray-600">このように詳細設定することで、特定の思考様式や厳密な出力形式をAIに要求できる。</p>
+            </div>
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+            <!-- <span class="text-gray-600">追加A-2</span> -->
+        </div>
+    </div>
+</body>
+</html>
