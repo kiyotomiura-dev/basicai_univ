@@ -3,74 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロンプト技術のこれから</title>
+    <title>AIの「個性」を調整？ Temperature と Top-p</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #f9fafb; /* Gray 50 */ box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #475569; /* Slate 600 */ display: flex; flex-direction: column; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #f97316; /* Orange 500 */ display: flex; flex-direction: column; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; margin-top: 20px; }
-        .section-box { background-color: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
-        .section-box h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; }
-        .section-box h2 i { margin-right: 10px; }
-        .limitations h2 { color: #be123c; } /* Rose 700 */ .limitations h2 i { color: #f43f5e; } /* Rose 500 */
-        .future h2 { color: #059669; } /* Emerald 600 */ .future h2 i { color: #10b981; } /* Emerald 500 */
-        .section-box ul { list-style: none; padding: 0; }
-        .section-box li { font-size: 1.05rem; margin-bottom: 12px; display: flex; align-items: flex-start; }
-        .section-box li i { margin-right: 10px; margin-top: 5px; width: 16px; text-align: center; font-size: 0.9rem;}
-        .limitations li { color: #9f1239; } .limitations i { color: #f43f5e; }
-        .future li { color: #047857; } .future i { color: #10b981; }
-        .diagram { text-align: center; margin-top: 10px; }
-        .diagram img { max-width: 60%; height: auto; margin: 5px auto; border: 1px solid #e2e8f0; border-radius: 4px;}
+        .explanation-box { background-color: #fff7ed; border-radius: 8px; padding: 20px; margin-bottom: 20px;}
+        .explanation-box h2 { font-size: 1.4rem; font-weight: 600; color: #c2410c; margin-bottom: 10px; }
+        .explanation-box p { font-size: 1.05rem; color: #9a3412; line-height: 1.7; word-break: keep-all; }
+        .param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
+        .param-card { background-color: #fefce8; /* Yellow 50 */ border: 1px solid #fef9c3; /* Yellow 100 */ border-radius: 8px; padding: 20px; }
+        .param-card h3 { font-size: 1.3rem; font-weight: 600; color: #a16207; /* Yellow 700 */ margin-bottom: 10px; display: flex; align-items: center; }
+        .param-card h3 i { color: #facc15; /* Yellow 400 */ margin-right: 10px; }
+        .param-card p { font-size: 1rem; color: #854d0e; /* Yellow 800 */ margin-bottom: 10px; line-height: 1.6; word-break: keep-all; }
+        .param-card .value-effect { display: flex; justify-content: space-between; font-size: 0.9rem; margin-top: 10px; }
+        .param-card .effect-low { color: #1d4ed8; font-weight: 500; } /* Blue */
+        .param-card .effect-high { color: #be185d; font-weight: 500; } /* Pink */
+        .diagram { text-align: center; margin-top: 15px; }
+        .diagram img { max-width: 80%; max-height: 100px; object-fit: contain; border: 1px solid #fef08a; border-radius: 4px; }
+        .caption { font-size: 0.85rem; color: #713f12; margin-top: 5px; }
+        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #d97706; background-color: #fef3c7; padding: 15px; border-radius: 8px; }
     </style>
 </head>
 <body>
     <div class="slide fade-in-up">
         <!-- ヘッダー -->
-         <div class="flex justify-between items-center mb-10">
-            <h1 class="text-4xl font-bold text-slate-700">プロンプト技術のこれから</h1>
-             <div>
-                 <i class="fas fa-glasses text-slate-400 text-4xl"></i> <!-- 未来・展望のイメージ -->
-            </div>
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-orange-700">AIの「個性」を調整？ Temperature と Top-p</h1>
+            <div><i class="fas fa-sliders-h text-orange-300 text-4xl"></i></div>
         </div>
 
-        <div class="content-grid">
-            <!-- 限界・課題 -->
-            <div class="section-box limitations">
-                 <h2><i class="fas fa-exclamation-triangle"></i> まだまだ難しいこと・課題</h2>
-                 <ul>
-                     <li><i class="fas fa-times"></i><strong>意図しない答えが出ることも：</strong> AIの「癖」や、指示の解釈違いはゼロじゃない。</li>
-                     <li><i class="fas fa-times"></i><strong>AIを騙す指示 (悪用)：</strong> わざと変な答えを出させたり、悪いことに使わせようとする指示もある。(Adversarial Prompting)
-                         <div class="diagram">
-                             <img src="https://via.placeholder.com/200x60/fff1f2/be123c?text=User%3A+Bad+Prompt+%E2%9A%A0%EF%B8%8F+%E2%86%92+AI%3A+Harmful+Output" alt="Adversarial Prompting">
-                         </div>
-                     </li>
-                     <li><i class="fas fa-times"></i><strong>再現性の問題：</strong> 同じプロンプトでも、毎回全く同じ答えが出るとは限らない。</li>
-                      <li><i class="fas fa-times"></i><strong>最適なプロンプト探し：</strong> 最高のプロンプトを見つけるのは、まだ試行錯誤が必要。</li>
-                 </ul>
-            </div>
+        <!-- 説明 -->
+        <div class="explanation-box">
+            <h2 class="text-orange-800"><i class="fas fa-dice-d6 mr-2"></i> AIの応答は確率で決まる</h2>
+            <p>
+                LLMは、次に来る単語を<strong class="text-orange-700">確率</strong>で予測します。「今日は良い天気ですね。次は…」→「散歩(40%)」「公園(30%)」「洗濯(10%)」のように。
+            </p>
+            <p>
+                <strong class="text-orange-700">Temperature</strong>と<strong class="text-orange-700">Top-p</strong>は、この確率に基づいてどの単語を選ぶかを調整するパラメータです。（主にAPI利用時に設定）
+            </p>
+        </div>
 
-            <!-- 未来・展望 -->
-            <div class="section-box future">
-                 <h2><i class="fas fa-star"></i> これからの可能性</h2>
-                <ul>
-                    <li><i class="fas fa-check"></i><strong>AI自身の進化：</strong> AIがもっと賢くなれば、より少ない指示で意図を汲み取ってくれるようになるかも？</li>
-                    <li><i class="fas fa-check"></i><strong>プロンプト技術の進化：</strong> CoTのような、もっと賢い「考えさせる」テクニックが発展していく。</li>
-                     <li><i class="fas fa-check"></i><strong>自動プロンプト生成：</strong> 人間が考えなくても、AIが目的に合った最高のプロンプトを自動で作ってくれる技術も研究中！
-                        <div class="diagram">
-                            <img src="https://via.placeholder.com/200x60/ecfdf5/047857?text=Goal+%E2%86%92+Auto+Prompt+Generator+%E2%86%92+Best+Prompt" alt="Auto Prompt Generation">
-                        </div>
-                     </li>
-                     <li><i class="fas fa-check"></i><strong>より使いやすいツールへ：</strong> プロンプト技術がアプリなどに組み込まれ、誰でも簡単にAIを使いこなせるように。</li>
-                 </ul>
+        <!-- パラメータ説明 -->
+        <div class="param-grid">
+            <div class="param-card">
+                <h3><i class="fas fa-thermometer-half"></i> Temperature (温度)</h3>
+                <p>値域は通常 0 ～ 1 (またはそれ以上)。確率分布の形を調整します。</p>
+                <div class="diagram">
+                     <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Temperature%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E4%BD%8E%E3%81%84%E2%86%92%E5%B0%96%E3%82%8B%E3%80%81%E9%AB%98%E3%81%84%E2%86%92%E5%B9%B3%E5%9D%A6)" alt="Temperature Effect Diagram">
+                     <p class="caption">確率分布の"鋭さ"を調整</p>
+                 </div>
+                <div class="value-effect">
+                    <span class="effect-low"><i class="fas fa-arrow-down"></i> 低い値 (例: 0.2):</span>
+                    <span class="effect-high"><i class="fas fa-arrow-up"></i> 高い値 (例: 0.8):</span>
+                </div>
+                <div class="value-effect">
+                    <span class="effect-low">→ 確率が最も高い単語を選びやすい (堅実、決まりきった答え)</span>
+                    <span class="effect-high">→ 確率が低い単語も選びやすい (多様、創造的、時にランダム)</span>
+                </div>
+                 <p class="text-xs text-gray-500 mt-2">Self-Consistencyでは、高い値で多様な思考を促すことがある。</p>
+             </div>
+             <div class="param-card">
+                 <h3><i class="fas fa-chart-pie"></i> Top-p (Nucleus Sampling)</h3>
+                <p>値域は通常 0 ～ 1。確率の高い単語から累積し、合計確率が p を超えるまでの候補の中から単語を選びます。</p>
+                <div class="diagram">
+                    <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Top-p%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E7%A2%BA%E7%8E%87%E4%B8%8A%E4%BD%8D%E3%81%8B%E3%82%89%E9%81%B8%E6%8A%9E)" alt="Top-p Effect Diagram">
+                    <p class="caption">確率の高い候補群から選択</p>
+                </div>
+                 <div class="value-effect">
+                     <span class="effect-low"><i class="fas fa-arrow-down"></i> 低い値 (例: 0.1):</span>
+                    <span class="effect-high"><i class="fas fa-arrow-up"></i> 高い値 (例: 0.9):</span>
+                </div>
+                 <div class="value-effect">
+                    <span class="effect-low">→ 非常に確率の高いごく少数の候補から選ぶ (より決定的)</span>
+                    <span class="effect-high">→ 幅広い候補から選ぶ (より多様)</span>
+                 </div>
+                 <p class="text-xs text-gray-500 mt-2">Temperatureと併用されることが多い。通常はどちらか一方を調整。</p>
              </div>
         </div>
 
+         <!-- まとめ / Takeaway -->
+        <div class="takeaway mt-auto">
+            <p><i class="fas fa-star mr-2"></i>TemperatureやTop-pを調整して、AIの答えの「堅実さ」と「斬新さ」のバランスを取ろう！</p>
+        </div>
+
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
-             <!-- <span class="text-gray-600">24 / 26</span> -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
+            <!-- <span class="text-gray-600">追加F</span> -->
         </div>
     </div>
 </body>

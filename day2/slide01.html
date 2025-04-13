@@ -8,7 +8,24 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; border-top: 4px solid #4f46e5; /* Indigo 600 */ display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; }
+        /* --- 修正箇所： width を max-width に変更 --- */
+        .slide {
+            max-width: 1280px; /* 固定幅ではなく最大幅を指定 */
+            min-height: 720px;
+            margin: 40px auto; /* 上下左右中央揃え */
+            position: relative;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            border-top: 4px solid #4f46e5; /* Indigo 600 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px;
+        }
+        /* --- 修正箇所ここまで --- */
         .icon-bg { position: absolute; font-size: 150px; color: rgba(79, 70, 229, 0.08); z-index: 0; }
         .icon-left { left: 60px; bottom: 70px; transform: rotate(-10deg); }
         .icon-right { right: 60px; top: 70px; transform: rotate(10deg); }
@@ -40,7 +57,7 @@
 
         <!-- スライド番号 -->
         <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 z-10">
-            <!-- <span class="text-gray-600">1 / 26</span> -->
+            <!-- <span class="text-gray-600">1 / 33</span> --> <!-- 総スライド数に応じて修正 -->
         </div>
     </div>
 </body>

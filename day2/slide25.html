@@ -3,30 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>質疑応答</title>
+    <title>応用編：答えの「確からしさ」を高める (Self-Consistency)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #6b7280; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #10b981; display: flex; flex-direction: column; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .qa-icon i { font-size: 8rem; color: #9ca3af; margin-bottom: 40px; }
-        .qa-title { font-size: 3.5rem; font-weight: 700; color: #374151; margin-bottom: 20px; }
-        .qa-subtitle { font-size: 1.5rem; color: #4b5563; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
+        .explanation-box { background-color: #f0fdf4; border-radius: 8px; padding: 20px; }
+        .explanation-box h2 { font-size: 1.4rem; font-weight: 600; color: #065f46; margin-bottom: 10px; }
+        /* --- 修正箇所：説明文の改行制御 --- */
+        .explanation-box p { font-size: 1.05rem; color: #047857; line-height: 1.7; word-break: keep-all; }
+        .implementation-box { margin-top: 15px; background-color: #f1f5f9; border-radius: 6px; padding: 15px; }
+        .implementation-box h3 { font-size: 1.1rem; font-weight: 600; color: #334155; margin-bottom: 8px; }
+        .implementation-box ul { list-style: none; padding-left: 0; font-size: 1rem; color: #475569; }
+        .implementation-box li { margin-bottom: 8px; display: flex; align-items: center; line-height: 1.6; word-break: keep-all; } /* margin, align, line-height, word-break 調整 */
+        .implementation-box li i { color: #64748b; margin-right: 8px; width: 16px; text-align: center; flex-shrink: 0; }
+        .implementation-box ul ul { margin-top: 5px; padding-left: 10px;} /* ネストリスト調整 */
+        .implementation-box ul ul li { margin-bottom: 3px; font-size: 0.95rem;} /* ネストリスト調整 */
+        /* --- 修正箇所ここまで --- */
+        .example-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
+        .example-box h2 { font-size: 1.4rem; font-weight: 600; color: #1e293b; margin-bottom: 15px; text-align: center; }
+        .prompt-area, .response-area { margin-bottom: 15px; }
+        .label { font-weight: 600; color: #4b5563; margin-bottom: 5px; font-size: 0.9rem; }
+        .prompt-text { background-color: #f1f5f9; border: 1px solid #e2e8f0; padding: 10px; border-radius: 4px; font-style: italic; font-size: 0.95rem; color: #334155; }
+        .response-paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 15px;}
+        .path-box { background-color: white; border: 1px dashed #cbd5e1; border-radius: 4px; padding: 8px; font-size: 0.85rem; }
+        .path-box .reasoning { color: #64748b; display: block; margin-bottom: 5px; font-style: italic; }
+        .path-box .answer { font-weight: bold; color: #065f46; }
+        .final-answer-box { text-align: center; margin-top: 15px; }
+        .final-answer { background-color: #dcfce7; color: #15803d; font-weight: bold; padding: 8px 15px; border-radius: 6px; display: inline-block; border: 2px solid #4ade80;}
+        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #059669; background-color: #d1fae5; padding: 15px; border-radius: 8px; }
+
     </style>
 </head>
 <body>
     <div class="slide fade-in-up">
-        <div class="qa-icon">
-             <i class="far fa-comments"></i>
+        <!-- ヘッダー -->
+         <div class="flex justify-between items-center mb-8">
+             <h1 class="text-4xl font-bold text-emerald-700">応用編：答えの「確からしさ」を高める <i class="fas fa-check-double ml-2"></i></h1>
+             <div><i class="fas fa-dice text-emerald-300 text-4xl"></i></div>
         </div>
-        <h1 class="qa-title">質疑応答</h1>
-        <p class="qa-subtitle">何か質問はありますか？<br>今日の内容について、お気軽にご質問ください。</p>
+
+        <div class="content-grid">
+            <!-- 説明 & 実装方法 -->
+            <div class="explanation-box">
+                 <h2 class="text-emerald-700"><i class="fas fa-question-circle mr-2"></i>Self-Consistency って？</h2>
+                <p>
+                    複雑な質問に対し、AIに<strong class="text-emerald-600">複数回、違う考え方で答えを出させて</strong>、一番多かった答えを最終結果とする方法。多数決で精度を上げる。
+                 </p>
+                 <div class="implementation-box">
+                    <h3><i class="fas fa-tools mr-1"></i> どうやってやるの？</h3>
+                    <ul>
+                         <li><i class="fas fa-angle-right"></i><strong>プロンプトでの工夫:</strong>
+                            <ul>
+                                <li><i class="fas fa-caret-right"></i>CoT (ステップ思考)を促す。</li>
+                                <li><i class="fas fa-caret-right"></i>「複数の解法を試して」「別の視点から考えて」等、多様な思考を促す指示を追加。</li>
+                            </ul>
+                        </li>
+                        <li><i class="fas fa-angle-right"></i><strong>AI設定(Temperature):</strong> AIのAPIを使う場合、Temperature（出力のランダム性）を少し上げる (例: 0.7) と、毎回違う考え方が出やすい。</li>
+                        <li><i class="fas fa-angle-right"></i><strong>外部での処理:</strong>
+                             <ul>
+                                <li><i class="fas fa-caret-right"></i>同じ（または少し変えた）プロンプトでAIに複数回質問する（APIコール等）。</li>
+                                <li><i class="fas fa-caret-right"></i>得られた複数の答えを集計し、多数決で最終結果を決定するプログラムが必要。</li>
+                            </ul>
+                         </li>
+                         <li><i class="fas fa-angle-right"></i><strong>手動:</strong> ChatGPT等では、ユーザーが手動で再生成したり質問し直して、結果を見比べる。</li>
+                     </ul>
+                 </div>
+             </div>
+
+            <!-- 実例 -->
+            <div class="example-box">
+                 <h2>実例：算数問題</h2>
+                 <div class="prompt-area">
+                     <p class="label">質問プロンプト (複数思考を促す例):</p>
+                     <div class="prompt-text">カフェに客が15人いました。5人が帰り、新たに8人来ました。現在の客数は？ 複数の計算方法でステップバイステップで考えて、それぞれの結果と最終的な答えを教えてください。</div>
+                 </div>
+                 <div class="response-area">
+                    <p class="label">AIの応答 (複数回試行した結果の集計イメージ):</p>
+                     <div class="response-paths">
+                        <div class="path-box">
+                            <span class="reasoning">方法1: 15-5=10, 10+8=18</span> <span class="answer">答え: 18</span>
+                        </div>
+                        <div class="path-box">
+                            <span class="reasoning">解法A: (15-5)+8 = 18</span> <span class="answer">答え: 18</span>
+                        </div>
+                        <div class="path-box">
+                             <span class="reasoning">Step1: 15-5=10. Step2: 10+8=18.</span> <span class="answer">答え: 18</span>
+                        </div>
+                        <div class="path-box">
+                            <span class="reasoning">Alternative: 15+8=23, 23-5=18</span> <span class="answer">答え: 18</span>
+                        </div>
+                        <div class="path-box">
+                            <span class="reasoning">15人→10人→18人。</span> <span class="answer">答え: 18</span>
+                        </div>
+                         <div class="path-box">
+                             <span class="reasoning">Mistake: 15-5=10, 10+8=17?</span> <span class="answer">答え: 17</span>
+                        </div>
+                    </div>
+                 </div>
+                <div class="final-answer-box">
+                    <p class="label">多数決の結果:</p>
+                    <span class="final-answer">最終的な答え: 18</span>
+                </div>
+            </div>
+        </div>
 
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">25 / 26</span> -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+             <!-- <span class="text-gray-600">追加C</span> -->
+        </div>
+        <div class="takeaway mt-4">
+            <p><i class="fas fa-star mr-2"></i>答えが一つに決まる問題では、「何度も考えさせて多数決」で精度アップ！ (外部処理が必要な場合が多い)</p>
         </div>
     </div>
 </body>

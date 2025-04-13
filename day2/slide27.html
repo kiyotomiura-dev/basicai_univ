@@ -3,99 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>コツ⑥：AIの「性格」や「基本ルール」を決める！ (システムプロンプト)</title>
+    <title>応用編：思考を「枝分かれ」させて探る (Tree of Thoughts)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #d946ef; /* Fuchsia 500 */ display: flex; flex-direction: column; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #fb923c; display: flex; flex-direction: column; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .explanation-box { background-color: #fae8ff; /* Fuchsia 50 */ border-left: 4px solid #d946ef; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
-        .concept-box h3, .example-box h3 { font-size: 1.3rem; font-weight: 600; color: #a21caf; /* Fuchsia 700 */ margin-bottom: 15px; text-align: center; }
-        .diagram { background-color: #f5f3ff; /* Violet 50 for contrast */ border: 1px dashed #c4b5fd; /* Violet 300 */ border-radius: 8px; padding: 20px; text-align: center; }
-        .diagram .system-layer { background-color: #d8b4fe; /* Purple 300 */ color: #581c87; /* Purple 900 */ padding: 10px; border-radius: 6px; font-weight: 500; margin-bottom: 10px; position: relative; }
-        .diagram .system-layer i { margin-right: 5px; }
-        .diagram .user-prompt { background-color: #e0f2fe; /* Sky 100 */ color: #075985; /* Sky 800 */ padding: 8px 12px; border-radius: 4px; margin-top: 10px; display: inline-block; }
-        .diagram .arrow { font-size: 1.5rem; color: #a855f7; /* Purple 500 */ margin: 5px 0; }
-        .example-box ul { list-style: none; padding: 0; }
-        .example-box li { background-color: #fdf4ff; /* Pink 50 */ border: 1px solid #fbcfe8; /* Pink 200 */ border-radius: 6px; padding: 12px 15px; margin-bottom: 10px; font-size: 0.95rem; }
-        .example-box li .label { font-weight: 600; color: #9d174d; /* Pink 800 */ display: block; margin-bottom: 5px; }
-        .example-box li .desc { color: #831843; /* Pink 900 */ }
-        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #c026d3; /* Fuchsia 600 */ background-color: #f5d0fe; padding: 15px; border-radius: 8px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
+        .explanation-box { background-color: #fff7ed; border-radius: 8px; padding: 20px; }
+        .explanation-box h2 { font-size: 1.4rem; font-weight: 600; color: #c2410c; margin-bottom: 10px; }
+        /* --- 修正箇所：説明文の改行制御 --- */
+        .explanation-box p { font-size: 1.05rem; color: #9a3412; line-height: 1.7; word-break: keep-all; }
+        .implementation-box { margin-top: 15px; background-color: #f1f5f9; border-radius: 6px; padding: 15px; }
+        .implementation-box h3 { font-size: 1.1rem; font-weight: 600; color: #334155; margin-bottom: 8px; }
+        .implementation-box ul { list-style: none; padding-left: 0; font-size: 1rem; color: #475569; }
+        .implementation-box li { margin-bottom: 8px; display: flex; align-items: center; line-height: 1.6; word-break: keep-all; } /* margin, align, line-height, word-break 調整 */
+        .implementation-box li i { color: #64748b; margin-right: 8px; width: 16px; text-align: center; flex-shrink: 0; }
+        .implementation-box ul ul { margin-top: 5px; padding-left: 10px;}
+        .implementation-box ul ul li { margin-bottom: 3px; font-size: 0.95rem;}
+        /* --- 修正箇所ここまで --- */
+        .example-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
+        .example-box h2 { font-size: 1.4rem; font-weight: 600; color: #1e293b; margin-bottom: 15px; text-align: center; }
+        .prompt-area { margin-bottom: 15px; }
+        .label { font-weight: 600; color: #4b5563; margin-bottom: 5px; font-size: 0.9rem; }
+        .prompt-text { background-color: #fff7ed; border: 1px solid #fed7aa; padding: 10px; border-radius: 4px; font-style: italic; font-size: 0.95rem; color: #7c2d12; }
+        .response-area { background-color: white; border-radius: 6px; padding: 15px; max-height: 320px; overflow-y: auto; font-size: 0.9em; line-height: 1.7; }
+        .thought-node { border-left: 3px solid; padding-left: 10px; margin-bottom: 8px; }
+        .node-promising { border-color: #a3e635; }
+        .node-evaluating { border-color: #fbbf24; }
+        .node-deadend { border-color: #f87171; text-decoration: line-through; color: #9ca3af;}
+        .node-eval { color: #ca8a04; font-style: italic; font-size: 0.9em; }
+        .node-path { color: #475569; }
+        .final-answer { font-weight: bold; color: #c2410c; margin-top: 10px; }
+        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #ea580c; background-color: #ffedd5; padding: 15px; border-radius: 8px; }
     </style>
 </head>
 <body>
     <div class="slide fade-in-up">
         <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-fuchsia-700">コツ⑥：AIの「性格」や「基本ルール」を決める！</h1>
-             <div>
-                 <i class="fas fa-user-cog text-fuchsia-300 text-4xl"></i> <!-- 設定・ルールのイメージ -->
-            </div>
-        </div>
-
-         <!-- 説明 -->
-        <div class="explanation-box">
-             <h2 class="text-fuchsia-600"><i class="fas fa-id-card mr-2"></i> システムプロンプトって何？</h2>
-            <p class="text-lg text-gray-800">
-                毎回のお願い（ユーザープロンプト）とは別に、<strong class="text-fuchsia-600">AIの基本的な振る舞いや役割、守ってほしいルール</strong>を最初に設定しておくものです。
-                会話全体の「<strong class="text-fuchsia-600">お約束</strong>」や「<strong class="text-fuchsia-600">キャラクター設定</strong>」のようなイメージです。
-            </p>
-             <p class="text-lg text-gray-800">（ChatGPTの「カスタム指示」やAPIの `system` メッセージがこれにあたります）</p>
+         <div class="flex justify-between items-center mb-8">
+             <h1 class="text-4xl font-bold text-orange-700">応用編：思考を「枝分かれ」させて探る <i class="fas fa-network-wired ml-2"></i></h1>
+             <div><i class="fas fa-tree text-orange-300 text-4xl"></i></div>
         </div>
 
         <div class="content-grid">
-            <!-- 概念図 -->
-            <div class="concept-box">
-                <h3>システムプロンプトの役割</h3>
-                <div class="diagram">
-                    <div class="system-layer">
-                        <i class="fas fa-shield-alt"></i> システムプロンプト（基本ルール・性格設定）
-                    </div>
-                    <i class="fas fa-arrow-down arrow"></i>
-                    <div> <!-- ユーザーとのやり取りレイヤー -->
-                        <div class="user-prompt">あなた：今日の天気は？</div>
-                         <i class="fas fa-exchange-alt text-gray-400 mx-2"></i>
-                        <div class="user-prompt" style="background-color: #f3e8ff; color: #581c87;">AI：（設定された性格で）答えます！</div>
-                    </div>
-                     <p class="text-sm text-gray-600 mt-3">会話の土台として、AIの応答全体に影響を与える</p>
+             <!-- 説明 & 実装方法 -->
+             <div class="explanation-box">
+                 <h2 class="text-orange-700"><i class="fas fa-lightbulb mr-2"></i>Tree of Thoughts (ToT) って？</h2>
+                 <p>
+                    CoT（一本道思考）とは違い、問題を解くために<strong class="text-orange-600">複数の「考え方の選択肢」を同時に試す</strong>方法。木の枝のように思考ルートを探る。
+                 </p>
+                 <p>
+                     各ルートがどれくらい良さそうか<strong class="text-orange-600">AI自身が評価</strong>し、有望なルートを深く考えたり、ダメそうなルートは途中でやめたりする。
+                 </p>
+                 <h2 class="mt-4 text-orange-700"><i class="fas fa-lightbulb mr-2"></i> どうやってやるの？</h2>
+                 <div class="implementation-box">
+                    <h3><i class="fas fa-exclamation-triangle mr-1 text-red-500"></i> プロンプトだけでの完全実装は難しい！</h3>
+                     <ul>
+                         <li><i class="fas fa-angle-right"></i><strong>プロンプトでの工夫 (部分的):</strong>
+                            <ul>
+                                <li><i class="fas fa-caret-right"></i>「複数の可能性を検討して」「各選択肢を評価して」「有望なものを深掘りして」のように、分岐と思考・評価を促す指示を入れることで、<strong class="text-blue-600">ToT的な思考をある程度模倣</strong>させることは可能。</li>
+                                <li><i class="fas fa-caret-right"></i>対話的に、段階を踏んでAIに選択肢を出させ、ユーザーが評価・選択して次の指示を出す方法もある。</li>
+                            </ul>
+                        </li>
+                         <li><i class="fas fa-angle-right"></i><strong>外部での制御 (厳密な実装):</strong>
+                             <ul>
+                                <li><i class="fas fa-caret-right"></i>ToTの論文で提案されているような、<strong class="text-red-600">専用の制御アルゴリズム</strong>をプログラムで実装する必要がある。</li>
+                                <li><i class="fas fa-caret-right"></i>LLMを複数回呼び出し、「思考候補の生成」「各思考の評価」「次のステップの選択（探索戦略）」を外部プログラムが管理する。</li>
+                             </ul>
+                        </li>
+                    </ul>
                  </div>
              </div>
 
-            <!-- 具体例 -->
+            <!-- 実例 -->
             <div class="example-box">
-                <h3>例えばこんな設定ができる！</h3>
-                 <ul>
-                    <li>
-                        <p class="label"><i class="fas fa-user-tie mr-1"></i> 役割設定</p>
-                        <p class="desc">「あなたは常にユーモアを忘れない、親切なアシスタントです。」</p>
-                    </li>
-                     <li>
-                        <p class="label"><i class="fas fa-book mr-1"></i> 知識領域</p>
-                        <p class="desc">「あなたは日本の歴史の専門家として答えてください。」</p>
-                    </li>
-                    <li>
-                        <p class="label"><i class="fas fa-ruler mr-1"></i> 回答スタイル</p>
-                        <p class="desc">「回答は必ず箇条書きで、結論から述べてください。」</p>
-                    </li>
-                     <li>
-                        <p class="label"><i class="fas fa-ban mr-1"></i> 禁止事項</p>
-                        <p class="desc">「政治的な意見や個人的な感想は述べないでください。」</p>
-                    </li>
-                </ul>
-             </div>
+                 <h2>実例：創造的なアイデア出し (ToT思考プロセスのイメージ)</h2>
+                 <div class="prompt-area">
+                     <p class="label">質問プロンプト (ToT思考を促す例):</p>
+                     <div class="prompt-text">新しいエコフレンドリーな商品のアイデアを3つ考えてください。それぞれのアイデアについて、実現可能性と市場での魅力を評価し、最も有望なアイデアを1つ選んで、その理由を説明してください。</div>
+                 </div>
+                 <div class="response-area">
+                    <p class="label">AIの思考プロセス (ToTのイメージ):</p>
+                    <div class="thought-node node-promising">
+                         <span class="node-path">開始: 新エコ商品アイデア</span><br>
+                         <span class="node-eval">評価: 初期状態</span>
+                     </div>
+                    <div class="thought-node node-promising" style="margin-left: 20px;">
+                         <span class="node-path">アイデア1: 竹製歯ブラシ</span><br>
+                         <span class="node-eval">評価: 実現性 高 / 魅力 中 (競合多)</span>
+                     </div>
+                    <div class="thought-node node-evaluating" style="margin-left: 20px;">
+                         <span class="node-path">アイデア2: 太陽光充電スマホケース</span><br>
+                         <span class="node-eval">評価: 実現性 中 (技術課題) / 魅力 高</span>
+                     </div>
+                     <div class="thought-node node-promising" style="margin-left: 40px;">
+                         <span class="node-path">アイデア2深掘り: 小型軽量化、効率改善が必要か...</span><br>
+                         <span class="node-eval">評価: さらに検討の価値あり</span>
+                     </div>
+                    <div class="thought-node node-deadend" style="margin-left: 20px;">
+                         <span class="node-path">アイデア3: 生分解性ペットボトル</span><br>
+                         <span class="node-eval">評価: 実現性 低 (コスト、耐久性) / 魅力 高。現時点では厳しいか。</span>
+                     </div>
+                    <p class="final-answer">最終的な結論: 現時点では「太陽光充電スマホケース」が最も有望と考えられます。理由は、市場の潜在的な魅力が高く、技術課題は存在するものの克服の可能性があるためです。竹製歯ブラシは競合が多く、生分解性ボトルはコスト面でのハードルが高いと判断しました。</p>
+                 </div>
+                 <p class="text-xs text-center text-gray-500 mt-2">※AIが複数の選択肢を生成・評価し、有望なものを選択する思考の流れ。</p>
+            </div>
         </div>
 
-        <!-- まとめ / Takeaway -->
-        <div class="takeaway mt-auto">
-            <p><i class="fas fa-star mr-2"></i>システムプロンプトでAIの基本設定をすれば、毎回同じ指示を繰り返さなくてOK！応答も安定しやすい！</p>
+         <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+             <!-- <span class="text-gray-600">追加E</span> -->
         </div>
-
-        <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">追加A</span> -->
+        <div class="takeaway mt-4">
+            <p><i class="fas fa-star mr-2"></i>複数の思考ルートを探らせることで難問解決の糸口が！ (厳密には外部制御が必要)</p>
         </div>
     </div>
 </body>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご清聴ありがとうございました</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #4b5563; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .thankyou-icon i { font-size: 6rem; color: #4ade80; margin-bottom: 30px; }
+        /* --- 修正箇所： title の font-weight はクラスで指定するのでCSSからは削除 --- */
+        .thankyou-title { font-size: 3rem; /* font-weight: 700; ← 削除 */ color: #1f2937; margin-bottom: 20px; }
+        .thankyou-subtitle { font-size: 1.4rem; color: #374151; margin-bottom: 40px; }
+        .reference-info { background-color: rgba(255, 255, 255, 0.7); padding: 20px 30px; border-radius: 8px; font-size: 1rem; color: #111827; text-align: left; max-width: 600px; }
+        /* --- 修正箇所： h2 の font-weight はクラスで指定するのでCSSからは削除 --- */
+        .reference-info h2 { font-size: 1.2rem; /* font-semibold; ← 削除 */ margin-bottom: 10px; text-align: center;}
+        .reference-info ul { list-style: disc; padding-left: 20px;}
+        .reference-info li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <div class="thankyou-icon">
+             <i class="fas fa-hands-clapping"></i>
+        </div>
+        <!-- --- 修正箇所： h1 に font-bold クラスを追加 --- -->
+        <h1 class="thankyou-title font-bold">ご清聴ありがとうございました</h1>
+        <p class="thankyou-subtitle">プロンプトエンジニアリングの世界、いかがでしたか？</p>
+
+        <!-- 必要であれば参考文献などを記載 -->
+        <!--
+        <div class="reference-info">
+             -- --- 修正箇所： h2 に font-semibold クラスを追加 --- --
+            <h2 class="font-semibold">参考文献・参考情報</h2>
+            <ul>
+                <li>Prompt Engineering Guide (promptingguide.ai)</li>
+                <li>論文: [関連論文名]</li>
+                <li>書籍: [関連書籍名]</li>
+            </ul>
+        </div>
+        -->
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
+             <!-- <span class="text-gray-600">26 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>
