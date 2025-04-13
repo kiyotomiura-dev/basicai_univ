@@ -15,38 +15,32 @@
         .info-box { background-color: #ecfeff; border-radius: 8px; padding: 20px; }
         .info-box h2 { font-size: 1.4rem; font-weight: 600; color: #0e7490; margin-bottom: 15px; }
         .info-box ul { list-style: none; padding: 0; }
-        /* --- 修正箇所： word-break と align-items を追加/変更 --- */
-        .info-box li {
-            font-size: 1.05rem;
-            color: #155e75;
-            margin-bottom: 12px; /* 下マージン調整 */
-            display: flex;
-            align-items: center; /* アイコンとテキストの中央揃え */
-            word-break: keep-all; /* 日本語の単語途中で改行しない */
-            line-height: 1.7;     /* 行間を少し広めに */
-        }
-        .info-box li i {
-            color: #22d3ee;
-            margin-right: 10px; /* 右マージン調整 */
-            /* margin-top: 4px; ← align-items:center にしたので不要 */
-            width: 20px;       /* 幅調整 */
-            text-align: center;
-            flex-shrink: 0;    /* アイコンが縮まないように */
-        }
-        /* --- 修正箇所ここまで --- */
+        .info-box li { font-size: 1.05rem; color: #155e75; margin-bottom: 10px; display: flex; align-items: center; /* align-items変更 */ line-height: 1.7; word-break: keep-all; }
+        .info-box li i { color: #22d3ee; margin-right: 10px; width: 20px; text-align: center; flex-shrink: 0; }
         .info-box code { background-color: #e0f2fe; color: #0891b2; padding: 1px 5px; border-radius: 3px; font-family: monospace; font-size: 0.9em;}
         .example-box { background-color: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
         .example-box h2 { font-size: 1.4rem; font-weight: 600; color: #047857; margin-bottom: 15px; text-align: center; }
+        /* --- 修正箇所：スタイル定義を再確認 --- */
         .prompt-code {
-            background-color: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px;
-            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; white-space: pre-wrap;
-            font-size: 0.8em; line-height: 1.8; max-height: 400px; overflow-y: auto; overflow-x: auto; flex-grow: 1;
+            background-color: #1e1e1e; /* Dark background */
+            color: #d4d4d4;          /* Default text color */
+            padding: 15px;
+            border-radius: 6px;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+            white-space: pre-wrap;     /* Allow wrapping */
+            font-size: 0.8em;
+            line-height: 1.8;          /* Increased line height */
+            max-height: 400px;
+            overflow-y: auto;
+            overflow-x: auto;          /* Allow horizontal scroll */
+            flex-grow: 1;
         }
-        .prompt-code .comment { color: #6a9955; font-style: italic; }
-        .prompt-code .tag { color: #569cd6; font-weight: bold; }
-        .prompt-code .key { color: #9cdcfe; }
-        .prompt-code .value { color: #ce9178; }
-        .prompt-code .structure { color: #c586c0; font-weight: bold;}
+        .prompt-code .comment { color: #6a9955; font-style: italic; } /* Green for comments */
+        .prompt-code .tag { color: #569cd6; font-weight: bold; } /* Blue for tags */
+        .prompt-code .key { color: #9cdcfe; } /* Light blue for keys */
+        .prompt-code .value { color: #ce9178; } /* Orange/Brown for values */
+        .prompt-code .structure { color: #c586c0; font-weight: bold;} /* Purple for structure */
+        /* --- 修正箇所ここまで --- */
         .tips-box { margin-top: 15px; background-color: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 10px 15px; font-size: 0.9rem; color: #075985; }
         .tips-box strong { color: #0369a1; }
     </style>
@@ -85,50 +79,51 @@
             <!-- 高度な構造化例 -->
             <div class="example-box">
                  <h2>高度な構造化例：複数タスク依頼</h2>
+                 {/* --- 修正箇所： codeタグ内のspanタグにクラスが正しく指定されているか確認 --- */}
                  <code class="prompt-code">
-<!-- プロンプト全体指示 -->
-<prompt>
-<system_prompt>
-<role>あなたはデータ分析とレポート作成を行うAIアシスタントです。</role>
-<output_language>日本語</output_language>
-<constraints>専門用語は避け、平易な言葉で説明すること。グラフは生成不要。</constraints>
-</system_prompt>
+<span class="comment"><!-- プロンプト全体指示 --></span>
+<span class="tag"><prompt></span>
+  <span class="tag"><system_prompt></span>
+    <span class="key">role:</span> <span class="value">あなたはデータ分析とレポート作成を行うAIアシスタントです。</span>
+    <span class="key">output_language:</span> <span class="value">日本語</span>
+    <span class="key">constraints:</span> <span class="value">専門用語は避け、平易な言葉で説明すること。グラフは生成不要。</span>
+  <span class="tag"></system_prompt></span>
 
-<user_request>
-<structure>## 背景情報</structure>
-<value>提供された以下の顧客アンケートデータ（CSV形式）があります。</value>
-<input_data format="csv">
-ID,年代,性別,満足度,意見
+  <span class="tag"><user_request></span>
+    <span class="structure">## 背景情報</span>
+    <span class="value">提供された以下の顧客アンケートデータ（CSV形式）があります。</span>
+    <span class="tag"><input_data format="csv"></span>
+<span class="value">ID,年代,性別,満足度,意見
 1,30代,女性,4,"価格が高い"
 2,20代,男性,5,"デザインが良い"
 3,40代,女性,3,"機能が少ない"
-... (データ続く) ...
-</input_data>
+... (データ続く) ...</span>
+    <span class="tag"></input_data></span>
 
-<structure>## 実行タスク</structure>
-<task id="1" description="データ要約">
-<key>instruction:</key> <value>上記のアンケートデータの概要（件数、年代・性別分布）を算出してください。</value>
-<key>output_format:</key> <value>箇条書き</value>
-</task>
+    <span class="structure">## 実行タスク</span>
+    <span class="tag"><task id="1" description="データ要約"></span>
+      <span class="key">instruction:</span> <span class="value">上記のアンケートデータの概要（件数、年代・性別分布）を算出してください。</span>
+      <span class="key">output_format:</span> <span class="value">箇条書き</span>
+    <span class="tag"></task></span>
 
-<task id="2" description="満足度分析" depends_on="1">
-<key>instruction:</key> <value>満足度の平均値と、年代別の平均満足度を計算してください。</value>
-<key>output_format:</key> <value>平均値: X.X, 年代別平均: {20代: X.X, 30代: X.X, ...} の形式</value>
-</task>
+    <span class="tag"><task id="2" description="満足度分析" depends_on="1"></span>
+      <span class="key">instruction:</span> <span class="value">満足度の平均値と、年代別の平均満足度を計算してください。</span>
+      <span class="key">output_format:</span> <span class="value">平均値: X.X, 年代別平均: {20代: X.X, 30代: X.X, ...} の形式</span>
+    <span class="tag"></task></span>
 
-<task id="3" description="意見分類">
-<key>instruction:</key> <value>「意見」列の内容を、以下のカテゴリに分類してください。</value>
-<key>categories:</key> <value>[価格, デザイン, 機能, サポート, その他]</value>
-<key>example:</key> <value>"価格が高い" -> 価格</value>
-<key>output_format:</key> <value>IDと分類結果のリスト (例: ID1: 価格, ID2: デザイン, ...)</value>
-</task>
+    <span class="tag"><task id="3" description="意見分類"></span>
+      <span class="key">instruction:</span> <span class="value">「意見」列の内容を、以下のカテゴリに分類してください。</span>
+      <span class="key">categories:</span> <span class="value">[価格, デザイン, 機能, サポート, その他]</span>
+      <span class="key">example:</span> <span class="value">"価格が高い" -> 価格</span>
+      <span class="key">output_format:</span> <span class="value">IDと分類結果のリスト (例: ID1: 価格, ID2: デザイン, ...)</span>
+    <span class="tag"></task></span>
 
-<task id="4" description="レポート作成" depends_on="1,2,3">
-<key>instruction:</key> <value>上記タスク1, 2, 3の結果を統合し、顧客満足度に関する簡単なレポートを作成してください。特に注目すべき点（例：特定の年代の満足度が低い、価格への不満が多いなど）があれば指摘してください。</value>
-<key>output_format:</key> <value>レポート形式（見出し、本文）</value>
-</task>
-</user_request>
-</prompt>
+    <span class="tag"><task id="4" description="レポート作成" depends_on="1,2,3"></span>
+      <span class="key">instruction:</span> <span class="value">上記タスク1, 2, 3の結果を統合し、顧客満足度に関する簡単なレポートを作成してください。特に注目すべき点（例：特定の年代の満足度が低い、価格への不満が多いなど）があれば指摘してください。</span>
+      <span class="key">output_format:</span> <span class="value">レポート形式（見出し、本文）</span>
+    <span class="tag"></task></span>
+  <span class="tag"></user_request></span>
+<span class="tag"></prompt></span>
                  </code>
                  <p class="text-sm text-center text-gray-600 mt-2">XML風タグや見出しで、複数の情報やタスクを整理・構造化。</p>
              </div>

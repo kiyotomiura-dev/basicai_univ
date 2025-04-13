@@ -19,12 +19,16 @@
         .param-card h3 { font-size: 1.3rem; font-weight: 600; color: #a16207; /* Yellow 700 */ margin-bottom: 10px; display: flex; align-items: center; }
         .param-card h3 i { color: #facc15; /* Yellow 400 */ margin-right: 10px; }
         .param-card p { font-size: 1rem; color: #854d0e; /* Yellow 800 */ margin-bottom: 10px; line-height: 1.6; word-break: keep-all; }
+        /* --- 画像の代わりにアイコンとテキストでイメージを補完 --- */
+        .diagram { text-align: center; margin-top: 15px; display: flex; justify-content: center; align-items: center; }
+        .diagram .icon-container { background-color: white; border: 1px solid #fef08a; border-radius: 50%; padding: 15px; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; margin: 0 10px; }
+        .diagram i { font-size: 1.5rem; }
+        .diagram .arrow { font-size: 1.5rem; color: #f59e0b; }
+        .caption { font-size: 0.85rem; color: #713f12; margin-top: 5px; }
+        /* --- 修正箇所ここまで --- */
         .param-card .value-effect { display: flex; justify-content: space-between; font-size: 0.9rem; margin-top: 10px; }
         .param-card .effect-low { color: #1d4ed8; font-weight: 500; } /* Blue */
         .param-card .effect-high { color: #be185d; font-weight: 500; } /* Pink */
-        .diagram { text-align: center; margin-top: 15px; }
-        .diagram img { max-width: 80%; max-height: 100px; object-fit: contain; border: 1px solid #fef08a; border-radius: 4px; }
-        .caption { font-size: 0.85rem; color: #713f12; margin-top: 5px; }
         .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #d97706; background-color: #fef3c7; padding: 15px; border-radius: 8px; }
     </style>
 </head>
@@ -40,7 +44,7 @@
         <div class="explanation-box">
             <h2 class="text-orange-800"><i class="fas fa-dice-d6 mr-2"></i> AIの応答は確率で決まる</h2>
             <p>
-                LLMは、次に来る単語を<strong class="text-orange-700">確率</strong>で予測します。「今日は良い天気ですね。次は…」→「散歩(40%)」「公園(30%)」「洗濯(10%)」のように。
+                LLMは、次に来る単語を<strong class="text-orange-700">確率</strong>で予測します。例えば「今日は良い天気ですね。次は…」→「散歩(40%)」「公園(30%)」「洗濯(10%)」のように。
             </p>
             <p>
                 <strong class="text-orange-700">Temperature</strong>と<strong class="text-orange-700">Top-p</strong>は、この確率に基づいてどの単語を選ぶかを調整するパラメータです。（主にAPI利用時に設定）
@@ -51,10 +55,12 @@
         <div class="param-grid">
             <div class="param-card">
                 <h3><i class="fas fa-thermometer-half"></i> Temperature (温度)</h3>
-                <p>値域は通常 0 ～ 1 (またはそれ以上)。確率分布の形を調整します。</p>
+                <p>値域は通常 0 ～ 1 (またはそれ以上)。確率分布の「形」を調整し、選択肢の広さを変えます。</p>
                 <div class="diagram">
-                     <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Temperature%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E4%BD%8E%E3%81%84%E2%86%92%E5%B0%96%E3%82%8B%E3%80%81%E9%AB%98%E3%81%84%E2%86%92%E5%B9%B3%E5%9D%A6)" alt="Temperature Effect Diagram">
-                     <p class="caption">確率分布の"鋭さ"を調整</p>
+                     <div class="icon-container"><i class="fas fa-arrow-alt-circle-down text-blue-500"></i></div>
+                     <i class="fas fa-exchange-alt arrow"></i>
+                     <div class="icon-container"><i class="fas fa-arrow-alt-circle-up text-pink-500"></i></div>
+                     <!-- <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Temperature%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E4%BD%8E%E3%81%84%E2%86%92%E5%B0%96%E3%82%8B%E3%80%81%E9%AB%98%E3%81%84%E2%86%92%E5%B9%B3%E5%9D%A6)" alt="Temperature Effect Diagram"> -->
                  </div>
                 <div class="value-effect">
                     <span class="effect-low"><i class="fas fa-arrow-down"></i> 低い値 (例: 0.2):</span>
@@ -67,12 +73,14 @@
                  <p class="text-xs text-gray-500 mt-2">Self-Consistencyでは、高い値で多様な思考を促すことがある。</p>
              </div>
              <div class="param-card">
-                 <h3><i class="fas fa-chart-pie"></i> Top-p (Nucleus Sampling)</h3>
+                 <h3><i class="fas fa-chart-pie"></i> Top-p (確率合計)</h3>
                 <p>値域は通常 0 ～ 1。確率の高い単語から累積し、合計確率が p を超えるまでの候補の中から単語を選びます。</p>
                 <div class="diagram">
-                    <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Top-p%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E7%A2%BA%E7%8E%87%E4%B8%8A%E4%BD%8D%E3%81%8B%E3%82%89%E9%81%B8%E6%8A%9E)" alt="Top-p Effect Diagram">
-                    <p class="caption">確率の高い候補群から選択</p>
-                </div>
+                     <div class="icon-container"><i class="fas fa-grip-horizontal text-blue-500"></i></div>
+                     <i class="fas fa-exchange-alt arrow"></i>
+                     <div class="icon-container"><i class="fas fa-grip-lines-vertical text-pink-500"></i></div>
+                     <!-- <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Top-p%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E7%A2%BA%E7%8E%87%E4%B8%8A%E4%BD%8D%E3%81%8B%E3%82%89%E9%81%B8%E6%8A%9E)" alt="Top-p Effect Diagram"> -->
+                 </div>
                  <div class="value-effect">
                      <span class="effect-low"><i class="fas fa-arrow-down"></i> 低い値 (例: 0.1):</span>
                     <span class="effect-high"><i class="fas fa-arrow-up"></i> 高い値 (例: 0.9):</span>

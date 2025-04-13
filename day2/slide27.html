@@ -11,19 +11,26 @@
         .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #fb923c; display: flex; flex-direction: column; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
+        /* --- カラム幅を均等に設定 --- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 左右均等 */
+            gap: 30px;
+            flex-grow: 1;
+            margin-top: 15px;
+        }
+        /* --- ここまで --- */
         .explanation-box { background-color: #fff7ed; border-radius: 8px; padding: 20px; }
         .explanation-box h2 { font-size: 1.4rem; font-weight: 600; color: #c2410c; margin-bottom: 10px; }
-        /* --- 修正箇所：説明文の改行制御 --- */
-        .explanation-box p { font-size: 1.05rem; color: #9a3412; line-height: 1.7; word-break: keep-all; }
+        .explanation-box p { font-size: 1.05rem; color: #9a3412; line-height: 1.7; word-break: break-word; margin-bottom: 10px;}
         .implementation-box { margin-top: 15px; background-color: #f1f5f9; border-radius: 6px; padding: 15px; }
         .implementation-box h3 { font-size: 1.1rem; font-weight: 600; color: #334155; margin-bottom: 8px; }
         .implementation-box ul { list-style: none; padding-left: 0; font-size: 1rem; color: #475569; }
-        .implementation-box li { margin-bottom: 8px; display: flex; align-items: center; line-height: 1.6; word-break: keep-all; } /* margin, align, line-height, word-break 調整 */
-        .implementation-box li i { color: #64748b; margin-right: 8px; width: 16px; text-align: center; flex-shrink: 0; }
+        .implementation-box li { margin-bottom: 10px; display: flex; align-items: flex-start; line-height: 1.7; }
+        .implementation-box li i { color: #64748b; margin-right: 10px; margin-top: 5px; width: 16px; text-align: center; flex-shrink: 0; }
+        .implementation-box li span { word-break: break-word; min-width: 0; }
         .implementation-box ul ul { margin-top: 5px; padding-left: 10px;}
-        .implementation-box ul ul li { margin-bottom: 3px; font-size: 0.95rem;}
-        /* --- 修正箇所ここまで --- */
+        .implementation-box ul ul li { margin-bottom: 5px; font-size: 0.95rem;}
         .example-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
         .example-box h2 { font-size: 1.4rem; font-weight: 600; color: #1e293b; margin-bottom: 15px; text-align: center; }
         .prompt-area { margin-bottom: 15px; }
@@ -53,25 +60,25 @@
              <div class="explanation-box">
                  <h2 class="text-orange-700"><i class="fas fa-lightbulb mr-2"></i>Tree of Thoughts (ToT) って？</h2>
                  <p>
-                    CoT（一本道思考）とは違い、問題を解くために<strong class="text-orange-600">複数の「考え方の選択肢」を同時に試す</strong>方法。木の枝のように思考ルートを探る。
+                    CoT（一本道思考）とは違い、問題を解くために<strong class="text-orange-600">複数の「考え方の選択肢」を同時に試す</strong>方法。木の枝のように思考ルートを探ります。
                  </p>
                  <p>
-                     各ルートがどれくらい良さそうか<strong class="text-orange-600">AI自身が評価</strong>し、有望なルートを深く考えたり、ダメそうなルートは途中でやめたりする。
+                     各ルートがどれくらい良さそうか<strong class="text-orange-600">AI自身が評価</strong>し、有望なルートを深く考えたり、ダメそうなルートは途中でやめたりします。
                  </p>
                  <h2 class="mt-4 text-orange-700"><i class="fas fa-lightbulb mr-2"></i> どうやってやるの？</h2>
                  <div class="implementation-box">
                     <h3><i class="fas fa-exclamation-triangle mr-1 text-red-500"></i> プロンプトだけでの完全実装は難しい！</h3>
                      <ul>
-                         <li><i class="fas fa-angle-right"></i><strong>プロンプトでの工夫 (部分的):</strong>
+                         <li><i class="fas fa-angle-right"></i><span><strong>プロンプトでの工夫 (部分的):</strong></span>
                             <ul>
-                                <li><i class="fas fa-caret-right"></i>「複数の可能性を検討して」「各選択肢を評価して」「有望なものを深掘りして」のように、分岐と思考・評価を促す指示を入れることで、<strong class="text-blue-600">ToT的な思考をある程度模倣</strong>させることは可能。</li>
-                                <li><i class="fas fa-caret-right"></i>対話的に、段階を踏んでAIに選択肢を出させ、ユーザーが評価・選択して次の指示を出す方法もある。</li>
+                                <li><i class="fas fa-caret-right"></i><span>「複数の可能性を検討して」「各選択肢を評価して」「有望なものを深掘りして」のように、分岐と思考・評価を促す指示を入れることで、<strong class="text-blue-600">ToT的な思考をある程度模倣</strong>させることは可能。</span></li>
+                                <li><i class="fas fa-caret-right"></i><span>対話的に、段階を踏んでAIに選択肢を出させ、ユーザーが評価・選択して次の指示を出す方法もある。</span></li>
                             </ul>
                         </li>
-                         <li><i class="fas fa-angle-right"></i><strong>外部での制御 (厳密な実装):</strong>
+                         <li><i class="fas fa-angle-right"></i><span><strong>外部での制御 (厳密な実装):</strong></span>
                              <ul>
-                                <li><i class="fas fa-caret-right"></i>ToTの論文で提案されているような、<strong class="text-red-600">専用の制御アルゴリズム</strong>をプログラムで実装する必要がある。</li>
-                                <li><i class="fas fa-caret-right"></i>LLMを複数回呼び出し、「思考候補の生成」「各思考の評価」「次のステップの選択（探索戦略）」を外部プログラムが管理する。</li>
+                                <li><i class="fas fa-caret-right"></i><span>ToTの論文で提案されているような、<strong class="text-red-600">専用の制御アルゴリズム</strong>をプログラムで実装する必要がある。</span></li>
+                                <li><i class="fas fa-caret-right"></i><span>LLMを複数回呼び出し、「思考候補の生成」「各思考の評価」「次のステップの選択（探索戦略）」を外部プログラムが管理する。</span></li>
                              </ul>
                         </li>
                     </ul>

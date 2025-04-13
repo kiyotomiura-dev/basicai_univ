@@ -8,22 +8,39 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #f9fafb; /* Gray 50 */ box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #475569; /* Slate 600 */ display: flex; flex-direction: column; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background-color: #f9fafb; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #475569; display: flex; flex-direction: column; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; margin-top: 20px; }
-        .section-box { background-color: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; margin-top: 20px; align-items: stretch; }
+        .section-box { background-color: white; border-radius: 8px; padding: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; flex-direction: column; }
         .section-box h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; }
         .section-box h2 i { margin-right: 10px; }
-        .limitations h2 { color: #be123c; } /* Rose 700 */ .limitations h2 i { color: #f43f5e; } /* Rose 500 */
-        .future h2 { color: #059669; } /* Emerald 600 */ .future h2 i { color: #10b981; } /* Emerald 500 */
-        .section-box ul { list-style: none; padding: 0; }
-        .section-box li { font-size: 1.05rem; margin-bottom: 12px; display: flex; align-items: flex-start; }
-        .section-box li i { margin-right: 10px; margin-top: 5px; width: 16px; text-align: center; font-size: 0.9rem;}
-        .limitations li { color: #9f1239; } .limitations i { color: #f43f5e; }
-        .future li { color: #047857; } .future i { color: #10b981; }
-        .diagram { text-align: center; margin-top: 10px; }
-        .diagram img { max-width: 60%; height: auto; margin: 5px auto; border: 1px solid #e2e8f0; border-radius: 4px;}
+        .limitations h2 { color: #be123c; } .limitations h2 i { color: #f43f5e; }
+        .future h2 { color: #059669; } .future h2 i { color: #10b981; }
+        .section-box ul { list-style: none; padding: 0; flex-grow: 1;}
+        .section-box li { font-size: 1.05rem; margin-bottom: 12px; display: flex; align-items: flex-start; line-height: 1.7; word-break: break-word; }
+        .section-box li span { min-width: 0; }
+        .section-box li i.list-icon { color: #6b7280; margin-right: 10px; margin-top: 5px; width: 16px; text-align: center; font-size: 0.9rem;}
+        .limitations li { color: #9f1239; } .limitations i.list-icon { color: #f43f5e; }
+        .future li { color: #047857; } .future i.list-icon { color: #10b981; }
+        /* --- 修正箇所： 図解コンテナのスタイル --- */
+        .diagram-container { text-align: center; margin-top: 8px; margin-bottom: 8px; /* リスト項目の下に追加 */ padding: 10px 0; }
+        .adversarial-diagram { display: flex; justify-content: center; align-items: center; gap: 10px; background-color: #fef2f2; padding: 10px; border-radius: 6px; border: 1px dashed #fca5a5; overflow: hidden; display: inline-flex; /* 横並びで中央寄せ */ }
+        .adversarial-diagram .item i { font-size: 1.6rem; }
+        .adversarial-diagram .item span { font-size: 0.7rem; }
+        .adversarial-diagram .user { color: #7f1d1d; }
+        .adversarial-diagram .prompt { color: #dc2626; }
+        .adversarial-diagram .arrow { font-size: 1.3rem; color: #ef4444; }
+        .adversarial-diagram .ai { color: #7f1d1d; }
+        .adversarial-diagram .output { color: #b91c1c; font-weight: bold; }
+        .auto-prompt-diagram { display: flex; justify-content: center; align-items: center; gap: 10px; background-color: #ecfdf5; padding: 10px; border-radius: 6px; border: 1px dashed #a7f3d0; overflow: hidden; display: inline-flex; /* 横並びで中央寄せ */ }
+        .auto-prompt-diagram .item i { font-size: 1.8rem; }
+        .auto-prompt-diagram .item span { font-size: 0.7rem; }
+        .auto-prompt-diagram .goal { color: #065f46; }
+        .auto-prompt-diagram .generator { color: #047857; }
+        .auto-prompt-diagram .prompt { color: #059669; font-weight: bold;}
+        .auto-prompt-diagram .arrow { font-size: 1.3rem; color: #10b981; }
+        /* --- 修正箇所ここまで --- */
     </style>
 </head>
 <body>
@@ -31,9 +48,7 @@
         <!-- ヘッダー -->
          <div class="flex justify-between items-center mb-10">
             <h1 class="text-4xl font-bold text-slate-700">プロンプト技術のこれから</h1>
-             <div>
-                 <i class="fas fa-glasses text-slate-400 text-4xl"></i> <!-- 未来・展望のイメージ -->
-            </div>
+             <div><i class="fas fa-glasses text-slate-400 text-4xl"></i></div>
         </div>
 
         <div class="content-grid">
@@ -41,14 +56,24 @@
             <div class="section-box limitations">
                  <h2><i class="fas fa-exclamation-triangle"></i> まだまだ難しいこと・課題</h2>
                  <ul>
-                     <li><i class="fas fa-times"></i><strong>意図しない答えが出ることも：</strong> AIの「癖」や、指示の解釈違いはゼロじゃない。</li>
-                     <li><i class="fas fa-times"></i><strong>AIを騙す指示 (悪用)：</strong> わざと変な答えを出させたり、悪いことに使わせようとする指示もある。(Adversarial Prompting)
-                         <div class="diagram">
-                             <img src="https://via.placeholder.com/200x60/fff1f2/be123c?text=User%3A+Bad+Prompt+%E2%9A%A0%EF%B8%8F+%E2%86%92+AI%3A+Harmful+Output" alt="Adversarial Prompting">
+                     <li><i class="list-icon fas fa-times"></i><span><strong>意図しない答えが出ることも：</strong> AIの「癖」や、指示の解釈違いはゼロじゃない。</span></li>
+                     <li>
+                         <i class="list-icon fas fa-times"></i><span><strong>AIを騙す指示 (悪用)：</strong> わざと変な答えを出させたり、悪いことに使わせようとする指示もある。(Adversarial Prompting)</span>
+                         <!-- --- 修正箇所： 図解をリスト項目の外に移動 --- -->
+                         <div class="diagram-container">
+                             <div class="adversarial-diagram">
+                                 <div class="item user"><i class="fas fa-user-secret"></i></div>
+                                 <div class="item prompt"><i class="fas fa-comment-dots"></i><span class="text-xs block">(悪い指示)</span></div>
+                                 <i class="fas fa-arrow-right arrow"></i>
+                                 <div class="item ai"><i class="fas fa-robot"></i></div>
+                                 <i class="fas fa-arrow-right arrow"></i>
+                                 <div class="item output"><i class="fas fa-skull-crossbones"></i><span class="text-xs block">(有害な出力)</span></div>
+                             </div>
                          </div>
+                         <!-- --- 修正箇所ここまで --- -->
                      </li>
-                     <li><i class="fas fa-times"></i><strong>再現性の問題：</strong> 同じプロンプトでも、毎回全く同じ答えが出るとは限らない。</li>
-                      <li><i class="fas fa-times"></i><strong>最適なプロンプト探し：</strong> 最高のプロンプトを見つけるのは、まだ試行錯誤が必要。</li>
+                     <li><i class="list-icon fas fa-times"></i><span><strong>再現性の問題：</strong> 同じプロンプトでも、毎回全く同じ答えが出るとは限らない。</span></li>
+                      <li><i class="list-icon fas fa-times"></i><span><strong>最適なプロンプト探し：</strong> 最高のプロンプトを見つけるのは、まだ試行錯誤が必要。</span></li>
                  </ul>
             </div>
 
@@ -56,21 +81,30 @@
             <div class="section-box future">
                  <h2><i class="fas fa-star"></i> これからの可能性</h2>
                 <ul>
-                    <li><i class="fas fa-check"></i><strong>AI自身の進化：</strong> AIがもっと賢くなれば、より少ない指示で意図を汲み取ってくれるようになるかも？</li>
-                    <li><i class="fas fa-check"></i><strong>プロンプト技術の進化：</strong> CoTのような、もっと賢い「考えさせる」テクニックが発展していく。</li>
-                     <li><i class="fas fa-check"></i><strong>自動プロンプト生成：</strong> 人間が考えなくても、AIが目的に合った最高のプロンプトを自動で作ってくれる技術も研究中！
-                        <div class="diagram">
-                            <img src="https://via.placeholder.com/200x60/ecfdf5/047857?text=Goal+%E2%86%92+Auto+Prompt+Generator+%E2%86%92+Best+Prompt" alt="Auto Prompt Generation">
+                    <li><i class="list-icon fas fa-check"></i><span><strong>AI自身の進化：</strong> AIがもっと賢くなれば、より少ない指示で意図を汲み取ってくれるようになるかも？</span></li>
+                    <li><i class="list-icon fas fa-check"></i><span><strong>プロンプト技術の進化：</strong> CoTのような、もっと賢い「考えさせる」テクニックが発展していく。</span></li>
+                     <li>
+                        <i class="list-icon fas fa-check"></i><span><strong>自動プロンプト生成：</strong> 人間が考えなくても、AIが目的に合った最高のプロンプトを自動で作ってくれる技術も研究中！</span>
+                        <!-- --- 修正箇所： 図解をリスト項目の外に移動 --- -->
+                        <div class="diagram-container">
+                             <div class="auto-prompt-diagram">
+                                 <div class="item goal"><i class="fas fa-bullseye"></i><span class="text-xs block">(目的)</span></div>
+                                 <i class="fas fa-arrow-right arrow"></i>
+                                 <div class="item generator"><i class="fas fa-magic"></i><span class="text-xs block">(自動生成AI)</span></div>
+                                 <i class="fas fa-arrow-right arrow"></i>
+                                 <div class="item prompt"><i class="fas fa-file-alt"></i><span class="text-xs block">(最適プロンプト)</span></div>
+                            </div>
                         </div>
+                        <!-- --- 修正箇所ここまで --- -->
                      </li>
-                     <li><i class="fas fa-check"></i><strong>より使いやすいツールへ：</strong> プロンプト技術がアプリなどに組み込まれ、誰でも簡単にAIを使いこなせるように。</li>
+                     <li><i class="list-icon fas fa-check"></i><span><strong>より使いやすいツールへ：</strong> プロンプト技術がアプリなどに組み込まれ、誰でも簡単にAIを使いこなせるように。</span></li>
                  </ul>
              </div>
         </div>
 
         <!-- スライド番号 -->
         <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
-             <!-- <span class="text-gray-600">24 / 26</span> -->
+             <!-- <span class="text-gray-600">24 / 33</span> -->
         </div>
     </div>
 </body>
