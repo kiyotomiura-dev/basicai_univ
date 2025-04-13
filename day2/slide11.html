@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>実践！もっと上手にお願いするコツ集</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #f97316; /* Orange 500 */ display: flex; flex-direction: column; justify-content: center; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .intro-text { text-align: center; margin-bottom: 40px; }
+        .tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 900px; margin: 0 auto; }
+        .tip-card { background-color: #fff7ed; /* Orange 50 */ border: 1px solid #fed7aa; /* Orange 200 */ border-radius: 10px; padding: 25px; text-align: center; transition: transform 0.2s ease; }
+        .tip-card:hover { transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .tip-card i { font-size: 2.8rem; color: #f97316; /* Orange 500 */ margin-bottom: 15px; }
+        .tip-card h3 { font-size: 1.3rem; font-weight: 600; color: #c2410c; /* Orange 700 */ margin-bottom: 8px; }
+        .tip-card p { font-size: 1rem; color: #9a3412; /* Orange 800 */ }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="text-center mb-10">
+            <h1 class="text-4xl font-bold text-orange-700 inline-flex items-center">
+                <i class="fas fa-tools mr-4"></i> 実践！もっと上手にお願いするコツ集
+            </h1>
+        </div>
+
+        <div class="intro-text">
+            <p class="text-xl text-gray-700">
+                AIからもっと良い答えを引き出すための、<strong class="text-orange-600">具体的な「伝え方のコツ」</strong>を見ていきましょう！<br>
+                これらを組み合わせるのがポイントです。
+            </p>
+        </div>
+
+        <!-- コツ一覧 -->
+        <div class="tips-grid">
+            <div class="tip-card">
+                <i class="fas fa-bullseye"></i>
+                <h3>① 目的はっきり！</h3>
+                <p>「何をしてほしいか」ゴールを明確に伝える。</p>
+            </div>
+            <div class="tip-card">
+                <i class="fas fa-ruler-combined"></i>
+                <h3>② 答えの形を決める！</h3>
+                <p>箇条書き、表など、欲しい答えのフォーマットを指定する。</p>
+            </div>
+             <div class="tip-card">
+                <i class="fas fa-comments"></i>
+                <h3>③ 話し方・レベル指定</h3>
+                <p>誰向けか、どんな雰囲気で話してほしいか伝える。</p>
+            </div>
+            <div class="tip-card">
+                 <i class="fas fa-user-tie"></i>
+                <h3>④ 役割を与える！</h3>
+                <p>AIに先生や専門家などの役になりきってもらう。</p>
+            </div>
+             <div class="tip-card">
+                 <i class="fas fa-info-circle"></i>
+                <h3>⑤ ルール・ヒント追加</h3>
+                 <p>文字数、キーワード、背景知識など、細かい情報を与える。</p>
+            </div>
+             <div class="tip-card">
+                 <i class="fas fa-puzzle-piece"></i>
+                <h3>⑥ 組み合わせる！</h3>
+                 <p>これらのコツを組み合わせて、最強のプロンプトを作る！</p>
+             </div>
+        </div>
+
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
+            <!-- <span class="text-gray-600">11 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

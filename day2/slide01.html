@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プロンプトエンジニアリングの探求</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; border-top: 4px solid #4f46e5; /* Indigo 600 */ display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; }
+        .icon-bg { position: absolute; font-size: 150px; color: rgba(79, 70, 229, 0.08); z-index: 0; }
+        .icon-left { left: 60px; bottom: 70px; transform: rotate(-10deg); }
+        .icon-right { right: 60px; top: 70px; transform: rotate(10deg); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; z-index: 1; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- 背景アイコン -->
+        <div class="icon-bg icon-left">
+            <i class="fas fa-lightbulb"></i>
+        </div>
+        <div class="icon-bg icon-right">
+             <i class="fas fa-cogs"></i>
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="text-center fade-in-up">
+            <h1 class="text-5xl font-bold mb-4 text-indigo-800">プロンプトエンジニアリングの探求</h1>
+            <h2 class="text-3xl font-semibold mb-8 text-indigo-600">～AIの力を引き出す「伝え方」の技術～</h2>
+
+            <div class="mt-12 mb-4 inline-block bg-indigo-50 rounded-lg px-8 py-4 shadow-sm">
+                 <p class="text-xl text-indigo-700">生成AI入門セミナー 第2コマ</p>
+            </div>
+             <p class="text-lg text-gray-600">日付: 2024年4月26日</p>
+            <!-- <p class="text-lg text-gray-600 mt-2">講師: [講師名]</p> -->
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 z-10">
+            <!-- <span class="text-gray-600">1 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

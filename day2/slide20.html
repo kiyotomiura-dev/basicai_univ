@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>応用編：AIに「考えさせる」技術 (CoT)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #f59e0b; /* Amber 500 */ display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .explanation-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        .explanation-box h2 { font-size: 1.6rem; font-weight: 600; color: #b45309; margin-bottom: 10px; }
+        .explanation-box p { font-size: 1.1rem; color: #78350f; line-height: 1.7; }
+        .cot-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; flex-grow: 1; }
+        .comparison-card { background-color: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; }
+        .comparison-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; text-align: center; }
+        .without-cot h3 { color: #dc2626; } /* Red 600 */
+        .with-cot h3 { color: #16a34a; } /* Green 600 */
+        .prompt-area { margin-bottom: 15px; }
+        .prompt-area .label { font-weight: 500; color: #4b5563; margin-bottom: 5px; font-size: 0.9rem; }
+        .prompt-text { background-color: white; border: 1px solid #e5e7eb; padding: 10px; border-radius: 4px; font-style: italic; font-size: 0.95rem; }
+        .output-area { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 15px; border-radius: 4px; min-height: 100px; }
+        .output-area .label { font-weight: 500; color: #4b5563; margin-bottom: 5px; font-size: 0.9rem; }
+        .output-text { font-size: 1rem; color: #1f2937; }
+        .output-text .reasoning { color: #059669; font-style: italic; background-color: #d1fae5; padding: 5px; border-radius: 3px; margin-bottom: 8px; display: block;}
+        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #d97706; background-color: #fef3c7; padding: 15px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+         <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-amber-700">応用編：AIに「考えさせる」技術 <i class="fas fa-brain ml-2"></i></h1>
+             <div>
+                 <i class="fas fa-lightbulb text-amber-300 text-4xl"></i>
+            </div>
+        </div>
+
+         <!-- 説明 -->
+        <div class="explanation-box">
+             <h2 class="text-amber-700"><i class="fas fa-comment-dots mr-2"></i>Chain-of-Thought (CoT) って？</h2>
+            <p>
+                複雑な問題（計算や推理など）をAIに解かせたい時、いきなり答えだけを求めると間違えやすいことがあります。
+            </p>
+            <p>
+                そこで、<strong class="text-amber-600">「答えと一緒に、そこに至るまでの考え方の手順（途中式）も書いてね」</strong>とお願いするのが Chain-of-Thought (思考の連鎖) というテクニックです。
+             </p>
+             <p>
+                 人間が難しい問題を解く時に、ステップを踏んで考えるのと同じように、<strong class="text-amber-600">AIにも段階的に考えさせることで、正解にたどり着きやすく</strong>なります！
+             </p>
+         </div>
+
+        <!-- 比較 -->
+        <div class="cot-comparison">
+            <!-- CoTなし -->
+            <div class="comparison-card without-cot">
+                 <h3><i class="far fa-times-circle mr-2"></i>考えさせないと… (間違いやすい)</h3>
+                 <div class="prompt-area">
+                    <p class="label">プロンプト:</p>
+                     <div class="prompt-text">リンゴが5個あります。バナナを3個もらいました。その後、リンゴを2個食べました。今、果物は全部で何個？</div>
+                </div>
+                <div class="output-area">
+                    <p class="label">AIの答え:</p>
+                    <p class="output-text">答えは 6個 です。</p> <!-- 間違った答えの例 -->
+                 </div>
+            </div>
+            <!-- CoTあり -->
+             <div class="comparison-card with-cot">
+                 <h3><i class="far fa-check-circle mr-2"></i>考えさせると！ (正解しやすい)</h3>
+                <div class="prompt-area">
+                    <p class="label">プロンプト:</p>
+                    <div class="prompt-text">リンゴが5個あります。バナナを3個もらいました。その後、リンゴを2個食べました。今、果物は全部で何個？ <strong class='text-amber-700'>ステップバイステップで考えてください。</strong></div>
+                 </div>
+                <div class="output-area">
+                     <p class="label">AIの答え:</p>
+                    <p class="output-text">
+                        <span class="reasoning">1. 最初リンゴは5個です。</span>
+                        <span class="reasoning">2. バナナを3個もらったので、果物は 5 + 3 = 8個 になります。</span>
+                        <span class="reasoning">3. その後リンゴを2個食べたので、残りの果物は 8 - 2 = 6個 です。</span>
+                        答えは 6個 です。
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- まとめ / Takeaway -->
+        <div class="takeaway mt-auto">
+            <p><i class="fas fa-star mr-2"></i>難しい問題は「考え方の手順も一緒に教えて」と頼んでみよう！</p>
+        </div>
+
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
+             <!-- <span class="text-gray-600">20 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

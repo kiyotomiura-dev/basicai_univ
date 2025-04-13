@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>良いプロンプト vs 悪いプロンプト</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #6b7280; display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; margin-top: 20px; }
+        .card { border-radius: 10px; padding: 25px; display: flex; flex-direction: column; }
+        .good-card { background-color: #ecfdf5; border: 2px solid #10b981; }
+        .bad-card { background-color: #fff1f2; border: 2px solid #f43f5e; }
+        .card-header { display: flex; align-items: center; margin-bottom: 15px; }
+        .card-header i { font-size: 2rem; margin-right: 15px; }
+        .good-card .card-header i { color: #10b981; }
+        .bad-card .card-header i { color: #f43f5e; }
+        /* --- 修正箇所： h2 の font-weight はクラスで指定するのでCSSからは削除 --- */
+        .card-header h2 { font-size: 1.5rem; /* font-weight: 600; ← 削除 */ }
+        .good-card .card-header h2 { color: #047857; }
+        .bad-card .card-header h2 { color: #be123c; }
+        .checklist ul { list-style: none; padding: 0; }
+        .checklist li { margin-bottom: 12px; display: flex; align-items: flex-start; font-size: 1.1rem; }
+        .checklist li i { margin-right: 10px; margin-top: 5px; width: 18px; text-align: center; }
+        .good-list li { color: #065f46; } .good-list i { color: #10b981; }
+        .bad-list li { color: #9f1239; } .bad-list i { color: #f43f5e; }
+        .bad-example-box { background-color: white; border-radius: 6px; padding: 10px 15px; margin-top: 10px; border-left: 3px solid #fb7185; }
+        .bad-example-box .prompt { font-style: italic; color: #4b5563; }
+        /* --- 修正箇所： reason の font-weight はクラスで指定するのでCSSからは削除 --- */
+        .bad-example-box .reason { font-size: 0.9rem; color: #9f1239; /* font-weight: 500; ← 削除 */ margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="text-4xl font-bold text-gray-700">良いプロンプト vs 悪いプロンプト</h1>
+             <div>
+                 <i class="fas fa-balance-scale-left text-gray-400 text-4xl"></i>
+            </div>
+        </div>
+
+        <div class="comparison-grid">
+            <!-- 良いプロンプト -->
+            <div class="card good-card">
+                <div class="card-header">
+                    <i class="fas fa-check-circle"></i>
+                    <!-- --- 修正箇所： h2 に font-semibold クラスを追加 --- -->
+                    <h2 class="font-semibold">良いプロンプトの条件</h2>
+                </div>
+                <div class="checklist good-list">
+                    <ul>
+                        <li><i class="fas fa-star"></i><strong>明確！</strong> (AIが迷わない、ハッキリした指示)</li>
+                        <li><i class="fas fa-search-plus"></i><strong>具体的！</strong> (詳しい情報、条件がしっかり)</li>
+                        <li><i class="fas fa-bullseye"></i><strong>ゴールが見える！</strong> (何が欲しいか分かりやすい)</li>
+                        <li><i class="fas fa-book-open"></i><strong>情報が適切！</strong> (必要なヒントが過不足ない)</li>
+                         <li><i class="fas fa-link"></i><strong>矛盾がない！</strong> (指示がバラバラじゃない)</li>
+                    </ul>
+                 </div>
+                 <!-- --- 修正箇所： p に font-semibold クラスを追加 --- -->
+                 <p class="text-center mt-auto text-green-700 font-semibold text-lg">→ AIが理解しやすく、良い答えを出しやすい！ <i class="far fa-smile"></i></p>
+             </div>
+
+            <!-- 悪いプロンプト -->
+            <div class="card bad-card">
+                 <div class="card-header">
+                    <i class="fas fa-times-circle"></i>
+                    <!-- --- 修正箇所： h2 に font-semibold クラスを追加 --- -->
+                    <h2 class="font-semibold">ありがちな失敗例</h2>
+                 </div>
+                <div class="checklist bad-list">
+                     <ul>
+                        <li><i class="fas fa-question"></i><strong>あいまいすぎる…</strong>
+                            <div class="bad-example-box">
+                                <p class="prompt">"なんか面白いこと教えて"</p>
+                                <!-- --- 修正箇所： reason に font-medium クラスを追加 --- -->
+                                <p class="reason font-medium">→ 何の？どういうのが面白い？</p>
+                            </div>
+                         </li>
+                        <li><i class="fas fa-map-marker-alt"></i><strong>情報不足…</strong>
+                             <div class="bad-example-box">
+                                <p class="prompt">"おすすめの場所は？"</p>
+                                <!-- --- 修正箇所： reason に font-medium クラスを追加 --- -->
+                                <p class="reason font-medium">→ どこで？何する場所？</p>
+                             </div>
+                         </li>
+                        <li><i class="fas fa-random"></i><strong>矛盾してる…</strong>
+                             <div class="bad-example-box">
+                                <p class="prompt">"短く、でも詳しく説明して"</p>
+                                <!-- --- 修正箇所： reason に font-medium クラスを追加 --- -->
+                                <p class="reason font-medium">→ どっちかにして！</p>
+                            </div>
+                        </li>
+                         <li><i class="fas fa-file-alt"></i><strong>長すぎ・複雑すぎ…</strong>
+                            <div class="bad-example-box">
+                                <p class="prompt">"条件AでBでCで…(超長文)"</p>
+                                <!-- --- 修正箇所： reason に font-medium クラスを追加 --- -->
+                                <p class="reason font-medium">→ AIが指示を読み取れない！</p>
+                            </div>
+                         </li>
+                    </ul>
+                 </div>
+                 <!-- --- 修正箇所： p に font-semibold クラスを追加 --- -->
+                 <p class="text-center mt-auto text-rose-700 font-semibold text-lg">→ AIが困惑し、変な答えや期待外れの答えに… <i class="far fa-dizzy"></i></p>
+            </div>
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
+            <!-- <span class="text-gray-600">18 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

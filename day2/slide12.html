@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コツ①：目的・ゴールを明確にする！</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #10b981; display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .importance-box { background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        .comparison-section { margin-top: 15px; flex-grow: 1; }
+        .comparison-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: center; }
+        .example-card { border-radius: 8px; padding: 20px; text-align: center; }
+        .bad-example { background-color: #fff1f2; border: 1px solid #ffe4e6; }
+        .good-example { background-color: #ecfdf5; border: 1px solid #d1fae5; }
+        .example-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
+        .bad-example h3 { color: #be123c; } .bad-example h3 i { color: #f43f5e; }
+        .good-example h3 { color: #047857; } .good-example h3 i { color: #10b981; }
+        .prompt-text { background-color: white; padding: 10px; border-radius: 4px; font-style: italic; color: #4b5563; margin-bottom: 15px; min-height: 60px; display: flex; align-items: center; justify-content: center; text-align: center;}
+        .ai-reaction { margin-top: 10px; }
+        .ai-reaction i { font-size: 2rem; }
+        .ai-reaction p { font-size: 0.9rem; font-weight: 500; margin-top: 5px; }
+        .bad-reaction i { color: #fbbf24; } .bad-reaction p { color: #b45309; }
+        .good-reaction i { color: #4ade80; } .good-reaction p { color: #16a34a; }
+        .arrow { font-size: 2.5rem; color: #6ee7b7; }
+        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #059669; background-color: #d1fae5; padding: 15px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-emerald-700">コツ①：目的・ゴールを明確にする！</h1>
+             <div>
+                <i class="fas fa-bullseye text-emerald-300 text-4xl"></i>
+            </div>
+        </div>
+
+        <!-- 重要性の説明 -->
+        <div class="importance-box">
+            <h2 class="text-2xl font-semibold text-emerald-600 mb-2"><i class="fas fa-lightbulb mr-2"></i> なぜ大事？</h2>
+            <p class="text-lg text-gray-800">
+                AIに<strong class="text-emerald-600">「最終的に何が欲しいか」</strong>を最初にハッキリ伝えると、AIは迷わず、期待に近い答えを出してくれます。<br>
+                「どこへ行きたいか」を言わずにナビに頼むようなものだと、AIも困っちゃう！
+            </p>
+        </div>
+
+        <!-- 比較セクション -->
+        <div class="comparison-section">
+            <h2 class="text-2xl font-semibold text-emerald-600 mb-4 text-center">比べてみよう！</h2>
+             <div class="comparison-grid">
+                 <!-- イマイチな例 -->
+                <div class="example-card bad-example">
+                    <h3><i class="far fa-times-circle mr-2"></i>イマイチな例</h3>
+                    <div class="prompt-text">"この記事を要約して"</div>
+                    <div class="ai-reaction bad-reaction">
+                        <i class="fas fa-question-circle"></i>
+                        <p>AI「えっと…誰向けに？<br>どのくらい短く？」</p>
+                    </div>
+                </div>
+                 <!-- 矢印 -->
+                <div class="text-center">
+                    <i class="fas fa-arrow-right arrow"></i>
+                </div>
+                 <!-- 良い例 -->
+                <div class="example-card good-example">
+                     <h3><i class="far fa-check-circle mr-2"></i>良い例</h3>
+                    <div class="prompt-text">"この記事の<strong class='text-emerald-700'>大事な点を3つ</strong>に絞って、<br><strong class='text-emerald-700'>中学生にも分かるように</strong>要約して"</div>
+                     <div class="ai-reaction good-reaction">
+                         <i class="fas fa-thumbs-up"></i>
+                        <p>AI「OK！<br>中学生向けに3点でまとめるね！」</p>
+                     </div>
+                 </div>
+             </div>
+         </div>
+
+        <!-- まとめ / Takeaway -->
+        <div class="takeaway mt-auto">
+            <p><i class="fas fa-star mr-2"></i>最初に「何を・どうしてほしいか」を具体的に書こう！</p>
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
+            <!-- <span class="text-gray-600">12 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

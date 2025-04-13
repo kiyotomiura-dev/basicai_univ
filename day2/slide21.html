@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>さらに高度なテクニックたち（ちょい見せ）</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #6366f1; /* Indigo 500 */ display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .intro-text { text-align: center; margin-bottom: 30px; }
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
+        .tech-card { background-color: #eef2ff; /* Indigo 50 */ border-radius: 8px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center;}
+        .tech-card h3 { font-size: 1.25rem; font-weight: 600; color: #4338ca; /* Indigo 700 */ margin-bottom: 10px; }
+        .tech-card i.main-icon { font-size: 2.5rem; color: #6366f1; margin-bottom: 15px; }
+        .tech-card p { font-size: 1rem; color: #4f46e5; /* Indigo 600 */ margin-bottom: 15px; flex-grow: 1;}
+        .tech-card .concept-img { width: 80%; max-height: 80px; object-fit: contain; margin-top: 10px; border: 1px solid #c7d2fe; border-radius: 4px; } /* イメージ図 */
+        .pe-vs-ft { margin-top: 30px; background-color: #f1f5f9; /* Slate 100 */ border-radius: 8px; padding: 20px; text-align: center; }
+        .pe-vs-ft h3 { font-size: 1.3rem; font-weight: 600; color: #475569; /* Slate 600 */ margin-bottom: 10px; }
+        .pe-vs-ft p { font-size: 1rem; color: #334155; /* Slate 700 */ }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-indigo-700">さらに高度なテクニックたち（ちょい見せ）</h1>
+             <div>
+                 <i class="fas fa-rocket text-indigo-300 text-4xl"></i>
+            </div>
+        </div>
+
+        <div class="intro-text">
+            <p class="text-xl text-gray-700">
+                プロンプトエンジニアリングは奥が深い！<br>
+                今日は紹介だけですが、こんな<strong class="text-indigo-600">もっとすごいテクニック</strong>もあります。
+            </p>
+        </div>
+
+        <!-- 高度なテクニック紹介 -->
+        <div class="tech-grid">
+            <div class="tech-card">
+                 <i class="main-icon fas fa-dice-d6"></i>
+                <h3>Self-Consistency</h3>
+                 <p>同じ質問をちょっと変えて何回か聞き、一番多かった答えを採用する。「多数決」で精度を上げる作戦！</p>
+                 <img src="https://via.placeholder.com/200x80/eef2ff/4f46e5?text=Multiple+Answers+%E2%86%92+Majority" alt="Self-Consistency Concept" class="concept-img">
+            </div>
+             <div class="tech-card">
+                 <i class="main-icon fas fa-recycle"></i>
+                <h3>ReAct (Reason+Act)</h3>
+                <p>AIが「考えて(Reason)」→「行動して(Act：検索など)」→「また考えて…」を繰り返し、複雑な質問に答える。</p>
+                 <img src="https://via.placeholder.com/200x80/eef2ff/4f46e5?text=Think+%E2%86%92+Act+%E2%86%92+Observe" alt="ReAct Concept" class="concept-img">
+            </div>
+             <div class="tech-card">
+                 <i class="main-icon fas fa-project-diagram"></i>
+                 <h3>Tree of Thoughts (ToT)</h3>
+                 <p>AIが複数の「思考の枝」を試し、どれが一番良さそうか評価しながら答えを探す。より賢い探索方法！</p>
+                 <img src="https://via.placeholder.com/200x80/eef2ff/4f46e5?text=Explore+Thought+Branches" alt="Tree of Thoughts Concept" class="concept-img">
+             </div>
+        </div>
+
+        <!-- PE vs FT -->
+        <div class="pe-vs-ft">
+            <h3>プロンプト技術 vs ファインチューニング</h3>
+            <p>プロンプト技術は、AIの脳みそ（モデル）を直接いじらずに<strong class="text-indigo-600">「伝え方」で調整</strong>する方法。手軽でコストも低いのが魅力！<br>
+            （ファインチューニングは、AIの脳みそ自体を追加学習させて専門家にする、もっと大掛かりな方法です）</p>
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+            <!-- <span class="text-gray-600">21 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

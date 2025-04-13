@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日の目標と内容</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #10b981; display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; flex-grow: 1; margin-top: 20px; }
+        .section-box { background-color: #f0fdf4; border-radius: 10px; padding: 25px; }
+        .section-box h2 { font-size: 1.6rem; font-weight: 600; color: #065f46; margin-bottom: 15px; display: flex; align-items: center; }
+        .section-box h2 i { margin-right: 12px; color: #10b981; }
+        .section-box ul { list-style: none; padding: 0; }
+        .section-box li { font-size: 1.1rem; color: #047857; margin-bottom: 12px; display: flex; align-items: flex-start; }
+        .section-box li i { margin-right: 10px; margin-top: 5px; color: #34d399; font-size: 0.9rem; width: 16px; text-align: center; }
+        .highlight { font-weight: 600; background-color: #a7f3d0; padding: 0 4px; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="text-4xl font-bold text-emerald-700">今日の目標と内容</h1>
+             <div>
+                <i class="fas fa-route text-emerald-300 text-4xl"></i>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- 学習目標 -->
+            <div class="section-box">
+                 <h2><i class="fas fa-bullseye"></i>今日のゴール (できるようになること)</h2>
+                <ul>
+                    <li><i class="fas fa-check"></i>AIへの「伝え方」がなぜ大事か、<span class="highlight">理由や仕組み</span>も一緒にわかる！</li>
+                    <li><i class="fas fa-check"></i>「お手本なし」「お手本あり」の頼み方 (<span class="highlight">Zero/Few-Shot</span>) のコツと、なぜそれが効くのか (<span class="highlight">見て学ぶ力</span>) がわかる！</li>
+                    <li><i class="fas fa-check"></i>基本的なお願いテクニックと、<span class="highlight">「考えさせる」テクニック</span> (CoT) のさわりを知る！</li>
+                    <li><i class="fas fa-check"></i>プロンプト技術のすごい所と、<span class="highlight">まだ難しい所</span>を知る！</li>
+                </ul>
+            </div>
+
+            <!-- アジェンダ -->
+            <div class="section-box">
+                 <h2><i class="far fa-compass"></i>今日学ぶこと (流れ)</h2>
+                <ul>
+                    <li><i class="fas fa-angle-right"></i>はじめに</li>
+                    <li><i class="fas fa-angle-right"></i>プロンプトの基本 ＆ AIが言葉を作る仕組み</li>
+                    <li><i class="fas fa-angle-right"></i>テクニック：お手本なし vs お手本あり (見て学ぶ力)</li>
+                    <li><i class="fas fa-angle-right"></i>実践！もっと上手にお願いするコツ集</li>
+                    <li><i class="fas fa-angle-right"></i>答えを良くする工夫 ＆ もっと高度なテクニック紹介</li>
+                    <li><i class="fas fa-angle-right"></i>やってみよう！ (演習 or 実演)</li>
+                    <li><i class="fas fa-angle-right"></i>まとめ、質問タイム、これからの話</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+            <!-- <span class="text-gray-600">3 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

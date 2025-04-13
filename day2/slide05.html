@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIはどうやって言葉を作るの？</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #f0f9ff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #0ea5e9; display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; align-items: start; margin-top: 15px;}
+        .explanation-section h2 { font-size: 1.6rem; font-weight: 600; color: #0369a1; margin-bottom: 15px; }
+        .explanation-section p { font-size: 1.1rem; color: #075985; margin-bottom: 15px; line-height: 1.7; }
+        .highlight { background-color: #bae6fd; padding: 2px 6px; border-radius: 4px; font-weight: 600; color: #0c4a6e; }
+        .diagram-section { background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .diagram-section h3 { text-align: center; font-weight: 600; color: #0369a1; margin-bottom: 15px; font-size: 1.3rem; }
+        .token-prediction { text-align: center; margin-bottom: 25px; }
+        .token-sequence { display: flex; gap: 5px; justify-content: center; margin-bottom: 8px; flex-wrap: wrap;}
+        .token { background-color: #e0f2fe; padding: 5px 10px; border-radius: 4px; font-family: monospace; font-size: 1.1rem; }
+        .next-token-box { display: inline-block; position: relative; margin-left: 10px; }
+        .next-token { background-color: #fbbf24; color: #78350f; font-weight: bold; padding: 5px 10px; border-radius: 4px; font-family: monospace; font-size: 1.1rem;}
+        .prediction-arrow { position: absolute; top: -25px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; color: #f59e0b; }
+        .attention-diagram { text-align: center; margin-top: 20px; }
+        .attention-diagram img { max-width: 90%; height: auto; margin: 0 auto; border: 1px solid #e0f2fe; border-radius: 4px; }
+        .caption { text-align: center; font-size: 0.9rem; color: #6b7280; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-10">
+             <h1 class="text-4xl font-bold text-sky-800">AIはどうやって言葉を作るの？</h1>
+            <div>
+                <i class="fas fa-magic text-sky-300 text-4xl"></i>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- 説明セクション -->
+            <div class="explanation-section">
+                <h2>次に来る言葉を予測！</h2>
+                <p>
+                    AI (LLM) は、あなたが入力した<strong class="text-sky-700">文章（＝文脈）を読んで</strong>、「次には<strong class="text-sky-700">どんな言葉が来るのが一番自然かな？</strong>」と予測します。
+                </p>
+                <p>
+                    これを<strong class="text-sky-700">一語ずつ繰り返す</strong>ことで、まるで人間が話したり書いたりするように、自然な文章を作り上げていきます。
+                </p>
+                 <h2>「どこが大事か」を見抜く力 (Attention)</h2>
+                 <p>
+                    文章を作る時、AIは入力された言葉の<strong class="text-sky-700">どこが特に重要か</strong>に「注目」します。これが<span class="highlight">Attention（注意機構）</span>と呼ばれる仕組みです。
+                 </p>
+                 <p>
+                     例えば「<strong class="text-sky-600">空</strong>が<strong class="text-sky-600">青い</strong>から<strong class="text-sky-600">気持ちいい</strong>」という文脈なら、「空」「青い」「気持ちいい」に注目して、次には「散歩」とか「公園」とかポジティブな言葉が来やすい、と判断します。
+                 </p>
+                 <p class="font-semibold text-sky-700">だから、最初のプロンプト（文脈）で、AIにどこに注目してほしいか伝えるのが大事なんです！</p>
+             </div>
+
+            <!-- 図解セクション -->
+            <div class="diagram-section">
+                <h3>① 次の言葉を予測</h3>
+                <div class="token-prediction">
+                     <div class="token-sequence">
+                        <span class="token">今日</span>
+                        <span class="token">は</span>
+                        <span class="token">良い</span>
+                        <span class="token">天気</span>
+                        <span class="token">、</span>
+                         <div class="next-token-box">
+                            <i class="fas fa-arrow-down prediction-arrow"></i>
+                            <span class="next-token">？</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600">AI「次は何かな？」 (予測)</p>
+                    <i class="fas fa-arrow-down text-2xl text-sky-400 my-3"></i>
+                     <div class="token-sequence">
+                        <span class="token">今日</span>
+                        <span class="token">は</span>
+                        <span class="token">良い</span>
+                        <span class="token">天気</span>
+                        <span class="token">、</span>
+                        <span class="token" style="background-color: #a7f3d0;">散歩</span> <!-- 生成されたトークン -->
+                     </div>
+                     <p class="text-sm text-gray-600">AI「『散歩』が一番ありそう！」 (生成)</p>
+                 </div>
+
+                 <h3>② どこに注目？ (Attentionのイメージ)</h3>
+                 <div class="attention-diagram">
+                    <!-- Simple conceptual image of attention mechanism -->
+                     <img src="https://via.placeholder.com/450x180/ffffff/0ea5e9?text=Prompt%3A+%E7%8C%AB+%E3%81%AE+%E3%81%8A%E3%81%99%E3%81%99%E3%82%81+%E3%81%AF%EF%BC%9F%0A%E2%86%93%0AAttention%3A+%E7%8C%AB%E3%81%AB%E5%BC%B7%E3%81%8F%E6%B3%A8%E7%9B%AE%EF%BC%81+%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%82%82%E3%80%82%0A%E2%86%93%0AOutput%3A+%E7%8C%AB%E3%81%AB%E3%81%AF%E3%80%81%E3%81%8A%E3%82%82%E3%81%A1%E3%82%83%E3%82%84%E3%82%B4%E3%83%8F%E3%83%B3%E3%81%8C%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%81%A7%E3%81%99%E3%80%82" alt="Attention Mechanism Simple Diagram">
+                     <p class="caption">プロンプトの中の重要な言葉に注目して、関連性の高い言葉を生成する。</p>
+                 </div>
+             </div>
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+            <!-- <span class="text-gray-600">5 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

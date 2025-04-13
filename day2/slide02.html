@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なぜ今プロンプト？ AIとの上手な付き合い方</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #4f46e5; display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .content-area { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; align-items: center; }
+        /* --- 修正箇所： h2 の font-semibold はクラスで指定するのでCSSからは削除 --- */
+        .text-section h2 { font-size: 1.8rem; /* font-semibold; ← 削除 */ color: #3730a3; margin-bottom: 15px; }
+        .text-section p { font-size: 1.1rem; color: #4338ca; margin-bottom: 15px; line-height: 1.7; }
+        /* --- 修正箇所： highlight の font-weight はクラスで指定するのでCSSからは削除 --- */
+        .highlight { background-color: #e0e7ff; padding: 2px 6px; border-radius: 4px; /* font-weight: 600; ← 削除 */ color: #4f46e5; }
+        .diagram-section { text-align: center; }
+        .ai-power-diagram { display: flex; justify-content: space-around; align-items: center; background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .ai-power-diagram .item { display: flex; flex-direction: column; align-items: center; }
+        .ai-power-diagram .item i { font-size: 2rem; margin-bottom: 8px; color: #6366f1; }
+        .ai-power-diagram .arrow { font-size: 1.5rem; color: #a5b4fc; }
+        .prompt-key-diagram { display: flex; align-items: center; justify-content: center; gap: 20px; }
+        .prompt-key-diagram .icon-box { text-align: center; }
+        .prompt-key-diagram i { font-size: 3rem; }
+        .prompt-key-diagram .arrow { font-size: 2rem; color: #4f46e5; }
+        /* --- 修正箇所： caption の font-weight はクラスで指定するのでCSSからは削除 --- */
+        .caption { font-size: 1rem; color: #4f46e5; /* font-weight: 500; ← 削除 */ margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="text-4xl font-bold text-indigo-800">なぜ今「プロンプト」が大事なの？</h1>
+             <div>
+                <i class="fas fa-question-circle text-indigo-300 text-4xl"></i>
+            </div>
+        </div>
+
+        <!-- コンテンツエリア -->
+        <div class="content-area">
+            <!-- テキストセクション -->
+            <div class="text-section">
+                <!-- --- 修正箇所： h2 に font-semibold クラスを追加 --- -->
+                <h2 class="font-semibold">すごいぞ！ 生成AI (LLM)</h2>
+                <p>
+                    ChatGPTみたいなAIは、文章を作ったり、まとめたり、絵を描いたり、<strong class="text-indigo-700">色々なことができるスーパー頭脳</strong>を持っています。
+                </p>
+                 <!-- --- 修正箇所： h2 に font-semibold クラスを追加 --- -->
+                <h2 class="font-semibold">でも、どうやって話しかける？</h2>
+                <p>
+                    このすごいAIも、<strong class="text-indigo-700">「伝え方」</strong>次第で、出てくる答えのレベルが全然違います。
+                    その「伝え方」の工夫が<span class="highlight font-semibold">プロンプトエンジニアリング</span>です。 <!-- highlightにもfont-semibold追加 -->
+                </p>
+                <p>
+                    AIに<strong class="text-indigo-700">上手にお願いしたり、質問したりする技術</strong>で、AIの<strong class="text-indigo-700">隠れた力</strong>を引き出すことができます。AIとの大事な<strong class="text-indigo-700">コミュニケーションツール</strong>なんです。
+                </p>
+            </div>
+             <!-- 図解セクション -->
+            <div class="diagram-section">
+                <!-- --- 修正箇所： p に font-semibold クラスを追加 --- -->
+                <p class="text-indigo-700 font-semibold mb-2">AIができること色々！</p>
+                <div class="ai-power-diagram">
+                     <div class="item"><i class="fas fa-file-alt"></i><span class="text-sm">文章作成</span></div>
+                    <i class="fas fa-plus arrow"></i>
+                     <div class="item"><i class="fas fa-language"></i><span class="text-sm">翻訳</span></div>
+                     <i class="fas fa-plus arrow"></i>
+                    <div class="item"><i class="fas fa-code"></i><span class="text-sm">コード生成</span></div>
+                     <i class="fas fa-plus arrow"></i>
+                    <div class="item"><i class="fas fa-lightbulb"></i><span class="text-sm">アイデア出し</span></div>
+                </div>
+
+                <div class="prompt-key-diagram mt-8">
+                    <div class="icon-box">
+                        <i class="fas fa-robot text-indigo-400"></i>
+                         <p class="text-sm text-gray-600">AIの能力</p>
+                     </div>
+                    <i class="fas fa-arrow-left arrow"></i>
+                    <div class="icon-box">
+                         <i class="fas fa-key text-yellow-500"></i>
+                        <p class="text-sm text-gray-600">プロンプト<br>(上手な伝え方)</p>
+                    </div>
+                     <i class="fas fa-arrow-left arrow"></i>
+                    <div class="icon-box">
+                        <i class="fas fa-user text-indigo-500"></i>
+                         <p class="text-sm text-gray-600">あなた</p>
+                     </div>
+                 </div>
+                 <!-- --- 修正箇所： caption に font-medium クラスを追加 (font-weight: 500相当) --- -->
+                 <p class="caption font-medium">プロンプトがAIの力を引き出す「カギ」になる！</p>
+             </div>
+        </div>
+
+        <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+            <!-- <span class="text-gray-600">2 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>

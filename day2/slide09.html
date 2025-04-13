@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なぜ「お手本」が効くの？ AIの「見て学ぶ力」</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
+        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #f0fdfa; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #14b8a6; display: flex; flex-direction: column; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; align-items: start; margin-top: 15px; }
+        .explanation-section h2 { font-size: 1.6rem; font-weight: 600; color: #0f766e; margin-bottom: 15px; }
+        .explanation-section p { font-size: 1.1rem; color: #115e59; margin-bottom: 15px; line-height: 1.7; }
+        .highlight { background-color: #99f6e4; padding: 2px 6px; border-radius: 4px; font-weight: 600; color: #134e4a; }
+        .analogy-box { background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center;}
+        .analogy-box h3 { font-weight: 600; color: #0f766e; margin-bottom: 15px; font-size: 1.3rem; }
+        .analogy-steps { display: flex; justify-content: space-around; align-items: center; margin-top: 15px; }
+        .step { max-width: 30%; text-align: center; }
+        .step i { font-size: 2.5rem; margin-bottom: 10px; color: #2dd4bf; }
+        .step p { font-size: 0.95rem; color: #115e59; }
+        .arrow { font-size: 1.8rem; color: #14b8a6; }
+        .icl-effect-diagram { margin-top: 25px; background-color: #ccfbf1; padding: 15px; border-radius: 8px; }
+        .icl-effect-diagram p { font-size: 1rem; color: #134e4a; font-weight: 500; }
+        .icl-effect-diagram i { margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide fade-in-up">
+        <!-- ヘッダー -->
+        <div class="flex justify-between items-center mb-10">
+            <h1 class="text-4xl font-bold text-teal-800">なぜ「お手本」が効くの？ AIの「見て学ぶ力」</h1>
+            <div>
+                 <i class="fas fa-seedling text-teal-300 text-4xl"></i> <!-- 成長・学習のイメージ -->
+             </div>
+        </div>
+
+        <div class="content-grid">
+            <!-- 説明セクション -->
+            <div class="explanation-section">
+                <h2>AIにも「見て学ぶ力」がある！</h2>
+                <p>
+                    Few-Shot（お手本あり）がうまくいくのは、AI (LLM) が持っている<strong class="text-teal-700">「In-Context Learning (ICL)」</strong>、つまり<strong class="text-teal-700">「文脈の中からその場で学習する力」</strong>のおかげです。
+                </p>
+                <p>
+                    プロンプトの中にあるお手本を見て、AIは「なるほど、<strong class="text-teal-700">今回はこういうルールで、こういう風に答えればいいんだな</strong>」と、<strong class="text-teal-700">その場でやり方を理解</strong>します。
+                </p>
+                <p>
+                    面白いのは、AIの<strong class="text-teal-700">脳みそ（モデルのパラメータ）自体は書き換わらない</strong>のに、あたかも新しいことを覚えたかのように振る舞える点です。
+                </p>
+                 <h2>お手本の効果</h2>
+                <div class="icl-effect-diagram">
+                     <p><i class="fas fa-lightbulb"></i>お手本があると、AIは「何が求められているか」<strong class="text-teal-900">ハッキリわかる</strong>！</p>
+                     <p class="mt-2"><i class="fas fa-pen-nib"></i>「こんな<strong class="text-teal-900">書き方・スタイル</strong>で答えてほしい」という指示にもなる！</p>
+                 </div>
+            </div>
+
+             <!-- アナロジーセクション -->
+            <div class="analogy-box">
+                <h3>例えるなら… 初めての料理</h3>
+                <div class="analogy-steps">
+                    <div class="step">
+                        <i class="fas fa-book"></i>
+                        <p><strong>レシピを見る</strong><br>(Few-Shotのお手本)</p>
+                    </div>
+                    <i class="fas fa-arrow-right arrow"></i>
+                     <div class="step">
+                        <i class="fas fa-utensils"></i>
+                        <p><strong>作り方を理解する</strong><br>(ICLでタスクを把握)</p>
+                     </div>
+                     <i class="fas fa-arrow-right arrow"></i>
+                    <div class="step">
+                        <i class="fas fa-concierge-bell"></i>
+                         <p><strong>料理を完成させる</strong><br>(適切な答えを生成)</p>
+                    </div>
+                </div>
+                <p class="text-center text-sm text-gray-600 mt-4">レシピ（お手本）を見れば、初めてでも料理（タスク）ができるようになるのに似ています。</p>
+            </div>
+        </div>
+
+         <!-- スライド番号 -->
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+             <!-- <span class="text-gray-600">9 / 26</span> -->
+        </div>
+    </div>
+</body>
+</html>
