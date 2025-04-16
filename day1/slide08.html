@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - ニューラルネットワークの基本構造</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif; /* 元のフォントを維持 */
+            background-color: #f0f9ff; /* 元の背景色を維持 */
+            overflow: auto;
+        }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影を維持 */
+            border-radius: 12px; /* 元の角丸を維持 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ }
+
+        /* --- 元のスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .pulse-animation { animation: pulse 3s ease-in-out infinite; }
+        .process-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .process-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .process-arrow { position: relative; }
+        .process-arrow:after { content: ''; position: absolute; top: 50%; right: -30px; width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 20px solid #e2e8f0; transform: translateY(-50%); }
+        .process-arrow:last-child:after { display: none; } /* 最後の矢印を消す */
+
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+            <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title"><i class="fas fa-network-wired mr-2"></i>ニューラルネットワークの基本構造</div>
+        </div>
+
+        <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+            <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+                <p class="text-xl text-gray-700">例として、画像認識における猫の識別を行うニューラルネットワークの処理過程を示します。</p>
+            </div>
+
+            <div class="flex justify-between items-center mb-8">
+                <div class="process-arrow w-1/4">
+                    <div class="process-card bg-blue-50 p-4 text-center pulse-animation">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-camera text-blue-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-700 mb-2">1. 入力層 (Input Layer)</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">画像データを数値化し、入力層へ伝達。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-arrow w-1/4">
+                    <div class="process-card bg-purple-50 p-4 text-center pulse-animation">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-brain text-purple-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-700 mb-2">2. 中間層 (Hidden Layers) における演算</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">中間層において、入力されたデータに対して重み付けと活性化関数による演算処理を実施。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="process-arrow w-1/4">
+                    <div class="process-card bg-teal-50 p-4 text-center pulse-animation">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-search text-teal-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-teal-700 mb-2">3. 特徴抽出 (Feature Extraction)</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">中間層の各層が、エッジ、テクスチャ、形状などの階層的な特徴を抽出。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-1/4">
+                    <div class="process-card bg-pink-50 p-4 text-center pulse-animation">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-cat text-pink-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-pink-700 mb-2">4. 出力層 (Output Layer) と識別結果</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">出力層において、抽出された特徴に基づいて猫である確率を出力し、識別結果を提示。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white bg-opacity-80 rounded-xl p-5 mb-6">
+                <h3 class="text-xl font-bold text-indigo-800 text-center mb-4">ニューラルネットワークによる特徴抽出の階層性</h3>
+                <div class="flex justify-around">
+                    <div class="text-center">
+                        <div class="bg-blue-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                            <div class="relative">
+                                <i class="fas fa-vector-square text-blue-700 text-5xl opacity-75"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-blue-700 text-sm">第1層：エッジやコーナーなどの低レベル特徴を検出。</h4>
+                        <p class="text-xs text-gray-700">画像の基本的な構成要素を捉える。</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-purple-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                            <div class="relative">
+                                <i class="far fa-shapes text-purple-700 text-5xl opacity-75"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-purple-700 text-sm">第2層：線や点の組み合わせによる形状やテクスチャを検出。</h4>
+                        <p class="text-xs text-gray-700">より複雑なパターンを認識する。</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-teal-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                            <div class="relative">
+                                <i class="fas fa-object-group text-teal-700 text-5xl opacity-75"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-teal-700 text-sm">第3層：目、耳、鼻などの部品としての特徴を検出。</h4>
+                        <p class="text-xs text-gray-700">オブジェクトの構成要素を特定する。</p>
+                    </div>
+
+                    <div class="text-center">
+                        <div class="bg-pink-100 rounded-lg p-3 mb-2 w-32 h-32 flex items-center justify-center mx-auto">
+                            <i class="fas fa-cat text-pink-700 text-5xl opacity-75"></i>
+                        </div>
+                        <h4 class="font-bold text-pink-700 text-sm">最終層：抽出された特徴を統合し、画像全体としてのオブジェクトを認識。</h4>
+                        <p class="text-xs text-gray-700">特定のカテゴリ（ここでは「猫」）として識別する。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 rounded-xl p-4 max-w-2xl mx-auto mt-auto mb-4"> <!-- 位置調整 -->
+                <div class="flex items-center">
+                    <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-lightbulb text-yellow-600"></i>
+                    </div>
+                    <p class="text-gray-700 text-sm">人間の脳における視覚野も、同様の階層的な特徴抽出を行っていると考えられています。ニューラルネットワークの設計は、このような脳の情報処理メカニズムにヒントを得ています。</p>
+                </div>
+            </div>
+
+        </div> <!-- slide-content の閉じタグ -->
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">8 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

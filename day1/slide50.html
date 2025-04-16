@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - まとめ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif; /* 元のフォント */
+            background-color: #f0f9ff; /* 元の背景色 */
+            overflow: auto;
+        }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+             /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
+            border-radius: 12px; /* 元の角丸 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+         @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; }
+
+        /* --- 元のコンテンツスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .pulse-animation { animation: pulse 3s ease-in-out infinite; }
+        .summary-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; overflow: auto; }
+        .summary-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+    </style>
+</head>
+<body>
+    <div class="slide">
+         <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+            <!-- 元のタイトルからアイコンを除き、テキストのみ使用 -->
+            <div class="summary-title">まとめ：AIの基礎</div>
+        </div>
+
+        <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+             <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-center items-center mb-8"> ... </div> -->
+
+            <div class="flex justify-center mb-6 mt-4"> <!-- mt-4追加でヘッダーとのスペース調整 -->
+                <div class="float-animation">
+                    <div class="flex space-x-4">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9e0.svg" alt="Brain emoji" class="w-16 h-16">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f916.svg" alt="Robot emoji" class="w-16 h-16">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4da.svg" alt="Books emoji" class="w-16 h-16">
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div class="summary-card bg-white p-5">
+                    <h3 class="text-xl font-bold text-purple-700 text-center mb-4">本講義で学んだこと</h3>
+
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-blue-600"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">人工知能（AI）の基本的な定義と歴史的変遷</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-green-600"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">弱いAIと強いAIの概念、およびそれぞれの応用事例</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-purple-600"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">機械学習の基本的な手法（教師あり学習、教師なし学習、強化学習など）</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-pink-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-pink-600"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">深層学習（ディープラーニング）の概要とニューラルネットワークの基本構造</p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-yellow-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-check text-yellow-600"></i>
+                            </div>
+                            <p class="text-gray-700 text-sm">近年の注目技術である生成AIの仕組みと代表的な応用例</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-card bg-white p-5">
+                    <h3 class="text-xl font-bold text-indigo-700 text-center mb-4">今後のAIとの向き合い方</h3>
+
+                    <div class="space-y-3">
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-lightbulb text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-bold text-sm">継続的な学習の重要性</p>
+                                <p class="text-xs text-gray-600">AI技術は常に進化しています。最新の動向を把握し、学び続ける姿勢が重要です。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-search text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-bold text-sm">倫理的・社会的な課題への意識</p>
+                                <p class="text-xs text-gray-600">AIの発展に伴い、倫理的な問題や社会への影響についても深く考察する必要があります。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-users text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-bold text-sm">分野を超えた連携の促進</p>
+                                <p class="text-xs text-gray-600">AIの活用は多岐にわたるため、様々な専門分野との連携が不可欠です。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0 mt-1">
+                                <i class="fas fa-question-circle text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-bold text-sm">批判的思考と情報リテラシー</p>
+                                <p class="text-xs text-gray-600">AIが出力する情報を鵜呑みにせず、批判的に評価し、正確な情報を見極める能力が求められます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-card bg-indigo-50 p-5 mb-6">
+                <h3 class="text-xl font-bold text-indigo-800 text-center mb-3">更なる学習のために</h3>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="bg-blue-100 rounded-full p-3 w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                            <i class="fas fa-laptop-code text-2xl text-blue-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm mb-1">専門分野の学習</h4>
+                        <p class="text-xs text-gray-700">興味のあるAIの専門分野（自然言語処理、画像認識など）を深く学んでみましょう。</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="bg-green-100 rounded-full p-3 w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                            <i class="fas fa-robot text-2xl text-green-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm mb-1">研究論文を読む</h4>
+                        <p class="text-xs text-gray-700">最新の研究論文に触れ、AIの最先端技術を理解しましょう。</p>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="bg-purple-100 rounded-full p-3 w-16 h-16 flex items-center justify-center mx-auto mb-2">
+                            <i class="fas fa-project-diagram text-2xl text-purple-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm mb-1">実践的なプロジェクト</h4>
+                        <p class="text-xs text-gray-700">学んだ知識を活かして、AIを活用した実践的なプロジェクトに挑戦してみましょう。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl p-6 text-center mt-auto mb-4"> <!-- 位置調整 -->
+                <h3 class="text-2xl font-bold text-white mb-2">AIの可能性を拓き、未来を創造する</h3>
+                <p class="text-white">本講義で得た知識を土台に、皆さんがそれぞれの分野でAIを理解し、活用していくことを期待しています。</p>
+                <div class="mt-4 flex justify-center space-x-6">
+                    <div class="float-animation">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4bb.svg" alt="Laptop emoji" class="w-12 h-12">
+                    </div>
+                    <div class="float-animation" style="animation-delay: 0.5s;">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1.svg" alt="Person gesturing emoji" class="w-12 h-12">
+                    </div>
+                    <div class="float-animation" style="animation-delay: 1s;">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f469-1f4bb.svg" alt="Woman technologist emoji" class="w-12 h-12">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">48 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

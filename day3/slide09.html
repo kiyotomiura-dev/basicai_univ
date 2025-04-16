@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 9: 活用事例②：アイデア出し、壁打ち相手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; /* align-items: center から変更 */ } /* 2カラム */
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { grid-column: 1 / -1; /* 見出しはカラム全体に */ font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 10px; }
+        /* --- 修正点 --- */
+        /* p.intro のスタイル定義から Tailwind クラス名を削除 */
+        p.intro-paragraph { grid-column: 1 / -1; /* 導入文もカラム全体に */ }
+        /* --- 修正ここまで --- */
+        .use-case { background-color: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); height: fit-content; /* 高さを内容に合わせる */ }
+        .use-case h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-bottom: 15px; display: flex; align-items: center; }
+        .use-case h3 i { font-size: 1.8rem; margin-right: 12px; width: 30px; text-align: center; }
+        .use-case ul { list-style: none; padding-left: 0; }
+        .use-case li { margin-bottom: 12px; font-size: 1.1rem; /* 17.6px */ color: #374151; display: flex; align-items: flex-start; }
+        .use-case li i { margin-right: 8px; color: #6B7280; margin-top: 7px; font-size: 0.9rem; }
+        /* p要素の基本スタイル */
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; } /* 基本のpタグスタイル */
+        li span { word-break: break-word; line-height: 1.8; }
+        span { min-width: 0; }
+        /* .illustration { text-align: center; }
+        .illustration i { font-size: 12rem; color: #A5B4FC; opacity: 0.6; } */ /* イラストは一旦コメントアウト */
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">テキスト生成AIの活用事例</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-lightbulb-on mr-3 text-[#4A90E2]"></i>活用事例②：アイデア出し・壁打ち相手</h2>
+            <!-- --- 修正点 --- -->
+            <!-- class属性に Tailwind クラスを追加し、クラス名を intro-paragraph に変更 -->
+            <p class="intro-paragraph text-lg text-gray-600 mb-6">行き詰まった時、新しい視点が欲しい時に、AIは頼れる相談相手になります。</p>
+            <!-- --- 修正ここまで --- -->
+
+            <div class="use-case">
+                <h3><i class="fa-solid fa-brain-circuit"></i>アイデア発想支援</h3>
+                <ul>
+                    <li><i class="fa-solid fa-angle-right"></i><span>新しい企画の切り口</span></li>
+                    <li><i class="fa-solid fa-angle-right"></i><span>ブログ記事やレポートのテーマ</span></li>
+                    <li><i class="fa-solid fa-angle-right"></i><span>イベントのネーミング案</span></li>
+                    <li><i class="fa-solid fa-angle-right"></i><span>問題解決のための多様なアプローチ</span></li>
+                </ul>
+                 <p class="mt-4 text-sm text-gray-500">例：「環境問題をテーマにした学園祭の企画アイデアを10個出して。」</p>
+            </div>
+
+            <div class="use-case">
+                <h3><i class="fa-solid fa-comments-question"></i>壁打ち・思考整理</h3>
+                <ul>
+                    <li><i class="fa-solid fa-angle-right"></i><span>自分の考えに対する反論や別の視点</span></li>
+                    <li><i class="fa-solid fa-angle-right"></i><span>複雑なテーマの分かりやすい説明</span></li>
+                    <li><i class="fa-solid fa-angle-right"></i><span>議論の論点を整理</span></li>
+                    <li><i class="fa-solid fa-angle-right"></i><span>プレゼンの想定問答</span></li>
+                </ul>
+                <p class="mt-4 text-sm text-gray-500">例：「再生可能エネルギー導入のメリットについて説明する。デメリットや懸念点も指摘して。」</p>
+            </div>
+
+        </div>
+        <div class="slide-number"><!-- 9 / 29 --></div>
+    </div>
+</body>
+</html>

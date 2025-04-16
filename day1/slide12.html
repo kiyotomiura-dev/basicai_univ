@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成モデル③ (大学生・教員向け) - Transformer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォントを維持 */ background-color: #f0f9ff; /* 元の背景色を維持 */ overflow: auto; }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影を維持 */
+            border-radius: 12px; /* 元の角丸を維持 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+         @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; justify-content: center;} /* コンテンツ中央寄せ */
+
+        /* --- 元のスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .learn-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; background-color: white; display: flex; flex-direction: column; }
+        .learn-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .card-content { flex-grow: 1; padding: 24px; }
+        .card-footer { padding: 16px 24px; background-color: rgba(0, 0, 0, 0.03); border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
+        .twemoji { width: 3rem; height: 3rem; }
+        .attention-box { background-color: #f3f4f6; border: 1px solid #d1d5db; padding: 16px; border-radius: 8px; text-align: center; position: relative; }
+        .highlight { background-color: #fef9c3; padding: 0 4px; border-radius: 3px; font-weight: bold; position: relative; }
+        .attention-arrow { position: absolute; content: ''; width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-bottom: 15px solid #fbbf24; transform: rotate(180deg); }
+        .speech-bubble { position: relative; background: #a7f3d0; border-radius: .4em; padding: 8px 12px; font-size: 0.8rem; display: inline-block; margin-top: 10px; }
+        .speech-bubble:after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 0; border: 10px solid transparent; border-top-color: #a7f3d0; border-bottom: 0; margin-left: -10px; margin-bottom: -10px; }
+        .example-icon { font-size: 1.5rem; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+         <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+            <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title"><i class="fas fa-brain mr-2"></i>生成モデル③：Transformer</div>
+        </div>
+
+        <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+            <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-4"> ... </div> -->
+
+            <div class="learn-card max-w-4xl w-full mx-auto"> <!-- mx-auto を追加 -->
+                <div class="card-content">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-file-alt text-green-700 text-5xl mr-3"></i>
+                        <h2 class="text-2xl font-bold text-green-700">Transformer</h2>
+                    </div>
+                    <p class="text-gray-800 mb-4">
+                        <span class="font-bold">概要:</span> Transformerは、自然言語処理（NLP）分野において革新的な進歩をもたらした深層学習モデルです。特に、文脈を理解し、長距離の依存関係を捉える能力に優れており、その核心となるメカニズムは「アテンション」です。
+                    </p>
+
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-2">主要メカニズム：アテンション</h3>
+                        <p class="text-sm text-center text-gray-600 mb-4">アテンション機構は、入力シーケンス内の各要素が、他の要素に対してどの程度関連性を持っているかを学習し、重要な要素に焦点を当てる仕組みです。</p>
+                        <div class="attention-box mx-auto max-w-lg">
+                            <p class="text-lg mb-6">
+                                公園 で <span id="target-word" class="highlight">猫</span> が ボール を 追いかけて <span id="query-word" class="highlight">いた</span>。 <span class="highlight">それ</span> は とても 速かった。
+                            </p>
+                            <div id="arrow-container" class="relative h-12">
+                                <div class="attention-arrow" style="left: 75%; top: -5px;"></div>
+                                <div class="speech-bubble" style="position: absolute; left: 65%; top: 15px;">
+                                    「それ」は「猫」を指しています。
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">(例: モデルは「それ」が文脈の中でどの単語（ここでは「猫」）を指しているかを理解します。)</p>
+                        </div>
+                        <p class="text-sm text-center text-gray-700 mt-4">
+                            このアテンション機構により、Transformerは文中の離れた単語間の関係性を捉え、文脈全体を考慮した処理が可能になります。これにより、従来のRNN（Recurrent Neural Network）ベースのモデルと比較して、長文の処理やより自然な言語理解が実現されます。
+                        </p>
+                    </div>
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">Transformerの主要な応用分野</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="flex items-center bg-blue-50 p-3 rounded-lg">
+                                <span class="example-icon bg-blue-200 text-blue-700"><i class="fas fa-robot"></i></span>
+                                <div>
+                                    <p class="font-bold text-blue-800">対話システム</p>
+                                    <p class="text-xs text-gray-700">人間と自然な対話を行うチャットボットやバーチャルアシスタントなどに活用されています。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-yellow-50 p-3 rounded-lg">
+                                <span class="example-icon bg-yellow-200 text-yellow-700"><i class="fas fa-globe"></i></span>
+                                <div>
+                                    <p class="font-bold text-yellow-800">機械翻訳</p>
+                                    <p class="text-xs text-gray-700">異なる言語間の翻訳において、高い精度を実現しています。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-purple-50 p-3 rounded-lg">
+                                <span class="example-icon bg-purple-200 text-purple-700"><i class="fas fa-edit"></i></span>
+                                <div>
+                                    <p class="font-bold text-purple-800">テキスト生成</p>
+                                    <p class="text-xs text-gray-700">文章の作成支援、ブログ記事の生成、小説の執筆など、多様なテキスト生成タスクに利用されています。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-red-50 p-3 rounded-lg">
+                                <span class="example-icon bg-red-200 text-red-700"><i class="fas fa-question-circle"></i></span>
+                                <div>
+                                    <p class="font-bold text-red-800">質問応答</p>
+                                    <p class="text-xs text-gray-700">与えられた質問に対して、関連性の高い情報に基づいて回答を生成します。</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-gray-100 p-3 rounded-lg">
+                                <span class="example-icon bg-gray-300 text-gray-700"><i class="fas fa-code"></i></span>
+                                <div>
+                                    <p class="font-bold text-gray-800">コード生成</p>
+                                    <p class="text-xs text-gray-700">自然言語による指示に基づいて、プログラムのソースコードを生成する能力も示しています。</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-center text-gray-700 mt-4 font-semibold">
+                            Transformerアーキテクチャは、現代の多くの高性能な自然言語処理モデルの基盤となっています。
+                        </p>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <p class="text-sm text-gray-600"><i class="fas fa-info-circle mr-1 text-yellow-500"></i><span class="font-bold">ポイント:</span> Transformerモデルは、アテンション機構を核とし、言語データの文脈理解と生成において卓越した能力を発揮します。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">12 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

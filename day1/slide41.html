@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生向け) - 実例４：VALL-E X (音声生成)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォント */ background-color: #f0f9ff; /* 元の背景色 */ overflow: auto; }
+        .slide {
+             /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+             /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
+            border-radius: 12px; /* 元の角丸 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; }
+
+        /* --- 元のコンテンツスタイルは変更しない --- */
+        .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .try-button { display: inline-block; background-color: #0ea5e9; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #0284c7; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+            <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title"><i class="fas fa-microphone mr-2"></i>生成AIの実例４：VALL-E X (音声生成)</div>
+        </div>
+
+         <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+             <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="text-center mb-6">
+                <p class="text-lg text-gray-800 mb-3">自然な人間の声に近い音声を生成できるAI！<br><span class="font-bold">多言語に対応</span>しており、様々な表現が可能です。（利用条件をご確認ください）</p>
+                <a href="https://vallex-demo.microsoft.com/" target="_blank" class="try-button">
+                    <i class="fas fa-external-link-alt mr-2"></i>VALL-E X デモを試す
+                </a>
+            </div>
+
+            <div class="flex-grow flex flex-col items-center">
+                <h2 class="text-2xl font-bold text-center text-sky-800 mb-4">VALL-E Xでの音声生成例</h2>
+
+                <div class="example-card w-full max-w-3xl">
+                    <p class="font-semibold mb-1">プロンプト例 (落ち着いた語り口):</p>
+                    <p class="prompt-text">Generate a voice that sounds calm and informative, suitable for explaining a complex topic.</p>
+                    <div class="image-grid">
+                        <div class="image-placeholder">(生成される音声の波形イメージ)</div>
+                    </div>
+                    <p class="text-xs text-right text-gray-500 mt-1">※英語でのプロンプトが推奨される場合があります</p>
+                </div>
+
+                <div class="example-card w-full max-w-3xl">
+                    <p class="font-semibold mb-1">プロンプト例 (感情豊かな表現):</p>
+                    <p class="prompt-text">Generate a voice that expresses excitement and enthusiasm, as if announcing good news.</p>
+                    <div class="image-grid">
+                        <div class="image-placeholder">(生成される音声の波形イメージ)</div>
+                    </div>
+                </div>
+
+                <p class="text-center text-sm text-gray-700 mt-4">色々なプロンプトを試して、表現豊かな音声を生成してみましょう！</p>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">7 / 9</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成モデル① (大学生・教員向け) - 敵対的生成ネットワーク (GAN)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォントを維持 */ background-color: #f0f9ff; /* 元の背景色を維持 */ overflow: auto; }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+             /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影を維持 */
+            border-radius: 12px; /* 元の角丸を維持 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; justify-content: center;} /* コンテンツ中央寄せ */
+
+        /* --- 元のスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .learn-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; background-color: white; display: flex; flex-direction: column; }
+        .learn-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .card-content { flex-grow: 1; padding: 24px; }
+        .card-footer { padding: 16px 24px; background-color: rgba(0, 0, 0, 0.03); border-top: 1px solid rgba(0,0,0,0.05); margin-top: auto; }
+        .twemoji { width: 3rem; height: 3rem; }
+        .diagram-box { border: 2px dashed; padding: 10px; border-radius: 8px; text-align: center; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.6); } /* 半透明背景追加 */
+        .arrow { font-size: 1.5rem; margin: 0 10px; color: #6b7280; }
+        .feedback-arrow { font-size: 1rem; color: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+         <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+            <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title"><i class="fas fa-palette mr-2"></i>生成モデル①：敵対的生成ネットワーク (GAN)</div>
+        </div>
+
+        <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+            <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-4"> ... </div> -->
+
+            <div class="learn-card max-w-3xl w-full mx-auto"> <!-- mx-auto を追加 -->
+                <div class="card-content">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-robot text-pink-700 text-5xl mr-3"></i>
+                        <h2 class="text-2xl font-bold text-pink-700">敵対的生成ネットワーク (Generative Adversarial Network: GAN)</h2>
+                    </div>
+                    <p class="text-gray-800 mb-4">
+                        <span class="font-bold">概要:</span> GANは、生成モデルと識別モデルという2つのネットワークが互いに競合しながら学習を進めることで、高品質な生成データを生成する深層学習モデルです。以下にその基本的な仕組みを図示します。
+                    </p>
+
+                    <div class="mt-6 border-t pt-4">
+                        <h3 class="text-lg font-semibold text-center text-gray-700 mb-4">GANの基本構造</h3>
+                        <div class="flex items-center justify-around relative mb-4">
+                            <div class="diagram-box border-pink-400 w-48">
+                                <i class="fas fa-magic text-pink-600 text-4xl mb-1"></i>
+                                <p class="font-bold text-pink-600">生成器 (Generator)</p>
+                                <p class="text-xs text-gray-600 mt-1">潜在変数 <span class="font-mono">z</span> から<br>実データに近い偽データを生成</p>
+                                <p class="text-xs text-gray-500 mt-2">入力: 潜在変数 <span class="font-mono">z</span></p>
+                            </div>
+
+                            <div class="flex flex-col items-center">
+                                <i class="fas fa-arrow-right arrow"></i>
+                                <p class="text-xs text-gray-600 mt-1">生成データ<br>(偽データ)</p>
+                            </div>
+
+                            <div class="diagram-box border-blue-400 w-48">
+                                <i class="fas fa-binoculars text-blue-600 text-4xl mb-1"></i>
+                                <p class="font-bold text-blue-600">識別器 (Discriminator)</p>
+                                <p class="text-xs text-gray-600 mt-1">入力されたデータが<br>本物か偽物かを識別</p>
+                                <p class="text-xs text-gray-500 mt-2">入力: 生成データ / 実データ</p>
+                            </div>
+                        </div>
+
+                        <div class="relative h-16 mt-2">
+                            <div class="absolute bottom-0 left-1/4 transform -translate-x-1/2 flex items-center">
+                                <i class="fas fa-arrow-left feedback-arrow mr-1"></i>
+                                <p class="text-xs text-red-600">生成器へのフィードバック<br>(よりリアルなデータを生成)</p>
+                            </div>
+                            <div class="absolute bottom-0 right-1/4 transform translate-x-1/2 flex items-center">
+                                <i class="fas fa-undo feedback-arrow mr-1 transform scale-x-[-1]"></i>
+                                <p class="text-xs text-red-600">識別器へのフィードバック<br>(より正確な識別)</p>
+                            </div>
+                            <div class="absolute top-[-50px] right-[25%] transform translate-x-1/2 text-center">
+                                <p class="text-xs text-gray-600 mb-1">実データ</p>
+                                <i class="fas fa-arrow-down arrow" style="font-size: 1.2rem;"></i>
+                            </div>
+                        </div>
+
+                        <p class="text-sm text-center text-gray-700 mt-4">
+                            生成器と識別器は、互いに敵対しながら学習を進めます。生成器は識別器を騙せるようなリアルな偽データを生成しようとし、識別器は生成された偽データと本物のデータを正確に識別しようとします。この競合的な学習により、生成器は非常に高品質なデータを生成できるようになります。
+                        </p>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <p class="text-sm text-gray-600"><i class="fas fa-flask mr-1 text-yellow-500"></i><span class="font-bold">応用例:</span></p>
+                    <ul class="list-disc list-inside text-sm text-gray-700 ml-4 mt-1">
+                        <li>現実には存在しない人物の顔写真生成</li>
+                        <li>画像の超解像 (低解像度画像の高画質化)</li>
+                        <li>画像編集 (特定領域の自然な補完・修正)</li>
+                        <li>スタイル変換 (絵画の画風変換など)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">10 / 48</span>
+        </div>
+         -->
+    </div>
+</body>
+</html>

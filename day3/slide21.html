@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 21: 演習2 画像生成</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .exercise-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; text-align: center; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-top: 25px; margin-bottom: 15px; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; /* 18px */ color: #374151; margin-bottom: 15px; text-align: center; max-width: 90%; }
+        .exercise-box { background-color: #fff; border: 2px dashed #4A90E2; border-radius: 8px; padding: 30px 40px; margin-top: 20px; width: 80%; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .exercise-box ul { list-style: decimal; padding-left: 30px; margin-top: 15px; text-align: left; }
+        .exercise-box li { margin-bottom: 15px; font-size: 1.125rem; }
+        .exercise-box strong { color: #4A90E2; }
+        .prompt-code {
+            display: block; background-color: #282C34; color: #ABB2BF; padding: 8px 15px; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 0.95em; line-height: 1.7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin-top: 5px; margin-bottom: 10px; text-align: left;
+        }
+         .prompt-code .negative { color: #E06C75; }
+        .timer { margin-top: 20px; font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .timer i { margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="exercise-title"><i class="fa-solid fa-palette mr-2"></i>画像生成 演習</div>
+        </div>
+        <div class="slide-content">
+            <h2>【演習2】プロンプトを工夫して画像を生成してみよう</h2>
+            <p>画像生成AIツールを使って、プロンプト（指示）を工夫しながら画像を生成してみましょう。</p>
+
+            <div class="exercise-box">
+                 <h3><i class="fa-solid fa-lightbulb mr-2"></i>演習テーマ：[ここに具体的なテーマを提示]</h3>
+                 <p class="text-left">例：「未来の大学のキャンパスを描いてみよう」</p>
+                 <ul>
+                    <li>画像生成ツール（Copilot, Stable Diffusion Web UIなど）を開いてください。</li>
+                    <li>まずは簡単なプロンプトで画像を生成してみましょう。
+                        <code class="prompt-code">プロンプト例: "Future university campus"</code>
+                    </li>
+                    <li>生成された画像を見ながら、プロンプトに要素を追加・変更して、よりイメージに近い画像を目指しましょう。
+                        <ul>
+                            <li><strong>スタイル指定:</strong> <code class="prompt-code">"Future university campus, <strong class="style">cyberpunk style</strong>"</code></li>
+                            <li><strong>要素追加:</strong> <code class="prompt-code">"Future university campus, <strong class="subject">flying cars</strong>, <strong class="subject">robot students</strong>, cyberpunk style"</code></li>
+                            <li><strong>ネガティブプロンプト:</strong> <code class="prompt-code"><span class="negative">Negative prompt: dark, night, blurry</span></code> （暗く、夜で、ぼやけた画像を避ける例）</li>
+                            <li><strong>品質向上ワード:</strong> <code class="prompt-code">"Future university campus, ..., <strong class="quality">masterpiece, best quality</strong>"</code></li>
+                        </ul>
+                    </li>
+                    <li>いろいろなキーワードや組み合わせを試してみてください！</li>
+                </ul>
+            </div>
+
+            <div class="timer">
+                <i class="fa-solid fa-stopwatch"></i> 制限時間: 約 15分
+            </div>
+
+        </div>
+        <!-- --- スライド番号修正 --- -->
+        <div class="slide-number"><!-- 21 / 31 --></div>
+    </div>
+</body>
+</html>

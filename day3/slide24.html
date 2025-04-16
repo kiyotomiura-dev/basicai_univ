@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 24: 演習3 簡易資料作成</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .exercise-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; text-align: center; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-top: 25px; margin-bottom: 15px; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; /* 18px */ color: #374151; margin-bottom: 15px; text-align: center; max-width: 90%; }
+        .exercise-box { background-color: #fff; border: 2px dashed #4A90E2; border-radius: 8px; padding: 30px 40px; margin-top: 20px; width: 85%; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .exercise-box ul { list-style: decimal; padding-left: 30px; margin-top: 15px; text-align: left; }
+        .exercise-box li { margin-bottom: 15px; font-size: 1.1rem; }
+        .exercise-box strong { color: #4A90E2; }
+        .example-image { width: 150px; height: 100px; background-color: #E5E7EB; display: inline-block; margin: 0 10px; vertical-align: middle; border: 1px solid #D1D5DB; border-radius: 4px; text-align: center; line-height: 100px; font-size: 0.9rem; color: #6B7280;}
+        .timer { margin-top: 20px; font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .timer i { margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="exercise-title"><i class="fa-solid fa-file-powerpoint mr-2"></i>実践演習＆応用</div>
+        </div>
+        <div class="slide-content">
+            <h2>【演習3】生成物を使って簡易資料を作ってみよう</h2>
+            <p>これまでの演習で作成したテキストや画像を組み合わせて、簡単な資料（企画書の一部など）を作成してみましょう。</p>
+
+            <div class="exercise-box">
+                 <h3><i class="fa-solid fa-rocket mr-2"></i>演習テーマ：[演習1/2で扱ったテーマ] のミニ企画書作成</h3>
+                 <p class="text-left">例：演習1で作成した「長野県の隠れた魅力発信SNS投稿文」と、それに関連する画像を組み合わせて、プロジェクトを紹介するスライド1枚を作成する。</p>
+                 <ul>
+                    <li>スライド作成ツール（PowerPoint, Google Slides, Keynote, Canvaなど）を開いてください。</li>
+                    <li><strong>タイトル:</strong> プロジェクト名や企画名を考え、入力します。（例：「おやき作り体験で長野ファンを増やそう！SNS発信企画」）</li>
+                    <li><strong>本文（テキスト）:</strong> 演習1で作成・校正したSNS投稿文、またはそれを元にした企画概要を入力します。
+                         <ul><li>テキスト生成AIに、より企画書らしい文章（目的、ターゲット、発信内容など）を作成してもらうのも良いでしょう。</li></ul>
+                     </li>
+                    <li><strong>画像:</strong> 演習2で生成した関連画像、またはSNS投稿文の内容に合うように新たに生成した画像を挿入します。
+                        <div class="text-center my-2">
+                           <span class="example-image"><i class="fa-solid fa-image mr-1"></i>生成画像1</span>
+                           <span class="example-image"><i class="fa-solid fa-image mr-1"></i>生成画像2</span>
+                        </div>
+                        <ul><li>画像生成AIで「おやき作りを楽しんでいる若者のイラスト、インスタグラム風」などを生成してみましょう。</li></ul>
+                    </li>
+                    <li>レイアウトを整えて、簡単な企画紹介スライドを完成させます。</li>
+                </ul>
+            </div>
+
+            <div class="timer">
+                <i class="fa-solid fa-stopwatch"></i> 制限時間: 約 15-20分
+            </div>
+
+        </div>
+        <div class="slide-number"><!-- 24 / 31 --></div>
+    </div>
+</body>
+</html>

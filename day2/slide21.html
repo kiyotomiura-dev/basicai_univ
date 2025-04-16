@@ -8,130 +8,126 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #22d3ee; display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #22d3ee; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
-        .info-box { background-color: #ecfeff; border-radius: 8px; padding: 20px; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; flex-grow: 1; margin-top: 10px; align-items: stretch; } /* align-items追加 */
+        .info-box { background-color: #ecfeff; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; } /* flex追加 */
         .info-box h2 { font-size: 1.4rem; font-weight: 600; color: #0e7490; margin-bottom: 15px; }
-        .info-box ul { list-style: none; padding: 0; }
-        .info-box li { font-size: 1.05rem; color: #155e75; margin-bottom: 10px; display: flex; align-items: center; /* align-items変更 */ line-height: 1.7; word-break: keep-all; }
+        .info-box ul { list-style: none; padding: 0; flex-grow: 1;} /* flex-grow追加 */
+        .info-box li { font-size: 1.05rem; color: #155e75; margin-bottom: 10px; display: flex; align-items: center; line-height: 1.7; word-break: keep-all; }
         .info-box li i { color: #22d3ee; margin-right: 10px; width: 20px; text-align: center; flex-shrink: 0; }
         .info-box code { background-color: #e0f2fe; color: #0891b2; padding: 1px 5px; border-radius: 3px; font-family: monospace; font-size: 0.9em;}
         .example-box { background-color: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
         .example-box h2 { font-size: 1.4rem; font-weight: 600; color: #047857; margin-bottom: 15px; text-align: center; }
-        /* --- 修正箇所：スタイル定義を再確認 --- */
-        .prompt-code {
-            background-color: #1e1e1e; /* Dark background */
-            color: #d4d4d4;          /* Default text color */
-            padding: 15px;
-            border-radius: 6px;
-            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-            white-space: pre-wrap;     /* Allow wrapping */
-            font-size: 0.8em;
-            line-height: 1.8;          /* Increased line height */
-            max-height: 400px;
-            overflow-y: auto;
-            overflow-x: auto;          /* Allow horizontal scroll */
-            flex-grow: 1;
-        }
-        .prompt-code .comment { color: #6a9955; font-style: italic; } /* Green for comments */
-        .prompt-code .tag { color: #569cd6; font-weight: bold; } /* Blue for tags */
-        .prompt-code .key { color: #9cdcfe; } /* Light blue for keys */
-        .prompt-code .value { color: #ce9178; } /* Orange/Brown for values */
-        .prompt-code .structure { color: #c586c0; font-weight: bold;} /* Purple for structure */
-        /* --- 修正箇所ここまで --- */
-        .tips-box { margin-top: 15px; background-color: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 10px 15px; font-size: 0.9rem; color: #075985; }
+        .prompt-code { background-color: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 6px; font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; white-space: pre-wrap; font-size: 0.8em; line-height: 1.8; max-height: 400px; overflow-y: auto; overflow-x: auto; flex-grow: 1; }
+        .prompt-code .comment { color: #6a9955; font-style: italic; }
+        .prompt-code .tag { color: #569cd6; font-weight: bold; }
+        .prompt-code .key { color: #9cdcfe; }
+        .prompt-code .value { color: #ce9178; }
+        .prompt-code .structure { color: #c586c0; font-weight: bold;}
+        .tips-box { margin-top: auto; background-color: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 10px 15px; font-size: 0.9rem; color: #075985; } /* mt-autoで下寄せ */
         .tips-box strong { color: #0369a1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-             <h1 class="text-4xl font-bold text-cyan-800">構造化プロンプトの技法</h1>
-             <div>
-                 <i class="fas fa-project-diagram text-cyan-400 text-4xl"></i>
-            </div>
-        </div>
-
-        <div class="content-grid">
-            <!-- 構造化のメリットと手法 -->
-            <div class="info-box">
-                <h2>なぜ構造化が効くの？</h2>
-                 <ul>
-                    <li><i class="fas fa-check"></i><strong>AIの理解度UP:</strong> 指示、文脈、例などを区別しやすくなり、AIが意図を正確に捉える。</li>
-                    <li><i class="fas fa-check"></i><strong>Attention誘導:</strong> 重要なセクションにAIの注意を向けさせやすくなる。</li>
-                    <li><i class="fas fa-check"></i><strong>可読性・保守性向上:</strong> 人間が見ても分かりやすく、修正や再利用が容易に。</li>
-                </ul>
-                <h2 class="mt-4">主な構造化テクニック</h2>
-                 <ul>
-                    <li><i class="fab fa-markdown"></i><strong>Markdown:</strong> 見出し(<code>#</code>, <code>##</code>)、リスト(<code>*</code>, <code>-</code>)、区切り線(<code>---</code>)等で階層や区切りを表現。</li>
-                    <li><i class="fas fa-code"></i><strong>XML/HTML風タグ:</strong> <code><指示>...</指示></code> のように意味を持つタグで囲む。ネストも可能。</li>
-                    <li><i class="fas fa-brackets-curly"></i><strong>JSON/YAML:</strong> Key-Value形式で厳密に構造化。API連携や複雑なデータ入力に有効。</li>
-                     <li><i class="fas fa-heading"></i><strong>セクション区切り:</strong> 「指示:」「制約:」「入力:」のように自然言語で見出しを付ける。</li>
-                 </ul>
-                 <div class="tips-box">
-                    <strong>Tips:</strong> 複雑度に応じて手法を選択。タグや見出し名は一貫性を持たせる。コメント(<code>#</code>や<code><!-- --></code>)で補足説明を入れると更に分かりやすい。
+    <div class="slide">
+         <!-- 新しいヘッダー -->
+         <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-project-diagram mr-2"></i>構造化プロンプトの技法</div>
+         </div>
+         <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="content-grid">
+                <!-- 構造化のメリットと手法 -->
+                <div class="info-box">
+                    <h2>なぜ構造化が効くの？</h2>
+                     <ul>
+                        <li><i class="fas fa-check"></i><strong>AIの理解度UP:</strong> 指示、文脈、例などを区別しやすくなり、AIが意図を正確に捉える。</li>
+                        <li><i class="fas fa-check"></i><strong>Attention誘導:</strong> 重要なセクションにAIの注意を向けさせやすくなる。</li>
+                        <li><i class="fas fa-check"></i><strong>可読性・保守性向上:</strong> 人間が見ても分かりやすく、修正や再利用が容易に。</li>
+                    </ul>
+                    <h2 class="mt-4">主な構造化テクニック</h2>
+                     <ul>
+                        <li><i class="fab fa-markdown"></i><strong>Markdown:</strong> 見出し(<code>#</code>, <code>##</code>)、リスト(<code>*</code>, <code>-</code>)、区切り線(<code>---</code>)等で階層や区切りを表現。</li>
+                        <li><i class="fas fa-code"></i><strong>XML/HTML風タグ:</strong> <code><指示>...</指示></code> のように意味を持つタグで囲む。ネストも可能。</li>
+                        <li><i class="fas fa-brackets-curly"></i><strong>JSON/YAML:</strong> Key-Value形式で厳密に構造化。API連携や複雑なデータ入力に有効。</li>
+                         <li><i class="fas fa-heading"></i><strong>セクション区切り:</strong> 「指示:」「制約:」「入力:」のように自然言語で見出しを付ける。</li>
+                     </ul>
+                     <div class="tips-box">
+                        <strong>Tips:</strong> 複雑度に応じて手法を選択。タグや見出し名は一貫性を持たせる。コメント(<code>#</code>や<code><!-- --></code>)で補足説明を入れると更に分かりやすい。
+                    </div>
                 </div>
-            </div>
+                <!-- 高度な構造化例 -->
+                <div class="example-box">
+                     <h2>高度な構造化例：複数タスク依頼</h2>
+                     <code class="prompt-code">
+<!-- プロンプト全体指示 -->
+<prompt>
+<system_prompt>
+<role>あなたはデータ分析とレポート作成を行うAIアシスタントです。</role>
+<output_language>日本語</output_language>
+<constraints>専門用語は避け、平易な言葉で説明すること。グラフは生成不要。</constraints>
+</system_prompt>
 
-            <!-- 高度な構造化例 -->
-            <div class="example-box">
-                 <h2>高度な構造化例：複数タスク依頼</h2>
-                 {/* --- 修正箇所： codeタグ内のspanタグにクラスが正しく指定されているか確認 --- */}
-                 <code class="prompt-code">
-<span class="comment"><!-- プロンプト全体指示 --></span>
-<span class="tag"><prompt></span>
-  <span class="tag"><system_prompt></span>
-    <span class="key">role:</span> <span class="value">あなたはデータ分析とレポート作成を行うAIアシスタントです。</span>
-    <span class="key">output_language:</span> <span class="value">日本語</span>
-    <span class="key">constraints:</span> <span class="value">専門用語は避け、平易な言葉で説明すること。グラフは生成不要。</span>
-  <span class="tag"></system_prompt></span>
-
-  <span class="tag"><user_request></span>
-    <span class="structure">## 背景情報</span>
-    <span class="value">提供された以下の顧客アンケートデータ（CSV形式）があります。</span>
-    <span class="tag"><input_data format="csv"></span>
-<span class="value">ID,年代,性別,満足度,意見
+<user_request>
+<structure>## 背景情報</structure>
+<value>提供された以下の顧客アンケートデータ（CSV形式）があります。</value>
+<input_data format="csv">
+ID,年代,性別,満足度,意見
 1,30代,女性,4,"価格が高い"
 2,20代,男性,5,"デザインが良い"
 3,40代,女性,3,"機能が少ない"
-... (データ続く) ...</span>
-    <span class="tag"></input_data></span>
+... (データ続く) ...
+</input_data>
 
-    <span class="structure">## 実行タスク</span>
-    <span class="tag"><task id="1" description="データ要約"></span>
-      <span class="key">instruction:</span> <span class="value">上記のアンケートデータの概要（件数、年代・性別分布）を算出してください。</span>
-      <span class="key">output_format:</span> <span class="value">箇条書き</span>
-    <span class="tag"></task></span>
+<structure>## 実行タスク</structure>
+<task id="1" description="データ要約">
+<key>instruction:</key> <value>上記のアンケートデータの概要（件数、年代・性別分布）を算出してください。</value>
+<key>output_format:</key> <value>箇条書き</value>
+</task>
 
-    <span class="tag"><task id="2" description="満足度分析" depends_on="1"></span>
-      <span class="key">instruction:</span> <span class="value">満足度の平均値と、年代別の平均満足度を計算してください。</span>
-      <span class="key">output_format:</span> <span class="value">平均値: X.X, 年代別平均: {20代: X.X, 30代: X.X, ...} の形式</span>
-    <span class="tag"></task></span>
+<task id="2" description="満足度分析" depends_on="1">
+<key>instruction:</key> <value>満足度の平均値と、年代別の平均満足度を計算してください。</value>
+<key>output_format:</key> <value>平均値: X.X, 年代別平均: {20代: X.X, 30代: X.X, ...} の形式</value>
+</task>
 
-    <span class="tag"><task id="3" description="意見分類"></span>
-      <span class="key">instruction:</span> <span class="value">「意見」列の内容を、以下のカテゴリに分類してください。</span>
-      <span class="key">categories:</span> <span class="value">[価格, デザイン, 機能, サポート, その他]</span>
-      <span class="key">example:</span> <span class="value">"価格が高い" -> 価格</span>
-      <span class="key">output_format:</span> <span class="value">IDと分類結果のリスト (例: ID1: 価格, ID2: デザイン, ...)</span>
-    <span class="tag"></task></span>
+<task id="3" description="意見分類">
+<key>instruction:</key> <value>「意見」列の内容を、以下のカテゴリに分類してください。</value>
+<key>categories:</key> <value>[価格, デザイン, 機能, サポート, その他]</value>
+<key>example:</key> <value>"価格が高い" -> 価格</value>
+<key>output_format:</key> <value>IDと分類結果のリスト (例: ID1: 価格, ID2: デザイン, ...)</value>
+</task>
 
-    <span class="tag"><task id="4" description="レポート作成" depends_on="1,2,3"></span>
-      <span class="key">instruction:</span> <span class="value">上記タスク1, 2, 3の結果を統合し、顧客満足度に関する簡単なレポートを作成してください。特に注目すべき点（例：特定の年代の満足度が低い、価格への不満が多いなど）があれば指摘してください。</span>
-      <span class="key">output_format:</span> <span class="value">レポート形式（見出し、本文）</span>
-    <span class="tag"></task></span>
-  <span class="tag"></user_request></span>
-<span class="tag"></prompt></span>
-                 </code>
-                 <p class="text-sm text-center text-gray-600 mt-2">XML風タグや見出しで、複数の情報やタスクを整理・構造化。</p>
-             </div>
+<task id="4" description="レポート作成" depends_on="1,2,3">
+<key>instruction:</key> <value>上記タスク1, 2, 3の結果を統合し、顧客満足度に関する簡単なレポートを作成してください。特に注目すべき点（例：特定の年代の満足度が低い、価格への不満が多いなど）があれば指摘してください。</value>
+<key>output_format:</key> <value>レポート形式（見出し、本文）</value>
+</task>
+</user_request>
+</prompt>
+                     </code>
+                     <p class="text-sm text-center text-gray-600 mt-2">XML風タグや見出しで、複数の情報やタスクを整理・構造化。</p>
+                 </div>
+            </div>
         </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
-            <!-- <span class="text-gray-600">追加B-2</span> -->
+        <div class="slide-number">
+            <!-- <span class="text-gray-600">21 / 33</span> -->
         </div>
     </div>
 </body>

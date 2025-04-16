@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 23: 画像からテキストを生成</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .practice-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; text-align: center; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; color: #374151; margin-bottom: 25px; text-align: center; max-width: 90%; }
+        .flow-diagram { display: flex; align-items: center; justify-content: center; width: 100%; margin-top: 30px; }
+        .flow-item { text-align: center; margin: 0 20px; max-width: 200px; } /* 幅制限追加 */
+        .flow-item i { font-size: 4rem; color: #4A90E2; margin-bottom: 15px; }
+        .flow-item p { font-size: 1.1rem; font-weight: bold; color: #374151; margin-bottom: 5px; }
+        .flow-item .description { font-size: 0.9rem; color: #6B7280; line-height: 1.5; }
+        .flow-arrow i { font-size: 2.5rem; color: #9CA3AF; margin: 0 15px; }
+        .availability-note { margin-top: 40px; background-color: #FEF9C3; border-left: 4px solid #FCD34D; padding: 15px 20px; border-radius: 4px; width: 85%; }
+        .availability-note p { font-size: 1rem; color: #713F12; text-align: left; margin-bottom: 0; }
+        .availability-note strong { color: #B45309; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="practice-title"><i class="fa-solid fa-lightbulb-on mr-2"></i>実践演習＆応用</div>
+        </div>
+        <div class="slide-content">
+            <h2>【実践】生成物を組み合わせる②：画像からテキストを生成 (可能なら)</h2>
+            <p>逆に、画像を入力として、その内容を説明する文章を生成する技術もあります。（マルチモーダルAI）</p>
+
+             <div class="flow-diagram">
+                <div class="flow-item">
+                    <i class="fa-solid fa-camera"></i>
+                    <p>1. 画像入力</p>
+                    <p class="description">説明文をつけたい<br>写真やイラストを<br>AIに読み込ませる</p>
+                </div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                <div class="flow-item">
+                    <i class="fa-solid fa-robot"></i>
+                    <p>2. AIによる解析</p>
+                     <p class="description">AIが画像の内容<br>(被写体、状況など)を<br>認識・理解する</p>
+                </div>
+                 <div class="flow-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                <div class="flow-item">
+                     <i class="fa-solid fa-comment-dots"></i>
+                    <p>3. テキスト生成</p>
+                    <p class="description">解析結果に基づいて<br>画像の説明文や<br>キャプションを生成</p>
+                </div>
+                 <div class="flow-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                <div class="flow-item">
+                     <i class="fa-solid fa-file-alt"></i>
+                    <p>4. 文章の活用</p>
+                    <p class="description">生成されたテキストを<br>SNS投稿、資料説明、<br>代替テキストなどに利用</p>
+                </div>
+            </div>
+
+            <div class="availability-note">
+                <p><i class="fa-solid fa-circle-info mr-2"></i><strong>利用可能性について:</strong></p>
+                <p>この機能は、<strong>ChatGPT (GPT-4V)</strong> や <strong>Google Gemini (旧Bard)</strong>、<strong>Claude 3</strong> などの一部の最新AIモデルで利用可能です。<br>
+                画像のアップロード機能があれば、試してみることができます。<br>
+                （例: 「この画像について説明してください」「この画像の状況を物語風に書いて」など）</p>
+            </div>
+
+
+        </div>
+        <div class="slide-number"><!-- 23 / 31 --></div>
+    </div>
+</body>
+</html>

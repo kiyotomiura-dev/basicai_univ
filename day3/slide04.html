@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 4: テキスト生成AIとは？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 (Slide 1と同様) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; /* 32px */ font-weight: bold; color: #111827; margin-bottom: 20px; text-align: center; }
+        h3 { font-size: 1.375rem; /* 22px */ font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; }
+        .pros h3 { color: #10B981; /* Green */ }
+        .cons h3 { color: #EF4444; /* Red */ }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 10px; font-size: 1.125rem; /* 18px */ color: #374151; display: flex; align-items: flex-start; }
+        li i { margin-right: 10px; margin-top: 6px; width: 20px; text-align: center; }
+        .pros li i { color: #10B981; }
+        .cons li i { color: #EF4444; }
+        p, li span { word-break: break-word; line-height: 1.8; }
+        span { min-width: 0; }
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+        .definition { text-align: center; margin-bottom: 30px; font-size: 1.25rem; color: #4B5563; padding: 15px; background-color: #E5E7EB; border-radius: 8px; }
+        .definition i { color: #4A90E2; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">テキスト生成AIの世界</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-file-lines mr-3 text-[#4A90E2]"></i>テキスト生成AIとは？</h2>
+
+            <p class="definition">
+                <i class="fa-solid fa-brain mr-2"></i>大量の文章データを学習し、<strong class="text-[#4A90E2]">人間が書いたような自然な文章</strong>を<br>
+                <strong class="text-[#4A90E2]">自動で作り出す</strong>ことができるAI技術のことです。
+            </p>
+
+            <div class="grid-container">
+                <div class="pros">
+                    <h3><i class="fa-solid fa-thumbs-up mr-2"></i>得意なこと</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i><span><strong class="text-green-600">文章作成:</strong> Eメール、ブログ記事、レポートの下書きなど</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong class="text-green-600">要約:</strong> 長い文章を短くまとめる</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong class="text-green-600">翻訳:</strong> 様々な言語間の翻訳</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong class="text-green-600">質疑応答:</strong> 質問に対して答える</span></li>
+                        <li><i class="fa-solid fa-check"></i><span><strong class="text-green-600">アイデア出し:</strong> ブレストの相手、切り口の提案</span></li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h3><i class="fa-solid fa-thumbs-down mr-2"></i>苦手なこと・注意点</h3>
+                    <ul>
+                        <li><i class="fa-solid fa-triangle-exclamation"></i><span><strong class="text-red-600">事実確認:</strong> 間違った情報（ハルシネーション）を生成することがある</span></li>
+                        <li><i class="fa-solid fa-triangle-exclamation"></i><span><strong class="text-red-600">専門性:</strong> 最新情報や非常に深い専門知識は苦手な場合がある</span></li>
+                        <li><i class="fa-solid fa-triangle-exclamation"></i><span><strong class="text-red-600">感情・文脈:</strong> 細かなニュアンスや深い感情の理解は難しい</span></li>
+                        <li><i class="fa-solid fa-triangle-exclamation"></i><span><strong class="text-red-600">創造性の限界:</strong> 真に独創的なアイデアは不得意</span></li>
+                         <li><i class="fa-solid fa-triangle-exclamation"></i><span><strong class="text-red-600">倫理・著作権:</strong> 生成物の利用には注意が必要</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number"><!-- 4 / 29 --></div>
+    </div>
+</body>
+</html>

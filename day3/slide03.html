@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 3: 学習目標とアジェンダ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 (Slide 1と同様) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; /* 2カラムレイアウト */ }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-bottom: 15px; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 15px; font-size: 1.125rem; /* 18px */ color: #374151; display: flex; align-items: flex-start; }
+        li i { margin-right: 10px; color: #4A90E2; margin-top: 6px; width: 20px; text-align: center; }
+        p, li span { word-break: break-word; line-height: 1.8; }
+        span { min-width: 0; }
+        .agenda-list li { margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">学習目標とアジェンダ</div>
+        </div>
+        <div class="slide-content">
+            <div>
+                <h3><i class="fa-solid fa-bullseye mr-2"></i>学習目標</h3>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i><span>テキスト生成AIと画像生成AIの基本的な仕組み（さわり）と、実務・学習での使いどころを理解する。</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>具体的なツール操作やプロンプト例を通じて、文章や画像を実際に生成できるようになる。</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>生成結果を評価・編集し、ビジネス文書作成やアイデア創出などに応用する方法を身につける。</span></li>
+                </ul>
+            </div>
+            <div>
+                <h3><i class="fa-solid fa-list-check mr-2"></i>アジェンダ</h3>
+                <ul class="agenda-list">
+                    <li><i class="fa-solid fa-1"></i><span>イントロダクション</span></li>
+                    <li><i class="fa-solid fa-2"></i><span>テキスト生成AIの世界 (仕組み・活用)</span></li>
+                    <li><i class="fa-solid fa-3"></i><span>画像生成AIの世界 (仕組み・活用)</span></li>
+                    <li><i class="fa-solid fa-4"></i><span>実践演習＆応用 (組み合わせと編集)</span></li>
+                    <li><i class="fa-solid fa-5"></i><span>まとめと質疑応答</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="slide-number"><!-- 3 / 29 --></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 25: 実践でのTIPS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .practice-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { grid-column: 1 / -1; font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-bottom: 15px; display: flex; align-items: center; }
+        h3 i { margin-right: 10px; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 15px; font-size: 1.1rem; color: #374151; display: flex; align-items: flex-start; }
+        li i { margin-right: 10px; color: #4A90E2; margin-top: 7px; width: 20px; text-align: center; }
+        p, li span { word-break: break-word; line-height: 1.8; }
+        span { min-width: 0; }
+        .tips-box { background-color: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.08); }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="practice-title"><i class="fa-solid fa-lightbulb-on mr-2"></i>実践演習＆応用</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="text-center"><i class="fa-solid fa-screwdriver-wrench mr-3 text-[#4A90E2]"></i>実践でのTIPS</h2>
+
+            <div class="tips-box">
+                <h3><i class="fa-solid fa-arrows-rotate"></i>反復的な改善 (Iterative Improvement)</h3>
+                <ul>
+                    <li><i class="fa-solid fa-1"></i><span><strong>まず生成:</strong> 最初から完璧を求めず、まずはAIに作らせてみる。</span></li>
+                    <li><i class="fa-solid fa-2"></i><span><strong>評価・フィードバック:</strong> 生成結果を見て、どこが良いか、どこを修正したいか考える。</span></li>
+                    <li><i class="fa-solid fa-3"></i><span><strong>プロンプト修正:</strong> フィードバックを元に、プロンプトを具体化・修正して再生成。</span></li>
+                    <li><i class="fa-solid fa-4"></i><span><strong>直接編集:</strong> AIの生成結果を元に、自分で加筆・修正する。</span></li>
+                    <li><i class="fa-solid fa-check"></i><span>このサイクルを繰り返すことで、望む結果に近づけていく。</span></li>
+                </ul>
+            </div>
+
+            <div class="tips-box">
+                 <h3><i class="fa-solid fa-shuffle"></i>ツールの使い分け</h3>
+                <ul>
+                     <li><i class="fa-solid fa-comment-dots"></i><span><strong>得意分野を活かす:</strong>
+                        <ul>
+                            <li>長文生成や対話 → ChatGPT, Claude</li>
+                            <li>情報検索連携 → Gemini, Copilot</li>
+                             <li>芸術的な画像 → Midjourney</li>
+                             <li>自由度の高い画像生成 → Stable Diffusion</li>
+                             <li>指示忠実度の高い画像 → DALL-E 3</li>
+                             <li>商用利用・安全 → Adobe Firefly</li>
+                        </ul>
+                     </span></li>
+                    <li><i class="fa-solid fa-link"></i><span><strong>連携させる:</strong>
+                        <ul>
+                            <li>ChatGPTでアイデア出し → Stable Diffusionで画像化</li>
+                             <li>Geminiで情報収集 → Claudeで長文レポート作成</li>
+                        </ul>
+                    </span></li>
+                     <li><i class="fa-solid fa-yen-sign"></i><span><strong>コスト意識:</strong> 無料枠、有料プラン、API利用など、目的に応じてコスト効率の良いツールを選ぶ。</span></li>
+                     <li><i class="fa-solid fa-vial"></i><span><strong>色々試してみる:</strong> 実際に使ってみて、自分に合ったツールを見つけることが重要。</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="slide-number"><!-- 25 / 31 --></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - AIが変革する労働市場と求められるスキル</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif; /* 元のフォント */
+            background-color: #f0f9ff; /* 元の背景色 */
+            overflow: auto;
+        }
+        .slide {
+             /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+             /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
+            border-radius: 12px; /* 元の角丸 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; display: flex; align-items: center; } /* flex追加 */
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; }
+
+        /* --- 元のコンテンツスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .pulse-animation { animation: pulse 3s ease-in-out infinite; }
+        .job-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; overflow: auto; }
+        .job-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .skill-tag { border-radius: 20px; transition: all 0.2s; }
+        .skill-tag:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="slide">
+         <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+             <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f680.svg" alt="Rocket emoji" class="w-8 h-8 inline mr-2"> <!-- アイコンサイズ調整 -->
+                AIが変革する労働市場と求められるスキル
+            </div>
+        </div>
+
+        <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+            <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-3xl mx-auto text-center">
+                <p class="text-xl text-gray-700">AIの進化は、私たちの働き方やキャリアにどのような影響を与えるのでしょうか？</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-700 text-center mb-4">AIによる仕事の変化</h3>
+
+                    <div class="job-card bg-blue-50 p-4 mb-4">
+                        <div class="flex items-start">
+                            <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0">
+                                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f9d1-200d-1fa79.svg" alt="Chef emoji" class="w-10 h-10">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1 text-sm">既存業務の高度化と効率化</h4>
+                                <p class="text-xs text-gray-700 mb-2">AIは、既存の職業における業務プロセスを効率化し、より高度な業務へのシフトを促します。</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-blue-700">医療診断 + AI</p>
+                                        <p class="text-gray-700">AIによる画像解析や病歴分析が診断精度を高め、医師は患者との対話や治療計画に注力できます。</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-blue-700">デザイン + AI</p>
+                                        <p class="text-gray-700">AIが初期デザインの生成やトレンド分析を支援し、デザイナーは創造的なコンセプト開発に時間を費やせます。</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-blue-700">研究開発 + AI</p>
+                                        <p class="text-gray-700">AIによるデータ解析やシミュレーションが研究の加速に貢献し、研究者は仮説検証や新たな視点の発見に集中できます。</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-blue-700">教育 + AI</p>
+                                        <p class="text-gray-700">AIが学習進捗の個別最適化を支援し、教育者は生徒一人ひとりに合わせた指導を提供できます。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="job-card bg-red-50 p-4">
+                        <div class="flex items-start">
+                            <div class="bg-red-100 rounded-full p-2 mr-3 flex-shrink-0">
+                                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4b8.svg" alt="Money with wings emoji" class="w-10 h-10">
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1 text-sm">自動化による業務変革</h4>
+                                <p class="text-xs text-gray-700 mb-2">定型的なタスクやデータ処理はAIやロボットに代替され、より人間らしいスキルが求められるようになります。</p>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-red-700">データ入力・集計</p>
+                                        <p class="text-gray-700">RPAやAIによる自動化により、人的ミスを減らし効率化が図られます。</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-red-700">カスタマーサポートの一部</p>
+                                        <p class="text-gray-700">チャットボットやAIによるFAQシステムが基本的な問い合わせに対応します。</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-red-700">単純な事務作業</p>
+                                        <p class="text-gray-700">書類作成や手続きなどがAIによって自動化される可能性があります。</p>
+                                    </div>
+                                    <div class="bg-white rounded-lg p-2 text-xs">
+                                        <p class="font-medium text-red-700">工場におけるライン作業の一部</p>
+                                        <p class="text-gray-700">ロボットやAIによる自動化が進み、より高度な技術者の需要が高まります。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-green-700 text-center mb-4">AIによって創出される新たな職種</h3>
+
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="job-card bg-green-50 p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-green-100 rounded-full p-2 mr-2 flex-shrink-0">
+                                    <i class="fas fa-robot text-green-600"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-sm">AIトレーナー・アノテーター</h4>
+                            </div>
+                            <p class="text-xs text-gray-700">AIモデルの学習に必要なデータを作成・整理し、AIの精度向上に貢献する専門家。</p>
+                        </div>
+
+                        <div class="job-card bg-purple-50 p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-purple-100 rounded-full p-2 mr-2 flex-shrink-0">
+                                    <i class="fas fa-wand-magic-sparkles text-purple-600"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-sm">プロンプトエンジニア</h4>
+                            </div>
+                            <p class="text-xs text-gray-700">大規模言語モデルなどのAIに対して、意図した出力を得るための効果的な指示（プロンプト）を作成する専門家。</p>
+                        </div>
+
+                        <div class="job-card bg-yellow-50 p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-yellow-100 rounded-full p-2 mr-2 flex-shrink-0">
+                                    <i class="fas fa-shield-alt text-yellow-600"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-sm">AI倫理・ガバナンス専門家</h4>
+                            </div>
+                            <p class="text-xs text-gray-700">AIの開発・利用における倫理的な課題を分析し、適切なガイドラインや規制を策定する専門家。</p>
+                        </div>
+
+                        <div class="job-card bg-pink-50 p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-pink-100 rounded-full p-2 mr-2 flex-shrink-0">
+                                    <i class="fas fa-users text-pink-600"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-sm">AIセールス・マーケティング担当</h4>
+                            </div>
+                            <p class="text-xs text-gray-700">AIを活用したソリューションやサービスを顧客に提案し、その価値を伝える専門家。</p>
+                        </div>
+
+                        <div class="job-card bg-indigo-50 p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-indigo-100 rounded-full p-2 mr-2 flex-shrink-0">
+                                    <i class="fas fa-wrench text-indigo-600"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-sm">AIメンテナンス・保守エンジニア</h4>
+                            </div>
+                            <p class="text-xs text-gray-700">導入されたAIシステムの安定的な運用を支え、問題発生時の対応やアップデートを行う専門家。</p>
+                        </div>
+
+                        <div class="job-card bg-teal-50 p-4">
+                            <div class="flex items-center mb-2">
+                                <div class="bg-teal-100 rounded-full p-2 mr-2 flex-shrink-0">
+                                    <i class="fas fa-code text-teal-600"></i>
+                                </div>
+                                <h4 class="font-bold text-gray-800 text-sm">AI統合開発者</h4>
+                            </div>
+                            <p class="text-xs text-gray-700">既存のシステムやアプリケーションにAI機能を組み込み、新たな価値を提供する開発者。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white bg-opacity-80 rounded-xl p-5 mb-4">
+                <h3 class="text-lg font-bold text-indigo-800 text-center mb-3">AI時代に求められる重要なスキル</h3>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <div class="skill-tag bg-blue-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-lightbulb text-blue-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">創造性とイノベーション</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag bg-red-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-heart text-red-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">共感性と思いやりの精神</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag bg-green-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-green-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">協調性とチームワーク</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag bg-purple-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-question-circle text-purple-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">批判的思考力と問題解決能力</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag bg-yellow-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-sync-alt text-yellow-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">変化への適応力と学習意欲</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag bg-indigo-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-laptop-code text-indigo-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">テクノロジーリテラシーとAIの理解</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag bg-pink-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-comments text-pink-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">効果的なコミュニケーション能力</span>
+                        </div>
+                    </div>
+                    <div class="skill-tag bg-teal-100 px-4 py-2 rounded-full">
+                        <div class="flex items-center">
+                            <i class="fas fa-balance-scale text-teal-600 mr-2"></i>
+                            <span class="text-gray-800 font-medium text-xs">倫理的判断力と責任感</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 rounded-xl p-4 max-w-3xl mx-auto mt-auto mb-4"> <!-- 位置調整 -->
+                <div class="flex items-center">
+                    <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-graduation-cap text-indigo-600"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-indigo-800 mb-1 text-sm">大学生・教員の皆様へ</h4>
+                        <p class="text-gray-700 text-xs">AIの進化は労働市場に大きな変化をもたらしますが、同時に新たな機会も創出します。AIの特性を理解し、人間ならではの強みを活かすことで、変化の時代をリードする人材育成が重要となります。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">27 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

@@ -3,99 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>コツ⑤：AIの「性格」や「基本ルール」を決める！ (システムプロンプト)</title>
+    <title>コツ⑥：AIの「性格」や「基本ルール」を決める！ (システムプロンプト)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #d946ef; /* Fuchsia 500 */ display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #d946ef; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .explanation-box { background-color: #fae8ff; /* Fuchsia 50 */ border-left: 4px solid #d946ef; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
-        .concept-box h3, .example-box h3 { font-size: 1.3rem; font-weight: 600; color: #a21caf; /* Fuchsia 700 */ margin-bottom: 15px; text-align: center; }
-        .diagram { background-color: #f5f3ff; /* Violet 50 for contrast */ border: 1px dashed #c4b5fd; /* Violet 300 */ border-radius: 8px; padding: 20px; text-align: center; }
-        .diagram .system-layer { background-color: #d8b4fe; /* Purple 300 */ color: #581c87; /* Purple 900 */ padding: 10px; border-radius: 6px; font-weight: 500; margin-bottom: 10px; position: relative; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; display: flex; flex-direction: column; }
+        .explanation-box { background-color: #fae8ff; border-left: 4px solid #d946ef; padding: 20px; border-radius: 8px; margin-bottom: 20px; } /* margin調整 */
+        .explanation-box h2 { font-size: 1.5rem; font-weight: 600; color: #a21caf; margin-bottom: 10px; }
+        .explanation-box p { font-size: 1.1rem; color: #86198f; line-height: 1.7; word-break: keep-all;}
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; } /* margin-top削除 */
+        .concept-box h3, .example-box h3 { font-size: 1.3rem; font-weight: 600; color: #a21caf; margin-bottom: 15px; text-align: center; }
+        .diagram { background-color: #f5f3ff; border: 1px dashed #c4b5fd; border-radius: 8px; padding: 20px; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;} /* 高さ、配置調整 */
+        .diagram .system-layer { background-color: #d8b4fe; color: #581c87; padding: 10px; border-radius: 6px; font-weight: 500; margin-bottom: 10px; position: relative; }
         .diagram .system-layer i { margin-right: 5px; }
-        .diagram .user-prompt { background-color: #e0f2fe; /* Sky 100 */ color: #075985; /* Sky 800 */ padding: 8px 12px; border-radius: 4px; margin-top: 10px; display: inline-block; }
-        .diagram .arrow { font-size: 1.5rem; color: #a855f7; /* Purple 500 */ margin: 5px 0; }
+        .diagram .user-prompt { background-color: #e0f2fe; color: #075985; padding: 8px 12px; border-radius: 4px; margin-top: 10px; display: inline-block; font-size: 0.9rem;} /* size調整 */
+        .diagram .arrow { font-size: 1.5rem; color: #a855f7; margin: 8px 0; } /* margin調整 */
         .example-box ul { list-style: none; padding: 0; }
-        .example-box li { background-color: #fdf4ff; /* Pink 50 */ border: 1px solid #fbcfe8; /* Pink 200 */ border-radius: 6px; padding: 12px 15px; margin-bottom: 10px; font-size: 0.95rem; }
-        .example-box li .label { font-weight: 600; color: #9d174d; /* Pink 800 */ display: block; margin-bottom: 5px; }
-        .example-box li .desc { color: #831843; /* Pink 900 */ }
-        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #c026d3; /* Fuchsia 600 */ background-color: #f5d0fe; padding: 15px; border-radius: 8px; }
+        .example-box li { background-color: #fdf4ff; border: 1px solid #fbcfe8; border-radius: 6px; padding: 12px 15px; margin-bottom: 10px; font-size: 0.95rem; }
+        .example-box li .label { font-weight: 600; color: #9d174d; display: block; margin-bottom: 5px; }
+        .example-box li .desc { color: #831843; word-break: keep-all; line-height: 1.6;} /* word-break, line-height追加 */
+        .takeaway { text-align: center; margin-top: 25px; font-size: 1.2rem; font-weight: 600; color: #c026d3; background-color: #f5d0fe; padding: 15px; border-radius: 8px; margin-bottom: 10px;} /* margin調整 */
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-fuchsia-700">コツ⑤：AIの「性格」や「基本ルール」を決める！</h1>
-             <div>
-                 <i class="fas fa-user-cog text-fuchsia-300 text-4xl"></i> <!-- 設定・ルールのイメージ -->
+    <div class="slide">
+         <!-- 新しいヘッダー -->
+         <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-user-cog mr-2"></i>コツ⑤：基本ルール設定 (システムプロンプト)</div> <!-- 番号変更 -->
+         </div>
+         <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="explanation-box">
+                 <h2 class="font-semibold"><i class="fas fa-id-card mr-2"></i> システムプロンプトって何？</h2>
+                <p>
+                    毎回のお願い（ユーザープロンプト）とは別に、<strong class="text-fuchsia-600">AIの基本的な振る舞いや役割、守ってほしいルール</strong>を最初に設定しておくものです。
+                    会話全体の「<strong class="text-fuchsia-600">お約束</strong>」や「<strong class="text-fuchsia-600">キャラクター設定</strong>」のようなイメージです。
+                </p>
+                 <p class="text-sm">（ChatGPTの「カスタム指示」やAPIの `system` メッセージがこれにあたります）</p>
+            </div>
+            <div class="content-grid">
+                <div class="concept-box">
+                    <h3>システムプロンプトの役割</h3>
+                    <div class="diagram">
+                        <div class="system-layer">
+                            <i class="fas fa-shield-alt"></i> システムプロンプト<br>(基本ルール・性格設定)
+                        </div>
+                        <i class="fas fa-arrow-down arrow"></i>
+                        <div>
+                            <div class="user-prompt">あなた：今日の天気は？</div>
+                             <i class="fas fa-exchange-alt text-gray-400 mx-2 text-xl my-1"></i>
+                            <div class="user-prompt" style="background-color: #f3e8ff; color: #581c87;">AI：「（設定された性格で）お答えします！」</div>
+                        </div>
+                         <p class="text-sm text-gray-600 mt-3">会話の土台として、AIの応答全体に影響を与える</p>
+                     </div>
+                 </div>
+                <div class="example-box">
+                    <h3>例えばこんな設定ができる！</h3>
+                     <ul>
+                        <li><p class="label"><i class="fas fa-user-tie mr-1"></i> 役割設定</p><p class="desc">「あなたは常にユーモアを忘れない、親切なアシスタントです。」</p></li>
+                        <li><p class="label"><i class="fas fa-book mr-1"></i> 知識領域</p><p class="desc">「あなたは日本の歴史の専門家として答えてください。」</p></li>
+                        <li><p class="label"><i class="fas fa-ruler mr-1"></i> 回答スタイル</p><p class="desc">「回答は必ず箇条書きで、結論から述べてください。」</p></li>
+                        <li><p class="label"><i class="fas fa-ban mr-1"></i> 禁止事項</p><p class="desc">「政治的な意見や個人的な感想は述べないでください。」</p></li>
+                    </ul>
+                 </div>
+            </div>
+             <div class="takeaway mt-auto">
+                <p><i class="fas fa-star mr-2"></i>システムプロンプトでAIの基本設定をすれば、毎回同じ指示を繰り返さなくてOK！応答も安定しやすい！</p>
             </div>
         </div>
-
-         <!-- 説明 -->
-        <div class="explanation-box">
-             <h2 class="text-fuchsia-600"><i class="fas fa-id-card mr-2"></i> システムプロンプトって何？</h2>
-            <p class="text-lg text-gray-800">
-                毎回のお願い（ユーザープロンプト）とは別に、<strong class="text-fuchsia-600">AIの基本的な振る舞いや役割、守ってほしいルール</strong>を最初に設定しておくものです。
-                会話全体の「<strong class="text-fuchsia-600">お約束</strong>」や「<strong class="text-fuchsia-600">キャラクター設定</strong>」のようなイメージです。
-            </p>
-             <p class="text-lg text-gray-800">（ChatGPTの「カスタム指示」やAPIの `system` メッセージがこれにあたります）</p>
-        </div>
-
-        <div class="content-grid">
-            <!-- 概念図 -->
-            <div class="concept-box">
-                <h3>システムプロンプトの役割</h3>
-                <div class="diagram">
-                    <div class="system-layer">
-                        <i class="fas fa-shield-alt"></i> システムプロンプト（基本ルール・性格設定）
-                    </div>
-                    <i class="fas fa-arrow-down arrow"></i>
-                    <div> <!-- ユーザーとのやり取りレイヤー -->
-                        <div class="user-prompt">あなた：今日の天気は？</div>
-                         <i class="fas fa-exchange-alt text-gray-400 mx-2"></i>
-                        <div class="user-prompt" style="background-color: #f3e8ff; color: #581c87;">AI：（設定された性格で）答えます！</div>
-                    </div>
-                     <p class="text-sm text-gray-600 mt-3">会話の土台として、AIの応答全体に影響を与える</p>
-                 </div>
-             </div>
-
-            <!-- 具体例 -->
-            <div class="example-box">
-                <h3>例えばこんな設定ができる！</h3>
-                 <ul>
-                    <li>
-                        <p class="label"><i class="fas fa-user-tie mr-1"></i> 役割設定</p>
-                        <p class="desc">「あなたは常にユーモアを忘れない、親切なアシスタントです。」</p>
-                    </li>
-                     <li>
-                        <p class="label"><i class="fas fa-book mr-1"></i> 知識領域</p>
-                        <p class="desc">「あなたは日本の歴史の専門家として答えてください。」</p>
-                    </li>
-                    <li>
-                        <p class="label"><i class="fas fa-ruler mr-1"></i> 回答スタイル</p>
-                        <p class="desc">「回答は必ず箇条書きで、結論から述べてください。」</p>
-                    </li>
-                     <li>
-                        <p class="label"><i class="fas fa-ban mr-1"></i> 禁止事項</p>
-                        <p class="desc">「政治的な意見や個人的な感想は述べないでください。」</p>
-                    </li>
-                </ul>
-             </div>
-        </div>
-
-        <!-- まとめ / Takeaway -->
-        <div class="takeaway mt-auto">
-            <p><i class="fas fa-star mr-2"></i>システムプロンプトでAIの基本設定をすれば、毎回同じ指示を繰り返さなくてOK！応答も安定しやすい！</p>
-        </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">追加A</span> -->
+        <div class="slide-number">
+            <!-- <span class="text-gray-600">16 / 33</span> -->
         </div>
     </div>
 </body>

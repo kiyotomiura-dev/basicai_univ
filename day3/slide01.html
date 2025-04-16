@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 1: タイトル</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Day3のTailwind CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Day3のFont Awesome CDN -->
+    <style>
+        /* Day2/Day3のフォント設定 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans JP', sans-serif; /* Day3のフォント */
+            background-color: #f4f4f8; /* 添付ファイルの背景色 */
+            overflow: auto;
+        }
+        .slide {
+            /* 添付ファイルのスタイルを適用 */
+            max-width: 1280px; /* 最大幅 */
+            min-height: 720px; /* 最小高さ */
+            margin: 40px auto; /* 上下左右中央揃え */
+            position: relative;
+            overflow: hidden;
+            background-color: #ffffff; /* 白背景 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* 影 */
+            border-radius: 8px; /* 角丸 */
+            border-top: 6px solid #4f46e5; /* Indigo 600 ボーダー (少し太く) */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 横方向中央揃え */
+            justify-content: center; /* 縦方向中央揃え */
+            padding: 60px; /* パディング */
+            box-sizing: border-box; /* Paddingを含めたサイズ計算 */
+        }
+        /* 背景アイコン (添付ファイル参考) */
+        .icon-bg {
+            position: absolute;
+            font-size: 150px; /* アイコンサイズ */
+            color: rgba(79, 70, 229, 0.08); /* 薄いIndigo色 */
+            z-index: 0; /* 背景へ */
+        }
+        /* Day3のアイコンに合わせて調整 */
+        .icon-left { left: 60px; bottom: 70px; transform: rotate(-15deg); }
+        .icon-right { right: 60px; top: 70px; transform: rotate(15deg); }
+
+        /* アニメーション (添付ファイル参考) */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; z-index: 1; }
+
+        /* スライド番号表示スタイル (添付ファイル参考) */
+        .slide-number-display {
+            position: absolute;
+            bottom: 25px; /* 位置調整 */
+            right: 30px; /* 位置調整 */
+            background-color: #e5e7eb; /* Gray 200 */
+            border-radius: 9999px; /* 円形 */
+            padding: 8px 16px; /* パディング調整 */
+            z-index: 10;
+            font-size: 0.875rem; /* 14px */
+            color: #4b5563; /* Gray 600 */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        /* 日本語の改行調整 (Day3のスタイル) */
+        p, li, span, h1, h2 {
+            word-break: break-word;
+            line-height: 1.8; /* 行間維持 */
+        }
+        span {
+            min-width: 0; /* span内での折り返しを許可 */
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- 背景アイコン (Day3テーマ) -->
+        <div class="icon-bg icon-left">
+            <i class="fa-solid fa-file-lines"></i> <!-- テキストアイコン例 -->
+        </div>
+        <div class="icon-bg icon-right">
+             <i class="fa-solid fa-palette"></i> <!-- 画像アイコン例 -->
+        </div>
+
+        <!-- メインコンテンツ -->
+        <div class="text-center fade-in-up">
+            <!-- Day3のタイトル・サブタイトルを適用 -->
+            <h1 class="text-5xl font-bold mb-4 text-indigo-800">
+                第3コマ：<br>テキスト生成AI＋画像生成AIの<br>実践的活用法
+            </h1>
+            <h2 class="text-3xl font-semibold mb-8 text-indigo-600">
+                言葉とイメージを自在に操る
+            </h2>
+
+            <!-- セミナー情報 (添付ファイル参考スタイル) -->
+            <div class="mt-10 mb-4 inline-block bg-indigo-50 rounded-lg px-8 py-4 shadow-sm">
+                 <p class="text-xl text-indigo-700">生成AI活用講座 Day 3</p>
+            </div>
+
+            <!-- 日付・講師情報 -->
+            <p class="text-lg text-gray-600">[日付]</p>
+            <p class="text-lg text-gray-600 mt-1">[講師名] / [所属]</p>
+        </div>
+
+        <!-- スライド番号 (Day3のコメント形式 + 添付ファイルのデザイン) -->
+        <div class="slide-number-display">
+            <span><!-- 1 / 30 --></span>
+        </div>
+    </div>
+</body>
+</html>

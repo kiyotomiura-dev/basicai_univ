@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - 生成AIの応用例③：Microsoft Copilot</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+     <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォント */ background-color: #f0f9ff; /* 元の背景色 */ overflow: auto; }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
+            border-radius: 12px; /* 元の角丸 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; } /* justify-content: center; は削除 */
+
+        /* --- 元のコンテンツスタイルは変更しない --- */
+        .chat-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); background-color: #f8fafc; }
+        .chat-bubble { border-radius: 18px; position: relative; }
+        .user-bubble { background-color: #e0f2fe; }
+        .ai-bubble { background-color: #ffffff; border: 1px solid #e2e8f0; }
+        .try-button { display: inline-block; background-color: #0ea5e9; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .try-button:hover { background-color: #0284c7; }
+        .source-link { font-size: 0.75rem; color: #0ea5e9; text-decoration: underline; }
+        .textarea-example { width: 100%; height: 80px; border: 1px solid #ccc; border-radius: 4px; padding: 8px; font-size: 0.8rem; margin-top: 5px; background-color: #f8fafc; }
+        .chat-bubble.user:after { border-right-color: #e0f2fe; } /* ユーザー吹き出し色調整 */
+        .chat-bubble.ai:after { border-right-color: #ffffff; } /* AI吹き出し色調整 */
+
+    </style>
+</head>
+<body>
+    <div class="slide">
+         <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+             <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title">
+                <img src="https://registry.npmmirror.com/@lobehub/icons-static-png/latest/files/dark/copilot-color.png" alt="Microsoft Copilot Logo" class="w-8 h-8 inline mr-2"> <!-- アイコンサイズ調整 -->
+                生成AIの応用例③：Microsoft Copilot
+            </div>
+        </div>
+
+        <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+             <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="text-center mb-6">
+                <p class="text-lg text-gray-800 mb-3">Microsoftが提供するAIアシスタント。Bing検索と統合されており、<br>回答と共に<span class="font-bold">情報源（参考ウェブサイト）</span>を示す場合があります。画像生成機能も搭載。</p>
+                <a href="https://copilot.microsoft.com/" target="_blank" class="try-button">
+                    <i class="fas fa-external-link-alt mr-2"></i>Microsoft Copilotを試す (無料)
+                </a>
+                <p class="text-xs text-gray-600 mt-2">※利用にはMicrosoftアカウントが必要です。</p>
+            </div>
+
+             <div class="flex-grow flex justify-center">
+                <div class="chat-card p-6 w-full max-w-3xl">
+                    <p class="text-center text-gray-500 text-sm mb-4">(対話例)</p>
+                    <div class="flex mb-4 items-start">
+                        <div class="bg-sky-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-user text-sky-600"></i>
+                        </div>
+                        <div class="chat-bubble user user-bubble p-3 flex-1"> <!-- userクラス追加 -->
+                            <p class="text-gray-900">インターンシップ応募用の自己PR文の下書きを作成しました。より熱意が伝わるように、具体的な経験を交えて添削してもらえますか？ また、IT業界で求められる人物像を踏まえたアドバイスもお願いします。</p>
+                            <textarea class="textarea-example" placeholder="(ここに自己PR文の下書きを貼り付ける...)">私は大学で情報工学を専攻しており、プログラミングに強い関心があります。特に、チームでのソフトウェア開発プロジェクトを通じて、協調性とコミュニケーション能力を培いました。貴社のインターンシップでは、実践的なスキルを習得し、貢献したいと考えています。</textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start mb-4">
+                        <div class="bg-slate-100 rounded-full p-2 w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">
+                            <i class="fas fa-robot text-slate-500"></i>
+                        </div>
+                        <div class="chat-bubble ai ai-bubble p-4 flex-1"> <!-- aiクラス追加 -->
+                            <p class="text-gray-800 mb-3 font-semibold">自己PR文の添削ですね。承知いたしました。熱意と具体性が向上するよう、修正案とIT業界で求められる人物像に基づいたアドバイスを提案します。</p>
+
+                             <p class="font-bold text-sky-700 text-sm mb-1">【自己PR文 修正案のポイント】</p>
+                             <ul class="list-disc list-inside text-xs text-gray-700 mb-3 space-y-1">
+                                 <li>冒頭でインターンシップへの強い意欲と、具体的な貢献目標を示す。</li>
+                                 <li>「チームでのソフトウェア開発プロジェクト」について、<span class="font-bold">プロジェクトの具体的な内容、ご自身の役割、直面した課題、その解決策、そして学んだこと</span>を記述する。（STARメソッドなどを活用）</li>
+                                 <li>「協調性とコミュニケーション能力」を示す具体的なエピソード（例：チーム内での意見対立をどのように調整し、プロジェクトを成功に導いたか）を加える。</li>
+                                 <li>習得したい「実践的なスキル」を、貴社の事業内容や募集要項と関連付けながら具体的に記述する。</li>
+                             </ul>
+
+                             <p class="font-bold text-sky-700 text-sm mb-1">【IT業界で求められる人物像を踏まえたアドバイス】</p>
+                             <ul class="list-disc list-inside text-xs text-gray-700 mb-3 space-y-1">
+                                 <li><span class="font-bold">主体性と学習意欲</span>：IT業界は技術の進歩が速いため、自ら新しい知識やスキルを習得する意欲をアピールできる経験があれば記述する。</li>
+                                 <li><span class="font-bold">問題解決能力</span>：プログラミングや開発における具体的な課題にどのように取り組み、解決してきたかを記述する。</li>
+                                 <li><span class="font-bold">チームワークとコミュニケーション</span>：異なる専門性を持つメンバーと協力して目標を達成した経験を具体的に示す。</li>
+                             </ul>
+                             <p class="text-xs text-gray-500 mt-2">これらの点を踏まえ、自己PR文を具体的に記述することで、より説得力が増すでしょう。修正後の文章を共有いただければ、再度フィードバックいたします。</p>
+                             <p class="text-xs text-gray-500 mt-1">参考情報: <a href="#" class="source-link">IT業界のインターンシップで求められるスキル [1]</a>, <a href="#" class="source-link">効果的な自己PR文の書き方 [2]</a> (※Copilotは回答の根拠となる情報源を示すことがあります)</p>
+
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">22 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

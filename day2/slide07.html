@@ -8,85 +8,96 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #8b5cf6; display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #8b5cf6; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; margin-top: 20px; }
-        .box { background-color: #f5f3ff; border-radius: 10px; padding: 25px; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; margin-top: 10px; } /* margin調整 */
+        .box { background-color: #f5f3ff; border-radius: 10px; padding: 25px; height: 100%; display: flex; flex-direction: column;} /* 高さを揃え、縦配置 */
         .box h2 { color: #7c3aed; font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; }
         .box h2 i { margin-right: 10px; }
-        .box p { font-size: 1.1rem; color: #6d28d9; line-height: 1.7; margin-bottom: 15px; }
+        .box p { font-size: 1.1rem; color: #6d28d9; line-height: 1.7; margin-bottom: 15px; word-break: keep-all; }
         .diagram { display: flex; align-items: center; justify-content: space-around; gap: 15px; margin-top: 15px; background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; }
         .diagram i { font-size: 2.5rem; }
         .diagram .arrow { color: #8b5cf6; font-size: 2rem; }
         .no-example-mark { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background-color: #fecaca; color: #dc2626; padding: 5px 8px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
         .example-text { background-color: white; padding: 10px 15px; border-radius: 6px; margin-top: 10px; font-style: italic; border-left: 3px solid #a78bfa; font-size: 1rem; }
         .pros-cons-list ul { list-style: none; padding: 0; }
-        .pros-cons-list li { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 1.1rem; }
-        .pros-cons-list li i { width: 25px; text-align: center; margin-right: 10px; margin-top: 4px; }
+        .pros-cons-list li { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 1.1rem; word-break: keep-all; line-height: 1.6;} /* word-break, line-height追加 */
+        .pros-cons-list li i { width: 25px; text-align: center; margin-right: 10px; margin-top: 5px; flex-shrink: 0;} /* 上揃え, shrinkしない */
         .pros i { color: #10b981; } .pros span { color: #059669; }
         .cons i { color: #f43f5e; } .cons span { color: #be123c; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-violet-700">テクニック①：シンプルにお願い！ (Zero-Shot)</h1>
-             <div>
-                <i class="fas fa-paper-plane text-violet-300 text-4xl"></i>
-            </div>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+            <div class="summary-title"><i class="fas fa-paper-plane mr-2"></i>基本手法①：Zero-Shot</div>
         </div>
-
-        <div class="content-grid">
-            <!-- 定義と図解 -->
-            <div class="box">
-                <h2><i class="fas fa-info-circle"></i>Zero-Shotって？</h2>
-                <p>
-                    AIに<strong class="text-violet-800">お手本（例）をまったく見せずに</strong>、「これやって！」といきなりお願いする方法です。
-                    一番シンプルで、基本の頼み方！
-                </p>
-                 <p>
-                     AIが<strong class="text-violet-800">元々たくさん勉強してきた知識</strong>で答えられるような、一般的なこと（要約、翻訳、簡単な質問など）に向いています。
-                 </p>
-                 <div class="diagram">
-                    <span class="no-example-mark"><i class="fas fa-times-circle mr-1"></i>お手本なし！</span>
-                    <i class="fas fa-user text-indigo-500"></i>
-                    <i class="fas fa-arrow-right arrow"></i>
-                    <i class="fas fa-comment-dots text-orange-500" title="直接お願い！"></i>
-                    <i class="fas fa-arrow-right arrow"></i>
-                    <i class="fas fa-robot text-teal-500"></i>
-                    <i class="fas fa-arrow-right arrow"></i>
-                    <i class="fas fa-lightbulb text-yellow-500"></i>
-                 </div>
-                 <p class="text-center text-sm text-gray-600 mt-2">「説明書なしで、やってみて！」と頼むイメージ。</p>
-            </div>
-
-            <!-- 具体例と良い点/注意点 -->
-            <div>
-                <div class="box mb-6">
-                    <h2><i class="fas fa-quote-left"></i>例えばこんな感じ</h2>
-                    <div class="example-text">"「プロンプトエンジニアリング」って何か、短く教えて。"</div>
-                    <div class="example-text">"次の英語を日本語にして： AI is changing the world."</div>
-                </div>
-
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="content-grid">
+                <!-- 定義と図解 -->
                 <div class="box">
-                     <h2><i class="fas fa-balance-scale"></i>良い点 <i class="fas fa-thumbs-up text-green-500 ml-1"></i> / 注意点 <i class="fas fa-thumbs-down text-red-500 ml-1"></i></h2>
-                    <div class="pros-cons-list">
-                        <ul>
-                            <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">とにかく簡単！</strong> お手本いらずですぐ試せる。</span></li>
-                            <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">色々なことに使える！</strong> AIが知ってることならOK。</span></li>
-                            <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">答えが不安定？</strong> 期待通りにならないことも。</span></li>
-                            <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">複雑なのは苦手。</strong> 難しいお願いや、AIが知らない分野はうまくできないかも。</span></li>
-                        </ul>
+                    <h2><i class="fas fa-info-circle"></i>Zero-Shotって？</h2>
+                    <p>
+                        AIに<strong class="text-violet-800">お手本（例）をまったく見せずに</strong>、「これやって！」といきなりお願いする方法です。
+                        一番シンプルで、基本の頼み方！
+                    </p>
+                    <p>
+                        AIが<strong class="text-violet-800">元々たくさん勉強してきた知識</strong>で答えられるような、一般的なこと（要約、翻訳、簡単な質問など）に向いています。
+                    </p>
+                    <div class="diagram mt-auto"> <!-- mt-autoで下寄せ -->
+                        <span class="no-example-mark"><i class="fas fa-times-circle mr-1"></i>お手本なし！</span>
+                        <i class="fas fa-user text-indigo-500"></i>
+                        <i class="fas fa-arrow-right arrow"></i>
+                        <i class="fas fa-comment-dots text-orange-500" title="直接お願い！"></i>
+                        <i class="fas fa-arrow-right arrow"></i>
+                        <i class="fas fa-robot text-teal-500"></i>
+                        <i class="fas fa-arrow-right arrow"></i>
+                        <i class="fas fa-lightbulb text-yellow-500"></i>
+                    </div>
+                    <p class="text-center text-sm text-gray-600 mt-2">「説明書なしで、やってみて！」と頼むイメージ。</p>
+                </div>
+                <!-- 具体例と良い点/注意点 -->
+                 <div class="box">
+                     <div class="mb-6">
+                         <h2><i class="fas fa-quote-left"></i>例えばこんな感じ</h2>
+                        <div class="example-text">"「プロンプトエンジニアリング」って何か、短く教えて。"</div>
+                        <div class="example-text">"次の英語を日本語にして： AI is changing the world."</div>
+                    </div>
+                     <div class="mt-auto"> <!-- mt-autoで下寄せ -->
+                        <h2><i class="fas fa-balance-scale"></i>良い点 <i class="fas fa-thumbs-up text-green-500 ml-1"></i> / 注意点 <i class="fas fa-thumbs-down text-red-500 ml-1"></i></h2>
+                        <div class="pros-cons-list">
+                            <ul>
+                                <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">とにかく簡単！</strong> お手本いらずですぐ試せる。</span></li>
+                                <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">色々なことに使える！</strong> AIが知ってることならOK。</span></li>
+                                <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">答えが不安定？</strong> 期待通りにならないことも。</span></li>
+                                <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">複雑なのは苦手。</strong> 難しいお願いや、AIが知らない分野はうまくできないかも。</span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
-            <!-- <span class="text-gray-600">7 / 26</span> -->
+        <div class="slide-number">
+            <!-- <span class="text-gray-600">7 / 33</span> -->
         </div>
     </div>
 </body>

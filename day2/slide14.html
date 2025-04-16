@@ -8,86 +8,86 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #f59e0b; display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #f59e0b; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; display: flex; flex-direction: column; }
         .explanation-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
-        .control-examples { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 20px; flex-grow: 1;}
+        .explanation-box h2 { font-size: 1.5rem; font-weight: 600; color: #b45309; margin-bottom: 10px; }
+        .explanation-box p { font-size: 1.1rem; color: #92400e; line-height: 1.7; word-break: keep-all; }
+        .control-examples-section > h2 { font-size: 1.6rem; font-weight: 600; color: #a16207; margin-bottom: 20px; text-align: center;}
+        .control-examples { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; flex-grow: 1; } /* gap調整 */
         .control-card { background-color: #fefce8; border: 1px solid #fef08a; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
         .control-card .header { display: flex; align-items: center; margin-bottom: 15px; }
-        .control-card .icon { font-size: 2rem; color: #d97706; /* Amber 600 */ margin-right: 15px; width: 40px; text-align: center; }
+        .control-card .icon { font-size: 2rem; color: #d97706; margin-right: 15px; width: 40px; text-align: center; }
         .control-card h3 { font-size: 1.2rem; font-weight: 600; color: #b45309; flex-grow: 1; }
         .prompt-text { background-color: white; padding: 8px 12px; border-radius: 4px; font-style: italic; color: #4b5563; margin-bottom: 10px; font-size: 0.95em; flex-grow: 1; }
-        .output-description { color: #78350f; font-size: 0.95rem; margin-top: auto; /* 説明文を下部に */ }
-        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #d97706; background-color: #fef3c7; padding: 15px; border-radius: 8px; }
+        .prompt-text strong { color: #b45309; background-color: #fef3c7; padding: 0 3px; border-radius: 3px;} /* 強調スタイル */
+        .output-description { color: #78350f; font-size: 0.95rem; margin-top: auto; word-break: keep-all; line-height: 1.6;} /* word-break, line-height追加 */
+        .takeaway { text-align: center; margin-top: 25px; font-size: 1.2rem; font-weight: 600; color: #d97706; background-color: #fef3c7; padding: 15px; border-radius: 8px; margin-bottom: 10px; } /* margin調整 */
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-amber-700">コツ③：話し方やレベルを合わせる！</h1>
-             <div>
-                <i class="fas fa-comments text-amber-300 text-4xl"></i>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+            <div class="summary-title"><i class="fas fa-comments mr-2"></i>コツ③：文体・トーン・レベル指定</div>
+        </div>
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+             <div class="explanation-box">
+                <h2><i class="fas fa-microphone-alt mr-2"></i> AIのキャラ設定？</h2>
+                 <p>
+                    AIが作る文章の<strong class="text-amber-600">「話し方（丁寧とか、面白いとか）」</strong>や<strong class="text-amber-600">「難しさ（子供向けとか、専門家向けとか）」</strong>をコントロールするテクニックです。
+                    誰に読んでもらいたいか、どんな雰囲気で伝えてほしいかをAIに指示しましょう。
+                </p>
             </div>
-        </div>
-
-        <!-- 説明 -->
-        <div class="explanation-box">
-            <h2 class="text-2xl font-semibold text-amber-600 mb-2"><i class="fas fa-microphone-alt mr-2"></i> AIのキャラ設定？</h2>
-             <p class="text-lg text-gray-800">
-                AIが作る文章の<strong class="text-amber-600">「話し方（丁寧とか、面白いとか）」</strong>や<strong class="text-amber-600">「難しさ（子供向けとか、専門家向けとか）」</strong>をコントロールするテクニックです。
-                誰に読んでもらいたいか、どんな雰囲気で伝えてほしいかをAIに指示しましょう。
-            </p>
-        </div>
-
-        <!-- コントロール例 -->
-        <div>
-            <h2 class="text-2xl font-semibold text-amber-600 mb-4 text-center">こんな風に指定できる！</h2>
-            <div class="control-examples">
-                <div class="control-card">
-                    <div class="header">
-                        <span class="icon"><i class="fas fa-child"></i></span>
-                        <h3>やさしく（子供向け）</h3>
+            <div class="control-examples-section">
+                <h2>こんな風に指定できる！</h2>
+                <div class="control-examples">
+                    <div class="control-card">
+                        <div class="header"><span class="icon"><i class="fas fa-child"></i></span><h3>やさしく（子供向け）</h3></div>
+                        <div class="prompt-text">"光合成ってなあに？ <strong class='text-amber-700'>小学生にも分かるように</strong>教えて！"</div>
+                        <p class="output-description">→ 例えを使ったり、簡単な言葉で説明してくれる。</p>
                     </div>
-                    <div class="prompt-text">"光合成ってなあに？ <strong class='text-amber-700'>小学生にも分かるように</strong>教えて！"</div>
-                    <p class="output-description">→ 例えを使ったり、簡単な言葉で説明してくれる。</p>
-                </div>
-                <div class="control-card">
-                    <div class="header">
-                        <span class="icon"><i class="fas fa-user-tie"></i></span>
-                        <h3>丁寧に（ビジネス風）</h3>
+                    <div class="control-card">
+                        <div class="header"><span class="icon"><i class="fas fa-user-tie"></i></span><h3>丁寧に（ビジネス風）</h3></div>
+                        <div class="prompt-text">"打ち合わせのお礼を<strong class='text-amber-700'>丁寧なビジネスメール</strong>で書いてください。"</div>
+                        <p class="output-description">→ 敬語や定型文を使った、かっちりした文章になる。</p>
                     </div>
-                    <div class="prompt-text">"打ち合わせのお礼を<strong class='text-amber-700'>丁寧なビジネスメール</strong>で書いてください。"</div>
-                    <p class="output-description">→ 敬語や定型文を使った、かっちりした文章になる。</p>
-                </div>
-                 <div class="control-card">
-                    <div class="header">
-                         <span class="icon"><i class="fas fa-graduation-cap"></i></span>
-                         <h3>詳しく（専門家向け）</h3>
+                     <div class="control-card">
+                        <div class="header"><span class="icon"><i class="fas fa-graduation-cap"></i></span><h3>詳しく（専門家向け）</h3></div>
+                        <div class="prompt-text">"ディープラーニングの最新動向を<strong class='text-amber-700'>研究者向け</strong>にまとめて。"</div>
+                         <p class="output-description">→ 専門用語を使って、詳しい内容を書いてくれる。</p>
                     </div>
-                    <div class="prompt-text">"ディープラーニングの最新動向を<strong class='text-amber-700'>研究者向け</strong>にまとめて。"</div>
-                     <p class="output-description">→ 専門用語を使って、詳しい内容を書いてくれる。</p>
-                </div>
-                 <div class="control-card">
-                    <div class="header">
-                        <span class="icon"><i class="fas fa-laugh-beam"></i></span>
-                         <h3>面白く（ユーモラスに）</h3>
+                     <div class="control-card">
+                        <div class="header"><span class="icon"><i class="fas fa-laugh-beam"></i></span><h3>面白く（ユーモラスに）</h3></div>
+                        <div class="prompt-text">"この商品の紹介文を、<strong class='text-amber-700'>クスッと笑えるように</strong>書いて！"</div>
+                         <p class="output-description">→ ジョークや面白い表現で、楽しい雰囲気にしてくれる。</p>
                      </div>
-                    <div class="prompt-text">"この商品の紹介文を、<strong class='text-amber-700'>クスッと笑えるように</strong>書いて！"</div>
-                     <p class="output-description">→ ジョークや面白い表現で、楽しい雰囲気にしてくれる。</p>
-                 </div>
+                </div>
+            </div>
+            <div class="takeaway mt-auto">
+                <p><i class="fas fa-star mr-2"></i>「誰に」「どんな風に」伝えたいかを考えて、AIの話し方を演出しよう！</p>
             </div>
         </div>
-
-        <!-- まとめ / Takeaway -->
-        <div class="takeaway mt-auto">
-            <p><i class="fas fa-star mr-2"></i>「誰に」「どんな風に」伝えたいかを考えて、AIの話し方を演出しよう！</p>
-        </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-             <!-- <span class="text-gray-600">14 / 26</span> -->
+        <div class="slide-number">
+             <!-- <span class="text-gray-600">14 / 33</span> -->
         </div>
     </div>
 </body>

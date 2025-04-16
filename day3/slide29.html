@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 29: 今後の学習に向けて</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { grid-column: 1 / -1; font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-bottom: 15px; display: flex; align-items: center; }
+        h3 i { margin-right: 10px; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 15px; font-size: 1.1rem; color: #374151; display: flex; align-items: flex-start; }
+        li i { margin-right: 10px; color: #4A90E2; margin-top: 7px; width: 20px; text-align: center; }
+        p, li span { word-break: break-word; line-height: 1.8; }
+        span { min-width: 0; }
+        a { color: #3B82F6; text-decoration: underline; }
+        a:hover { color: #1D4ED8; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="summary-title"><i class="fa-solid fa-book-open-reader mr-2"></i>まとめと質疑応答</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="text-center"><i class="fa-solid fa-graduation-cap mr-3 text-[#4A90E2]"></i>今後の学習に向けて</h2>
+
+            <div>
+                <h3><i class="fa-solid fa-lightbulb"></i>学びを深めるヒント</h3>
+                <ul>
+                    <li><i class="fa-solid fa-hands-on-testing"></i><span><strong>とにかく使ってみる:</strong> 色々なツールを試し、プロンプトを工夫する経験が一番の学び。</span></li>
+                    <li><i class="fa-solid fa-newspaper"></i><span><strong>最新情報を追う:</strong> AI技術は日進月歩。ニュースサイト、ブログ、SNSなどで新しい情報をキャッチアップ。</span></li>
+                    <li><i class="fa-solid fa-share-nodes"></i><span><strong>コミュニティに参加:</strong> オンラインフォーラムや勉強会で他のユーザーと情報交換する。</span></li>
+                    <li><i class="fa-solid fa-book"></i><span><strong>体系的に学ぶ:</strong> 書籍やオンラインコースで、特定の技術や応用分野について深く学ぶ。</span></li>
+                     <li><i class="fa-solid fa-triangle-exclamation"></i><span><strong>批判的思考を持つ:</strong> AIの限界やリスクを理解し、鵜呑みにせず賢く付き合う姿勢を忘れない。</span></li>
+                </ul>
+            </div>
+
+             <div>
+                <h3><i class="fa-solid fa-link"></i>参考情報（例）</h3>
+                <ul>
+                    <li><i class="fa-solid fa-laptop-code"></i><span>各AIツール公式サイト (ChatGPT, Gemini, Claude, Midjourney, Stable Diffusionなど)</span></li>
+                    <li><i class="fa-solid fa-building-columns"></i><span>大学のライブラリ・オンラインリソース</span></li>
+                    <li><i class="fa-solid fa-book-bookmark"></i><span>関連書籍 (書店やオンラインで探してみましょう)</span></li>
+                    <li><i class="fa-solid fa-users"></i><span>オンラインコミュニティ・フォーラム (Reddit, Discordサーバーなど)</span></li>
+                     <li><i class="fa-solid fa-lightbulb"></i><span>[講師のおすすめリソースがあればここに追加]</span></li>
+                     <li><i class="fa-solid fa-circle-info"></i><span>(例) <a href="https://openai.com/blog/" target="_blank">OpenAI Blog</a></span></li>
+                     <li><i class="fa-solid fa-circle-info"></i><span>(例) <a href="https://blog.google/technology/ai/" target="_blank">The Keyword (Google AI)</a></span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="slide-number"><!-- 29 / 31 --></div>
+    </div>
+</body>
+</html>

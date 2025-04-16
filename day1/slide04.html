@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - 身の回りのAI</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f8;
+            overflow: auto;
+        }
+        .slide {
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ }
+
+        .ai-example-card { border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); transition: all 0.3s; overflow: hidden; border: 1px solid #e0e0e0; }
+        .ai-example-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .card-icon { transition: all 0.3s; }
+        .ai-example-card:hover .card-icon { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+            <!-- 元のタイトルとアイコンをヘッダー右側に配置 -->
+            <div class="summary-title"><i class="fas fa-search mr-2"></i>身の回りのAI</div>
+        </div>
+
+        <!-- コンテンツ部分をラップし、アニメーションを適用 -->
+        <div class="slide-content fade-in-up">
+            <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-10"> ... </div> -->
+
+            <div class="bg-gray-100 rounded-xl p-4 mb-8 max-w-lg mx-auto text-center border">
+                <p class="text-xl text-gray-800">私たちの日常生活には、すでに多くのAI技術が活用されています。</p>
+            </div>
+
+            <div class="grid grid-cols-3 gap-8 mb-8">
+                <div class="ai-example-card bg-pink-50 p-6 flex flex-col items-center">
+                    <div class="bg-pink-100 p-4 flex justify-center rounded-t-md w-full"> <!-- 背景色を広げるためにw-full追加 -->
+                        <i class="fas fa-mobile-alt text-pink-500 text-4xl card-icon"></i>
+                    </div>
+                    <div class="p-4 text-center flex-grow flex flex-col justify-center"> <!-- 中央揃えのため -->
+                        <h3 class="text-xl font-semibold text-pink-700 mb-2">スマートフォンの顔認証</h3>
+                        <p class="text-gray-700 text-sm">生体認証技術によるセキュリティ向上</p>
+                    </div>
+                </div>
+
+                <div class="ai-example-card bg-purple-50 p-6 flex flex-col items-center">
+                    <div class="bg-purple-100 p-4 flex justify-center rounded-t-md w-full">
+                        <i class="fas fa-microphone text-purple-500 text-4xl card-icon"></i>
+                    </div>
+                    <div class="p-4 text-center flex-grow flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold text-purple-700 mb-2">音声アシスタント</h3>
+                        <p class="text-gray-700 text-sm">自然言語処理による対話型インターフェース</p>
+                    </div>
+                </div>
+
+                <div class="ai-example-card bg-blue-50 p-6 flex flex-col items-center">
+                    <div class="bg-blue-100 p-4 flex justify-center rounded-t-md w-full">
+                        <i class="fas fa-map-marked-alt text-blue-500 text-4xl card-icon"></i>
+                    </div>
+                    <div class="p-4 text-center flex-grow flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">地図アプリケーション</h3>
+                        <p class="text-gray-700 text-sm">リアルタイム交通情報に基づくルート最適化</p>
+                    </div>
+                </div>
+
+                <div class="ai-example-card bg-green-50 p-6 flex flex-col items-center">
+                    <div class="bg-green-100 p-4 flex justify-center rounded-t-md w-full">
+                        <i class="fas fa-camera-retro text-green-500 text-4xl card-icon"></i>
+                    </div>
+                    <div class="p-4 text-center flex-grow flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold text-green-700 mb-2">SNSの画像認識</h3>
+                        <p class="text-gray-700 text-sm">コンテンツの自動分類やフィルタリング</p>
+                    </div>
+                </div>
+
+                <div class="ai-example-card bg-red-50 p-6 flex flex-col items-center">
+                    <div class="bg-red-100 p-4 flex justify-center rounded-t-md w-full">
+                        <i class="fas fa-tv text-red-500 text-4xl card-icon"></i>
+                    </div>
+                    <div class="p-4 text-center flex-grow flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold text-red-700 mb-2">動画配信サービスの推薦</h3>
+                        <p class="text-gray-700 text-sm">ユーザーの視聴履歴に基づいたコンテンツ提案</p>
+                    </div>
+                </div>
+
+                <div class="ai-example-card bg-yellow-50 p-6 flex flex-col items-center">
+                    <div class="bg-yellow-100 p-4 flex justify-center rounded-t-md w-full">
+                        <i class="fas fa-keyboard text-yellow-500 text-4xl card-icon"></i>
+                    </div>
+                    <div class="p-4 text-center flex-grow flex flex-col justify-center">
+                        <h3 class="text-xl font-semibold text-yellow-700 mb-2">予測変換・スペルチェック</h3>
+                        <p class="text-gray-700 text-sm">入力支援による効率化とミスの削減</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 rounded-xl p-5 max-w-xl mx-auto border mt-auto mb-4"> <!-- 位置調整 -->
+                <div class="flex items-center">
+                    <div class="bg-indigo-100 rounded-full p-3 mr-4">
+                        <i class="fas fa-question text-indigo-500"></i>
+                    </div>
+                    <p class="text-gray-700">今日、あなたが利用したサービスの中にも、多くのAI技術が活用されている可能性があります。</p>
+                </div>
+            </div>
+        </div> <!-- slide-content fade-in-up の閉じタグ -->
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 border">
+            <span class="text-gray-600">4 / 20</span>
+        </div>
+        -->
+    </div> <!-- slide の閉じタグ -->
+</body>
+</html>

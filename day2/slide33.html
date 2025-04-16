@@ -3,51 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ご清聴ありがとうございました</title>
+    <title>Day2 プロンプトエンジニアリング理解度テスト</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #4b5563; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .thankyou-icon i { font-size: 6rem; color: #4ade80; margin-bottom: 30px; }
-        /* --- 修正箇所： title の font-weight はクラスで指定するのでCSSからは削除 --- */
-        .thankyou-title { font-size: 3rem; /* font-weight: 700; ← 削除 */ color: #1f2937; margin-bottom: 20px; }
-        .thankyou-subtitle { font-size: 1.4rem; color: #374151; margin-bottom: 40px; }
-        .reference-info { background-color: rgba(255, 255, 255, 0.7); padding: 20px 30px; border-radius: 8px; font-size: 1rem; color: #111827; text-align: left; max-width: 600px; }
-        /* --- 修正箇所： h2 の font-weight はクラスで指定するのでCSSからは削除 --- */
-        .reference-info h2 { font-size: 1.2rem; /* font-semibold; ← 削除 */ margin-bottom: 10px; text-align: center;}
-        .reference-info ul { list-style: disc; padding-left: 20px;}
-        .reference-info li { margin-bottom: 5px; }
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        .slide-content { flex-grow: 1; padding-top: 5px; overflow-y: auto; }
+        .quiz-intro { background-color: #e0f2fe; border-radius: 12px; padding: 15px 20px; margin-bottom: 15px; text-align: center; }
+        .quiz-intro p { font-size: 1.1rem; color: #075985; }
+        /* --- 修正箇所： 空のルールセットを削除 --- */
+        /* .quiz-container {} ← 削除 */
+        .quiz-card {
+            border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.07);
+            transition: all 0.3s; overflow: hidden; margin-bottom: 15px;
+            background-color: #f8fafc; padding: 20px;
+        }
+        .quiz-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        .quiz-question { display: flex; align-items: flex-start; margin-bottom: 12px; }
+        .question-number { background-color: #ccfbf1; color: #115e59; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink:0; font-weight: bold; font-size: 0.9rem; margin-top: 3px; }
+        .question-text { font-weight: 600; color: #1e293b; font-size: 1.1rem; line-height: 1.6; word-break: break-word; }
+        /* --- 修正箇所： space-y-2 は JS で制御するためCSS不要 --- */
+        .quiz-options { /* space-y-2 のスタイルは削除 */ margin-bottom: 10px; }
+        .quiz-option {
+            transition: all 0.2s; cursor: pointer; display: flex; align-items: center;
+            background-color: white; padding: 10px 15px; border-radius: 8px;
+            border: 2px solid #e2e8f0; word-break: break-word; line-height: 1.5;
+            margin-bottom: 8px; /* space-y-2 の代わり */
+        }
+        .quiz-option:last-child { margin-bottom: 0; } /* 最後の要素のマージン削除 */
+        /* --- 修正箇所ここまで --- */
+        .quiz-option:hover { transform: translateX(3px); border-color: #94a3b8; }
+        .answer-icon { width: 24px; height: 24px; border-radius: 6px; margin-right: 12px; display: flex; align-items: center; justify-content: center; font-weight: bold; background-color: #e2e8f0; color: #475569; flex-shrink: 0;}
+        .option-text { color: #334155; font-size: 1rem; }
+        .correct { border-color: #10b981 !important; background-color: #f0fdf4 !important;}
+        .correct .answer-icon { background-color: #10b981 !important; color: white !important; }
+        .incorrect { border-color: #f43f5e !important; background-color: #fff1f2 !important;}
+        .incorrect .answer-icon { background-color: #f43f5e !important; color: white !important; }
+        .explanation { margin-top: 10px; padding: 12px 15px; background-color: #f0f9ff; border-radius: 8px; border: 1px solid #e0f2f7; font-size: 0.95rem; color: #0369a1; line-height: 1.6;}
+        .hidden { display: none; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <div class="thankyou-icon">
-             <i class="fas fa-hands-clapping"></i>
+    <div class="slide">
+        <!-- ヘッダー -->
+        <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-question-circle mr-2"></i>理解度テスト</div>
         </div>
-        <!-- --- 修正箇所： h1 に font-bold クラスを追加 --- -->
-        <h1 class="thankyou-title font-bold">ご清聴ありがとうございました</h1>
-        <p class="thankyou-subtitle">プロンプトエンジニアリングの世界、いかがでしたか？</p>
+        <!-- コンテンツ -->
+        <div class="slide-content fade-in-up">
+            <div class="quiz-intro">
+                <p>Day2で学んだプロンプトエンジニアリングの基本を確認しましょう！</p>
+            </div>
 
-        <!-- 必要であれば参考文献などを記載 -->
-        <!--
-        <div class="reference-info">
-             -- --- 修正箇所： h2 に font-semibold クラスを追加 --- --
-            <h2 class="font-semibold">参考文献・参考情報</h2>
-            <ul>
-                <li>Prompt Engineering Guide (promptingguide.ai)</li>
-                <li>論文: [関連論文名]</li>
-                <li>書籍: [関連書籍名]</li>
-            </ul>
+            <!-- {/* クイズはここにJavaScriptで生成される */} -->
+            <div id="quiz-container"></div> {/* class="quiz-container" は不要 */}
+
         </div>
-        -->
 
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-             <!-- <span class="text-gray-600">26 / 26</span> -->
+        <div class="slide-number">
+            {/* クイズスライド番号 */}
         </div>
     </div>
+
+    <script>
+        const quizData = [
+            { id: 'q1', question: "AIに対する指示や質問、文脈情報のことを何と呼びますか？", options: ["アルゴリズム", "プロンプト", "パラメータ", "データセット"], correctAnswer: "プロンプト", explanation: "解説: AIへの指示や質問は「プロンプト」と呼ばれます。これがAIの出力を方向づける基本となります。" },
+            { id: 'q2', question: "プロンプトに具体的な例（お手本）を含めずに指示を出す手法を何と呼びますか？", options: ["Zero-Shot プロンプティング", "Few-Shot プロンプティング", "In-Context Learning (ICL)", "システムプロンプト"], correctAnswer: "Zero-Shot プロンプティング", explanation: "解説: 例を含めずに指示する基本形が Zero-Shot プロンプティングです。" },
+            { id: 'q3', question: "プロンプトに少数の例（お手本）を含めて指示を出す手法は何ですか？", options: ["Zero-Shot プロンプティング", "Few-Shot プロンプティング", "Chain-of-Thought (CoT)", "構造化プロンプト"], correctAnswer: "Few-Shot プロンプティング", explanation: "解説: 少数の例（Few-Shot）を提示してAIにタスクのパターンを学習させるのが Few-Shot プロンプティングです。" },
+            { id: 'q4', question: "良いプロンプトを作る上で最も重要な要素は次のうちどれですか？", options: ["できるだけ多くの専門用語を使うこと", "プロンプトを非常に長く書くこと", "指示の明確さと具体性", "毎回違う言葉遣いをすること"], correctAnswer: "指示の明確さと具体性", explanation: "解説: AIが迷わず意図を理解できるよう、明確で具体的な指示が最も重要です。" },
+            { id: 'q5', question: "AIに特定の役割（例：「あなたは編集者です」）を与えて回答させるテクニックは何ですか？", options: ["形式指定", "役割（ペルソナ）設定", "Chain-of-Thought (CoT)", "Temperature調整"], correctAnswer: "役割（ペルソナ）設定", explanation: "解説: AIに特定のキャラクターや専門家になりきってもらうのは「役割（ペルソナ）設定」です。" },
+            { id: 'q6', question: "AIへの指示や背景情報、例などを分かりやすく区切るために `#` や `<tag>` などを使うテクニックは何ですか？", options: ["プロンプト改善", "システムプロンプト", "構造化プロンプト", "Self-Consistency"], correctAnswer: "構造化プロンプト", explanation: "解説: 情報を整理し、AIの理解度を高めるためにプロンプトの構成要素を区切ることを構造化と言います。" },
+            { id: 'q7', question: "複雑な問題を解かせる際に、AIに思考のステップを記述させることで精度を上げる手法は何ですか？", options: ["Few-Shot プロンプティング", "Self-Consistency", "Chain-of-Thought (CoT)", "ReAct"], correctAnswer: "Chain-of-Thought (CoT)", explanation: "解説: 思考の連鎖(Chain-of-Thought)を促すことで、複雑な問題の正答率向上が期待できます。" },
+            { id: 'q8', question: "AIの応答の「ランダムさ」や「創造性」を調整するパラメータは何ですか？ (API利用時など)", options: ["プロンプト長", "Temperature / Top-p", "役割（ペルソナ）", "システムプロンプト"], correctAnswer: "Temperature / Top-p", explanation: "解説: TemperatureやTop-pは、AIが次の単語を選ぶ際の確率分布を調整し、応答の多様性をコントロールします。" },
+            { id: 'q9', question: "AIが外部ツール（Web検索など）を呼び出して情報を補う仕組みを持つフレームワークの例として挙げられたものは何ですか？", options: ["Few-Shot", "Self-Consistency", "Tree of Thoughts (ToT)", "ReAct"], correctAnswer: "ReAct", explanation: "解説: ReActは、Reason(思考)とAct(行動)を組み合わせ、AIが外部ツールを利用してタスクを解決するフレームワークです。" },
+            { id: 'q10', question: "プロンプトエンジニアリングにおいて、期待通りの答えが得られない場合、まず試すべきことは何ですか？", options: ["すぐにAIを変える", "プロンプトをより長くする", "プロンプトを分析し、改善（具体化、例示追加など）する", "Temperatureを最大にする"], correctAnswer: "プロンプトを分析し、改善（具体化、例示追加など）する", explanation: "解説: まずはプロンプト自体に問題がないかを見直し、明確化や具体化、例示の追加などを試すことが改善の第一歩です。" }
+        ];
+
+        function generateQuizHTML(quizContainerId, data) {
+            const container = document.getElementById(quizContainerId);
+            if (!container) return;
+            container.innerHTML = ''; // コンテナをクリア
+
+            data.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'quiz-question';
+                questionDiv.innerHTML = `
+                    <div class="question-number">${index + 1}</div>
+                    <p class="question-text font-semibold text-slate-800">${q.question}</p>
+                `;
+                card.appendChild(questionDiv);
+
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'quiz-options'; // space-y-2 はCSSで制御
+                const optionLetters = ['A', 'B', 'C', 'D'];
+
+                q.options.forEach((option, i) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'quiz-option'; // ここに space-y-2 は適用しない
+                    if (option === q.correctAnswer) {
+                        optionDiv.classList.add('correct-answer-option');
+                    }
+                    optionDiv.setAttribute('onclick', `checkAnswer(this, '${q.id}', \`${q.explanation.replace(/`/g, '\\`')}\`)`);
+                    optionDiv.innerHTML = `
+                        <div class="answer-icon">${optionLetters[i]}</div>
+                        <p class="option-text text-sm">${option}</p>
+                    `;
+                    optionsDiv.appendChild(optionDiv);
+                });
+                card.appendChild(optionsDiv);
+
+                const explanationDiv = document.createElement('div');
+                explanationDiv.id = `explanation-${q.id}`;
+                explanationDiv.className = 'explanation hidden';
+                card.appendChild(explanationDiv);
+
+                container.appendChild(card);
+            });
+        }
+
+        function checkAnswer(selectedOption, questionId, explanationText) {
+            const quizCard = selectedOption.closest('.quiz-card');
+            const options = quizCard.querySelectorAll('.quiz-option');
+            const explanationDiv = document.getElementById(`explanation-${questionId}`);
+
+            options.forEach(option => {
+                option.onclick = null;
+                 option.classList.remove('correct', 'incorrect');
+                 // Reset icon text before setting new one
+                 const icon = option.querySelector('.answer-icon');
+                 const originalLetter = icon.textContent; // Keep original letter if needed
+                 // Example: Reset to original letter if not selected/correct
+                 // icon.textContent = originalLetter; // Uncomment and adapt if needed
+            });
+
+            const answerIcon = selectedOption.querySelector('.answer-icon');
+            if (selectedOption.classList.contains('correct-answer-option')) {
+                selectedOption.classList.add('correct');
+                answerIcon.innerHTML = '<i class="fas fa-check text-xs"></i>';
+            } else {
+                selectedOption.classList.add('incorrect');
+                answerIcon.innerHTML = '<i class="fas fa-times text-xs"></i>';
+                options.forEach(option => {
+                    if (option.classList.contains('correct-answer-option')) {
+                        option.classList.add('correct');
+                        const correctIcon = option.querySelector('.answer-icon');
+                        correctIcon.innerHTML = '<i class="fas fa-check text-xs"></i>';
+                    } else {
+                         // Optionally reset icon text for non-selected, incorrect options
+                         // const otherIcon = option.querySelector('.answer-icon');
+                         // Reset logic here if needed
+                    }
+                });
+            }
+
+            explanationDiv.textContent = explanationText;
+            explanationDiv.classList.remove('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            generateQuizHTML('quiz-container', quizData);
+        });
+    </script>
 </body>
 </html>

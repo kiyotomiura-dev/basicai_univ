@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Font Awesome CDN を参照ファイルに合わせる -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f8;
+            overflow: auto;
+        }
+        /* --- slide01.html のスタイルを適用 --- */
+        .slide {
+            max-width: 1280px; /* 固定幅ではなく最大幅を指定 */
+            min-height: 720px;
+            margin: 40px auto; /* 上下左右中央揃え */
+            position: relative;
+            overflow: hidden; /* overflow: auto から変更 */
+            background-color: #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            border-top: 4px solid #4f46e5; /* Indigo 600 - 参照ファイルに合わせる */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px; /* パディングを追加 */
+        }
+        /* --- 背景アイコンスタイルを参照ファイルから適用 --- */
+        .icon-bg {
+            position: absolute;
+            font-size: 120px; /* サイズを少し調整 */
+            color: rgba(79, 70, 229, 0.08); /* 色を参照ファイルに合わせる */
+            z-index: 0;
+        }
+        .icon-left {
+            left: 60px;
+            bottom: 70px;
+            transform: rotate(-10deg);
+        }
+        .icon-right {
+            right: 60px;
+            top: 70px;
+            transform: rotate(10deg);
+        }
+        /* --- アニメーションスタイルを参照ファイルから適用 --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            z-index: 1; /* コンテンツがアイコンより手前に来るように */
+        }
+        /* --- 元コードにあった不要なスタイルを削除 --- */
+        /* .bubble, .network-dot, .network-line は削除 */
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- 背景アイコン (参照ファイルの構造に合わせ、アイコンは元のものを維持) -->
+        <div class="icon-bg icon-left">
+            <i class="fas fa-robot"></i> <!-- 元の robot-icon を左下に -->
+        </div>
+        <div class="icon-bg icon-right">
+             <i class="fas fa-brain"></i> <!-- 元の brain-icon を右上に -->
+        </div>
+
+        <!-- メインコンテンツ (参照ファイルの構造とクラスを適用) -->
+        <div class="text-center fade-in-up">
+            <!-- Tailwindクラスを参照ファイルのスタイルに合わせる -->
+            <h1 class="text-5xl font-bold mb-4 text-indigo-800">AIの基礎</h1>
+            <h2 class="text-3xl font-semibold mb-8 text-indigo-600">～人工知能とは何か？ その基礎概念～</h2>
+
+            <!-- 情報ブロック (参照ファイルのスタイルに合わせる) -->
+            <div class="mt-12 mb-4 inline-block bg-indigo-50 rounded-lg px-8 py-4 shadow-sm">
+                 <p class="text-xl text-indigo-700">生成AI入門セミナー Day1</p>
+                 <!-- 必要であれば説明文を追加 -->
+                 <!-- <p class="text-md text-gray-700 mt-2">AIの入門として、その基本的な概念を解説します。</p> -->
+            </div>
+            <!-- 日付など (参照ファイルのスタイルに合わせる) -->
+             <p class="text-lg text-gray-600">日付: 2024年4月19日</p>
+             <!-- <p class="text-lg text-gray-600 mt-2">講師: [講師名]</p> -->
+        </div>
+
+    </div>
+</body>
+</html>

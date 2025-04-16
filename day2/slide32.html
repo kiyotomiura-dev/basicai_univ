@@ -3,30 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>質疑応答</title>
+    <title>ご清聴ありがとうございました</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #6b7280; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden;
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #4b5563; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .qa-icon i { font-size: 8rem; color: #9ca3af; margin-bottom: 40px; }
-        .qa-title { font-size: 3.5rem; font-weight: 700; color: #374151; margin-bottom: 20px; }
-        .qa-subtitle { font-size: 1.5rem; color: #4b5563; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 10px;}
+        .thankyou-icon i { font-size: 6rem; color: #4ade80; margin-bottom: 30px; }
+        .thankyou-title { font-size: 3rem; font-weight: 700; color: #1f2937; margin-bottom: 20px; }
+        .thankyou-subtitle { font-size: 1.4rem; color: #374151; margin-bottom: 40px; }
+        .reference-info { background-color: rgba(255, 255, 255, 0.7); padding: 20px 30px; border-radius: 8px; font-size: 1rem; color: #111827; text-align: left; max-width: 600px; }
+        .reference-info h2 { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; text-align: center;}
+        .reference-info ul { list-style: disc; padding-left: 20px;}
+        .reference-info li { margin-bottom: 5px; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <div class="qa-icon">
-             <i class="far fa-comments"></i>
+    <div class="slide">
+         <!-- 新しいヘッダー -->
+         <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-flag-checkered mr-2"></i>終了</div>
+         </div>
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="thankyou-icon"><i class="fas fa-hands-clapping"></i></div>
+            <h1 class="thankyou-title font-bold">ご清聴ありがとうございました</h1>
+            <p class="thankyou-subtitle">プロンプトエンジニアリングの世界、いかがでしたか？</p>
+            <!-- 必要であれば参考文献などを記載 -->
+            <!--
+            <div class="reference-info">
+                <h2 class="font-semibold">参考文献・参考情報</h2>
+                <ul>
+                    <li>Prompt Engineering Guide (promptingguide.ai)</li>
+                    <li>論文: [関連論文名]</li>
+                    <li>書籍: [関連書籍名]</li>
+                </ul>
+            </div>
+            -->
         </div>
-        <h1 class="qa-title">質疑応答</h1>
-        <p class="qa-subtitle">何か質問はありますか？<br>今日の内容について、お気軽にご質問ください。</p>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">25 / 26</span> -->
+        <div class="slide-number">
+             <!-- <span class="text-gray-600">33 / 33</span> -->
         </div>
     </div>
 </body>

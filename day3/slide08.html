@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 8: 活用事例①：ビジネス文書</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; }
+        ul { list-style: none; padding-left: 0; margin-top: 20px; }
+        li { margin-bottom: 18px; font-size: 1.125rem; /* 18px */ color: #374151; display: flex; align-items: center; background-color: #fff; padding: 15px 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); border-left: 5px solid #4A90E2; }
+        li i { margin-right: 15px; color: #4A90E2; font-size: 1.5rem; width: 25px; text-align: center; }
+        li strong { color: #111827; font-weight: bold; margin-right: 10px; }
+        p, li span { word-break: break-word; line-height: 1.7; }
+        span { min-width: 0; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">テキスト生成AIの活用事例</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-briefcase mr-3 text-[#4A90E2]"></i>活用事例①：ビジネス文書作成のサポート</h2>
+            <p class="text-lg text-gray-600 mb-6">定型的な文書作成や、構成案の作成などを効率化できます。</p>
+            <ul>
+                <li>
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <span><strong>Eメール作成:</strong> 丁寧な依頼メール、お礼メール、断りのメールなどの下書きを作成。<br><small class="text-gray-500">例：「取引先へ、納期遅延のお詫びと新しい納期の連絡をする丁寧なメールを作成して。」</small></span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-file-powerpoint"></i>
+                    <span><strong>提案書・企画書の構成案:</strong> テーマを伝えるだけで、基本的な目次や構成のアイデアを出してもらう。<br><small class="text-gray-500">例：「社内向けのDX推進に関する企画書の構成案を、目的・現状課題・提案内容・期待効果の項目で作成して。」</small></span>
+                </li>
+                 <li>
+                    <i class="fa-solid fa-rectangle-list"></i>
+                    <span><strong>議事録の要約・清書:</strong> 会議のメモを渡して、要点をまとめた議事録形式に整形。<br><small class="text-gray-500">例：「以下の会議メモを、決定事項と担当者を明確にした議事録にまとめて。」</small></span>
+                </li>
+                 <li>
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span><strong>広報文・プレスリリース作成:</strong> 新商品やイベント告知の文章案を作成。<br><small class="text-gray-500">例：「来月開催するセミナーの告知文を、参加メリットが伝わるように書いて。」</small></span>
+                </li>
+            </ul>
+             <p class="mt-6 text-center text-red-600 font-semibold"><i class="fa-solid fa-triangle-exclamation mr-2"></i>注意：生成された内容は必ず確認・修正しましょう！</p>
+        </div>
+        <div class="slide-number"><!-- 8 / 29 --></div>
+    </div>
+</body>
+</html>

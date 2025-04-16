@@ -3,80 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロンプトを超えて：AIと外部をつなぐ技術</title>
+    <title>応用編：思考を「枝分かれ」させて探る (Tree of Thoughts)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #0891b2; /* Cyan 600 */ display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #fb923c; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .intro-text { text-align: center; margin-bottom: 30px; }
-        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; flex-grow: 1;}
-        .tech-card { background-color: #ecfeff; /* Cyan 50 */ border: 1px solid #a5f3fc; /* Cyan 200 */ border-radius: 10px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center;}
-        .tech-card .logo-area { height: 50px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
-        .tech-card .logo-area img { max-height: 100%; max-width: 150px; object-fit: contain; } /* ロゴサイズ調整 */
-        .tech-card h3 { font-size: 1.2rem; font-weight: 600; color: #155e75; /* Cyan 800 */ margin-bottom: 8px; }
-        .tech-card p { font-size: 0.95rem; color: #164e63; /* Cyan 900 */ line-height: 1.6; word-break: keep-all; flex-grow: 1; }
-        .tech-card .pros { margin-top: 10px; font-size: 0.9rem; color: #0e7490; /* Cyan 600 */ }
-        .tech-card .pros i { margin-right: 5px; }
-        .conclusion { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #0e7490; background-color: #cffafe; padding: 15px; border-radius: 8px; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 5px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; align-items: stretch;}
+        .explanation-box { background-color: #fff7ed; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
+        .explanation-box h2 { font-size: 1.4rem; font-weight: 600; color: #c2410c; margin-bottom: 10px; }
+        .explanation-box p { font-size: 1.05rem; color: #9a3412; line-height: 1.7; word-break: break-word; margin-bottom: 10px;}
+        .implementation-box { margin-top: auto; background-color: #f1f5f9; border-radius: 6px; padding: 15px; } /* mt-auto */
+        .implementation-box h3 { font-size: 1.1rem; font-weight: 600; color: #334155; margin-bottom: 8px; }
+        .implementation-box ul { list-style: none; padding-left: 0; font-size: 1rem; color: #475569; }
+        .implementation-box li { margin-bottom: 10px; display: flex; align-items: flex-start; line-height: 1.7; }
+        .implementation-box li i { color: #64748b; margin-right: 10px; margin-top: 5px; width: 16px; text-align: center; flex-shrink: 0; }
+        .implementation-box li span { word-break: break-word; min-width: 0; }
+        .implementation-box ul ul { margin-top: 5px; padding-left: 10px;}
+        .implementation-box ul ul li { margin-bottom: 5px; font-size: 0.95rem;}
+        .example-box { background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
+        .example-box h2 { font-size: 1.4rem; font-weight: 600; color: #1e293b; margin-bottom: 15px; text-align: center; }
+        .prompt-area { margin-bottom: 15px; }
+        .label { font-weight: 600; color: #4b5563; margin-bottom: 5px; font-size: 0.9rem; }
+        .prompt-text { background-color: #fff7ed; border: 1px solid #fed7aa; padding: 10px; border-radius: 4px; font-style: italic; font-size: 0.95rem; color: #7c2d12; }
+        .response-area { background-color: white; border-radius: 6px; padding: 15px; max-height: 300px; overflow-y: auto; font-size: 0.9em; line-height: 1.7; flex-grow: 1;} /* max-height, flex-grow調整 */
+        .thought-node { border-left: 3px solid; padding-left: 10px; margin-bottom: 8px; }
+        .node-promising { border-color: #a3e635; }
+        .node-evaluating { border-color: #fbbf24; }
+        .node-deadend { border-color: #f87171; text-decoration: line-through; color: #9ca3af;}
+        .node-eval { color: #ca8a04; font-style: italic; font-size: 0.9em; }
+        .node-path { color: #475569; }
+        .final-answer { font-weight: bold; color: #c2410c; margin-top: 10px; }
+        .takeaway { text-align: center; margin-top: 25px; font-size: 1.2rem; font-weight: 600; color: #ea580c; background-color: #ffedd5; padding: 15px; border-radius: 8px; margin-bottom: 10px;}
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-         <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-cyan-700">プロンプトを超えて：AIと外部をつなぐ技術</h1>
-             <div><i class="fas fa-plug text-cyan-300 text-4xl"></i></div>
-        </div>
-
-         <div class="intro-text">
-            <p class="text-xl text-gray-700">
-                LLMは賢いですが、<strong class="text-cyan-600">単体ではできないこと</strong>もあります（例：最新ニュース検索、会社のDBアクセス、メール送信）。<br>
-                これらを可能にし、ReActのような高度な応用を実現するのが<strong class="text-cyan-600">「外部連携」</strong>の技術です。
-            </p>
-        </div>
-
-        <!-- 主要技術紹介 -->
-        <div class="tech-grid">
-            <div class="tech-card">
-                <div class="logo-area">
-                    <!-- LangChain/LlamaIndex Logo Placeholder -->
-                    <img src="./langchain-color.png" alt="LangChain/LlamaIndex Logo">
-                 </div>
-                 <h3>エージェントフレームワーク</h3>
-                 <p>LangChainやLlamaIndexなどのライブラリ。LLMと様々なツール（検索、DB、計算機など）を組み合わせた複雑な処理フロー（ReAct等）の<strong class="text-cyan-800">開発を助ける道具箱</strong>のようなもの。</p>
-                 <p class="pros"><i class="fas fa-check"></i> 柔軟な連携が可能 / コミュニティ活発</p>
-            </div>
-             <div class="tech-card">
-                 <div class="logo-area">
-                     <!-- OpenAI API Logo Placeholder -->
-                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/OpenAI_Logo.svg/512px-OpenAI_Logo.svg.png" alt="OpenAI API Logo">
-                </div>
-                <h3>モデルAPIの機能</h3>
-                <p>OpenAIのFunction CallingやAssistants API (Tools)など。LLM自身が「どの外部ツールをどんな情報で使うべきか」を判断し、<strong class="text-cyan-800">構造化データ（JSON）で指示</strong>を返す機能。</p>
-                <p class="pros"><i class="fas fa-check"></i> モデルがツール選択 / 比較的シンプル</p>
-             </div>
-             <div class="tech-card">
-                 <div class="logo-area">
-                     <!-- ChatGPT Logo Placeholder -->
-                    <img src="https://cdn.worldvectorlogo.com/logos/chatgpt-3.svg" alt="ChatGPT Logo">
-                </div>
-                 <h3>プラットフォーム機能</h3>
-                 <p>ChatGPTのGPTs (Actions)など。特定のプラットフォーム上で、<strong class="text-cyan-800">比較的簡単に外部APIとの連携を設定</strong>できる機能。専門知識が少なくても利用可能。</p>
-                 <p class="pros"><i class="fas fa-check"></i> 手軽に試せる / プラットフォーム依存</p>
-             </div>
-        </div>
-
-        <!-- まとめ -->
-        <div class="conclusion mt-auto">
-             <p><i class="fas fa-lightbulb mr-2"></i>プロンプト技術とこれらの外部連携技術を組み合わせることで、より強力で実用的なAIアプリケーションが作れる！</p>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+         <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-network-wired mr-2"></i>応用：Tree of Thoughts</div>
          </div>
-
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="content-grid">
+                 <div class="explanation-box">
+                     <h2 class="text-orange-700"><i class="fas fa-lightbulb mr-2"></i>Tree of Thoughts (ToT) って？</h2>
+                     <p>
+                        CoT（一本道思考）とは違い、問題を解くために<strong class="text-orange-600">複数の「考え方の選択肢」を同時に試す</strong>方法。木の枝のように思考ルートを探ります。
+                     </p>
+                     <p>
+                         各ルートがどれくらい良さそうか<strong class="text-orange-600">AI自身が評価</strong>し、有望なルートを深く考えたり、ダメそうなルートは途中でやめたりします。
+                     </p>
+                     <h2 class="mt-4 text-orange-700"><i class="fas fa-lightbulb mr-2"></i> どうやってやるの？</h2>
+                     <div class="implementation-box">
+                        <h3><i class="fas fa-exclamation-triangle mr-1 text-red-500"></i> プロンプトだけでの完全実装は難しい！</h3>
+                         <ul>
+                             <li><i class="fas fa-angle-right"></i><span><strong>プロンプトでの工夫 (部分的):</strong></span>
+                                <ul>
+                                    <li><i class="fas fa-caret-right"></i><span>「複数の可能性を検討して」「各選択肢を評価して」のように、<strong class="text-blue-600">ToT的な思考を模倣</strong>させる指示は可能。</span></li>
+                                    <li><i class="fas fa-caret-right"></i><span>ユーザーが対話的に評価・選択する。</span></li>
+                                </ul>
+                            </li>
+                             <li><i class="fas fa-angle-right"></i><span><strong>外部での制御 (厳密な実装):</strong></span>
+                                 <ul>
+                                    <li><i class="fas fa-caret-right"></i><span><strong class="text-red-600">専用の制御プログラム</strong>が必要。</span></li>
+                                    <li><i class="fas fa-caret-right"></i><span>LLMを複数回呼び出し、思考生成・評価・選択を管理。</span></li>
+                                 </ul>
+                            </li>
+                        </ul>
+                     </div>
+                 </div>
+                <div class="example-box">
+                     <h2>実例：創造的なアイデア出し (ToT思考イメージ)</h2>
+                     <div class="prompt-area">
+                         <p class="label">質問プロンプト (ToT思考を促す例):</p>
+                         <div class="prompt-text">新しいエコ商品のアイデアを3つ考え、実現可能性と魅力を評価し、最も有望なものを理由と共に選んでください。</div>
+                     </div>
+                     <div class="response-area">
+                        <p class="label">AIの思考プロセス (ToTのイメージ):</p>
+                        <div class="thought-node node-promising"><span class="node-path">開始: 新エコ商品アイデア</span><br><span class="node-eval">評価: 初期</span></div>
+                        <div class="thought-node node-promising" style="margin-left: 20px;"><span class="node-path">アイデア1: 竹製歯ブラシ</span><br><span class="node-eval">評価: 実現性◎/魅力△(競合多)</span></div>
+                        <div class="thought-node node-evaluating" style="margin-left: 20px;"><span class="node-path">アイデア2: 太陽光充電スマホケース</span><br><span class="node-eval">評価: 実現性○(課題有)/魅力◎</span></div>
+                        <div class="thought-node node-promising" style="margin-left: 40px;"><span class="node-path">アイデア2深掘り: 小型化/効率改善は可能か...</span><br><span class="node-eval">評価: 検討価値あり</span></div>
+                        <div class="thought-node node-deadend" style="margin-left: 20px;"><span class="node-path">アイデア3: 生分解性ボトル</span><br><span class="node-eval">評価: 実現性△(コスト/耐久性)/魅力◎→断念</span></div>
+                        <p class="final-answer">最終結論: 「太陽光充電スマホケース」が最も有望。理由は市場魅力が高く、技術課題克服の可能性があるため。他は競合やコスト面で劣る。</p>
+                     </div>
+                     <p class="text-xs text-center text-gray-500 mt-2">※AIが複数の選択肢を生成・評価し、有望なものを選択する思考の流れ。</p>
+                </div>
+            </div>
+            <div class="takeaway mt-auto">
+                <p><i class="fas fa-star mr-2"></i>複数の思考ルートを探らせることで難問解決の糸口が！ (厳密には外部制御が必要)</p>
+            </div>
+        </div>
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">追加G</span> -->
+        <div class="slide-number">
+             <!-- <span class="text-gray-600">28 / 33</span> -->
         </div>
     </div>
 </body>

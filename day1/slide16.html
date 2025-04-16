@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformerの学習 (大学生・教員向け)</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォント */ background-color: #f0f9ff; /* 元の背景色 */ overflow: auto; }
+        .slide {
+             /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
+            border-radius: 12px; /* 元の角丸 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; justify-content: center;} /* コンテンツ中央寄せ */
+
+        /* --- 元のコンテンツスタイルは変更しない --- */
+        .learn-step { background-color: white; border: 1px solid #a7f3d0; border-radius: 8px; padding: 15px; text-align: center; margin-bottom: 15px; box-shadow: 0 3px 6px rgba(0,0,0,0.07); }
+        .arrow { font-size: 1.8rem; color: #34d399; margin: 5px 0; transform: rotate(90deg); }
+        .data-example { background-color: #f3f4f6; padding: 10px; border-radius: 5px; display: inline-block; margin-top: 5px; font-family: monospace; }
+        .highlight { background-color: #a7f3d0; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+             <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title"><i class="fas fa-brain mr-2"></i>Transformerの学習</div>
+        </div>
+
+         <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+             <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <p class="text-xl text-center text-gray-700 mb-6">
+                Transformerモデルは、大量のデータを用いて教師あり学習によってパラメータを最適化します。
+            </p>
+
+            <div class="w-full max-w-2xl mx-auto"> <!-- mx-auto 追加 -->
+                <div class="learn-step">
+                    <p class="font-bold text-green-700 text-lg">① 大規模コーパスによる学習データの投入</p>
+                    <p class="text-sm mt-1">Transformerモデルは、テキストデータや翻訳ペアなど、大規模なコーパスを用いて学習を行います。</p>
+                    <p class="text-xs text-gray-500 mt-2">例 (機械翻訳の場合):</p>
+                    <div class="data-example text-xs">
+                        <p>日本語: 猫はかわいい → 英語: Cats are cute</p>
+                        <p>日本語: 犬は賢い → 英語: Dogs are smart</p>
+                        <p>(数百万〜数十億の対訳ペア)</p>
+                    </div>
+                </div>
+                <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                <div class="learn-step">
+                    <p class="font-bold text-green-700 text-lg">② モデルによる出力の予測</p>
+                    <p class="text-sm mt-1">入力シーケンス（例: 日本語の文）がモデルに入力され、対応する出力シーケンス（例: 英語の文）が生成されます.</p>
+                    <p class="text-xs text-gray-500 mt-2">例: 入力「猫はかわいい」→ モデル予測: <span class="text-red-600 font-semibold">Cat is cute</span></p>
+                </div>
+                <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                <div class="learn-step">
+                    <p class="font-bold text-green-700 text-lg">③ 損失関数の計算</p>
+                    <p class="text-sm mt-1">モデルの予測出力と正解データ（グランドトゥルース）を比較し、損失関数を用いて予測の誤差を定量的に評価します。</p>
+                    <p class="text-xs text-gray-500 mt-2">例: 予測「Cat is cute」 vs 正解「Cats are cute」→ 損失を計算 (例: 交差エントロピー)</p>
+                </div>
+                <div class="flex justify-center"><i class="fas fa-arrow-down arrow"></i></div>
+
+                <div class="learn-step">
+                    <p class="font-bold text-green-700 text-lg">④ パラメータの更新</p>
+                    <p class="text-sm mt-1">計算された損失に基づいて、勾配降下法などの最適化アルゴリズムを用いて、モデル内部のパラメータ（重みやバイアス）を調整し、損失を最小化する方向に更新します (誤差逆伝播法)。</p>
+                    <p class="text-xs text-gray-500 mt-2">例: 損失を減らすようにモデルの内部パラメータを微調整</p>
+                </div>
+                <div class="flex justify-center">
+                    <i class="fas fa-sync-alt text-green-600 text-2xl mt-2 animate-spin" style="animation-duration: 3s;"></i>
+                </div>
+                <p class="text-center text-sm font-bold text-green-800 mt-2">
+                    この学習サイクルを、学習データ全体に対して繰り返し行い、モデルの性能を向上させます。
+                </p>
+            </div>
+
+            <div class="mt-4 bg-green-50 p-4 rounded-lg max-w-3xl text-center mx-auto"> <!-- mx-auto 追加 -->
+                <p class="font-bold text-green-800"><i class="fas fa-info-circle mr-1"></i>ポイント</p>
+                <p class="text-sm text-gray-700">Transformerモデルは、<span class="font-bold">事前学習 (Pre-training)</span> と <span class="font-bold">ファインチューニング (Fine-tuning)</span> という2段階の学習プロセスを経ることが一般的です。事前学習では、大規模なテキストコーパスを用いて汎用的な言語表現能力を獲得し、ファインチューニングでは、特定のタスク（翻訳、テキスト分類など）に特化した学習を行います。</p>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">16 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

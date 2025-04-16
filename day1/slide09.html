@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - ニューラルネットワークの学習原理</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif; /* 元のフォントを維持 */
+            background-color: #f0f9ff; /* 元の背景色を維持 */
+            overflow: auto;
+        }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+             /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影を維持 */
+            border-radius: 12px; /* 元の角丸を維持 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+         @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ }
+
+        /* --- 元のスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .pulse-animation { animation: pulse 3s ease-in-out infinite; }
+        .learn-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .learn-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .cycle-arrow { position: absolute; width: 50px; height: 50px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+         <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+             <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title"><i class="fas fa-graduation-cap mr-2"></i>ニューラルネットワークの学習原理</div>
+        </div>
+
+         <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+            <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-2xl mx-auto text-center">
+                <p class="text-xl text-gray-700">教師あり学習におけるニューラルネットワークの学習原理について解説します。</p>
+            </div>
+
+            <div class="relative mx-auto mb-8 bg-white bg-opacity-60 rounded-xl p-8 max-w-4xl">
+                <div class="flex justify-around items-center relative">
+                    <div class="learn-card bg-blue-50 p-4 text-center w-48 z-10">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-question text-blue-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-blue-700 mb-2">1. 順伝播 (Forward Propagation)</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">入力データに対して現在のネットワークが出力を予測。</p>
+                        </div>
+                    </div>
+
+                    <div class="learn-card bg-green-50 p-4 text-center w-48 z-10">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-check-double text-green-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-green-700 mb-2">2. 損失関数の評価 (Loss Function Evaluation)</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">教師データと比較し、予測の正誤を確認。</p>
+                        </div>
+                    </div>
+
+                    <div class="learn-card bg-red-50 p-4 text-center w-48 z-10">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-red-700 mb-2">3. 誤差の算出 (Error Calculation)</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">予測と正解の差異を損失関数を用いて数値化。</p>
+                        </div>
+                    </div>
+
+                    <div class="learn-card bg-purple-50 p-4 text-center w-48 z-10">
+                        <div class="mb-3 flex justify-center">
+                            <i class="fas fa-sliders-h text-purple-600 text-5xl"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-purple-700 mb-2">4. 逆伝播 (Backpropagation) による重み更新</h3>
+                        <div class="bg-white rounded-lg p-2">
+                            <p class="text-gray-700 text-sm">誤差に基づいてネットワークの重みを調整し、予測精度を向上。</p>
+                        </div>
+                    </div>
+
+                    <div class="cycle-arrow" style="top: -20px; left: 20%; transform: rotate(30deg);">
+                        <i class="fas fa-arrow-right text-3xl text-gray-400"></i>
+                    </div>
+                    <div class="cycle-arrow" style="top: -20px; right: 20%; transform: rotate(150deg);">
+                        <i class="fas fa-arrow-right text-3xl text-gray-400"></i>
+                    </div>
+                    <div class="cycle-arrow" style="bottom: -20px; right: 20%; transform: rotate(210deg);">
+                        <i class="fas fa-arrow-right text-3xl text-gray-400"></i>
+                    </div>
+                    <div class="cycle-arrow" style="bottom: -20px; left: 20%; transform: rotate(330deg);">
+                        <i class="fas fa-arrow-right text-3xl text-gray-400"></i>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <p class="text-lg text-indigo-800 font-bold">このプロセスを繰り返すことで、ネットワークは徐々にデータの特徴を学習し、予測精度が向上します。</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 mb-6">
+                <div class="learn-card bg-yellow-50 p-4">
+                    <h3 class="text-xl font-bold text-yellow-700 text-center mb-3">学習前</h3>
+                    <div class="flex items-center justify-around">
+                        <div class="text-center">
+                            <i class="fas fa-dog text-yellow-600 text-5xl mx-auto mb-2"></i>
+                            <div class="bg-white rounded-lg p-2 text-center w-32">
+                                <p class="text-sm text-gray-700">予測：<br><span class="font-bold text-red-500">「猫」と誤認識</span></p>
+                            </div>
+                        </div>
+                        <i class="fas fa-times-circle text-4xl text-red-500"></i>
+                        <div class="bg-white rounded-lg p-3 w-40">
+                            <p class="text-gray-700 text-sm">識別精度：<span class="font-bold">20%</span></p>
+                            <p class="text-gray-700 text-sm">低い識別精度</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="learn-card bg-green-50 p-4">
+                    <h3 class="text-xl font-bold text-green-700 text-center mb-3">学習後</h3>
+                    <div class="flex items-center justify-around">
+                        <div class="text-center">
+                            <i class="fas fa-dog text-green-600 text-5xl mx-auto mb-2"></i>
+                            <div class="bg-white rounded-lg p-2 text-center w-32">
+                                <p class="text-sm text-gray-700">予測：<br><span class="font-bold text-green-500">「犬」と正しく識別</span></p>
+                            </div>
+                        </div>
+                        <i class="fas fa-check-circle text-4xl text-green-500"></i>
+                        <div class="bg-white rounded-lg p-3 w-40">
+                            <p class="text-gray-700 text-sm">識別精度：<span class="font-bold">95%</span></p>
+                            <p class="text-gray-700 text-sm">高い識別精度</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 rounded-xl p-4 max-w-2xl mx-auto mt-auto mb-4"> <!-- 位置調整 -->
+                <div class="flex items-center">
+                    <div class="bg-indigo-100 rounded-full p-2 mr-3 flex-shrink-0">
+                        <i class="fas fa-brain text-indigo-600"></i>
+                    </div>
+                    <p class="text-gray-700 text-sm">ニューラルネットワークの学習には、誤差逆伝播法（Backpropagation）などのアルゴリズムが用いられます。これは、出力層から入力層へ誤差情報を伝播させ、各層の重みを効率的に更新する手法です。</p>
+                </div>
+            </div>
+
+        </div> <!-- slide-content の閉じタグ -->
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">9 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

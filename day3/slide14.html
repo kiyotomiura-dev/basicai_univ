@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 14: どうやって絵を描く？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 15px; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-bottom: 15px; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; /* 18px */ color: #374151; margin-bottom: 15px; }
+        span { min-width: 0; }
+        .concept-diagram { background-color: #ffffff; border: 1px solid #D1D5DB; border-radius: 8px; padding: 30px 40px; margin-top: 25px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .diagram-step { text-align: center; position: relative; }
+        .diagram-step i.icon-main { font-size: 4.5rem; color: #9CA3AF; margin-bottom: 10px; }
+        .diagram-step i.icon-prompt { font-size: 2rem; color: #4A90E2; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background-color: #fff; padding: 5px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .diagram-step p { font-size: 1rem; color: #4B5563; line-height: 1.6; margin-top: 5px; }
+        /* --- 修正点: 空のルールセットを削除 --- */
+        .diagram-step.step-2 i.icon-main { color: #A5B4FC; }
+        .diagram-step.step-3 i.icon-main { color: #7C9BFA; }
+        .diagram-step.step-4 i.icon-main { color: #4A90E2; }
+        /* --- 修正ここまで --- */
+        .arrow i { font-size: 2rem; color: #9CA3AF; margin: 0 10px; }
+        .analogy { margin-top: 25px; padding: 15px; background-color: #FEFCE8; border-left: 4px solid #FACC15; border-radius: 4px; }
+        .analogy p { font-size: 1.125rem; color: #713F12; }
+        .tech-term { font-family: Consolas, 'Courier New', monospace; background-color: #e5e7eb; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">画像生成AIの世界</div>
+        </div>
+        <div class="slide-content">
+            <h2>【さわり】どうやって絵を描くの？ <i class="fa-solid fa-paintbrush ml-2 text-gray-500"></i></h2>
+            <h3>主流の技術：<span class="tech-term">拡散モデル (Diffusion Model)</span> のイメージ</h3>
+             <p>
+                すごく簡単に言うと、まず<strong class="text-[#4A90E2]">「ただのノイズ（砂嵐みたいなザラザラ画像）」</strong>からスタートして、
+                私たちが指示した<strong class="text-[#4A90E2]">「言葉（プロンプト）」</strong>を手がかりに、
+                少しずつノイズを取り除きながら<strong class="text-[#4A90E2]">「意味のある画像」</strong>へと変化させていきます。
+            </p>
+             <!-- 概念図: Diffusion Model -->
+             <div class="concept-diagram">
+                <div class="diagram-step step-1">
+                    <i class="fa-solid fa-file-lines icon-prompt"></i>
+                    <i class="fa-solid fa-braille icon-main"></i>
+                    <p>1. 言葉の指示 +<br>ノイズ画像</p>
+                </div>
+                 <div class="arrow"><i class="fa-solid fa-arrow-right-long"></i><p class="text-xs mt-1">少しずつ変化</p></div>
+                <div class="diagram-step step-2">
+                    <i class="fa-solid fa-ghost icon-main"></i>
+                    <p>2. 形が<br>ぼんやり見える</p>
+                </div>
+                 <div class="arrow"><i class="fa-solid fa-arrow-right-long"></i><p class="text-xs mt-1">さらに変化</p></div>
+                 <div class="diagram-step step-3">
+                    <i class="fa-solid fa-dog icon-main"></i> <!-- 例: 犬のアイコン -->
+                    <p>3. 具体的な形に<br>近づく</p>
+                </div>
+                 <div class="arrow"><i class="fa-solid fa-arrow-right-long"></i><p class="text-xs mt-1">完成へ</p></div>
+                <div class="diagram-step step-4">
+                     <i class="fa-solid fa-dog icon-main" style="color: #4A90E2;"></i> <!-- 例: 犬のアイコン(完成色) -->
+                    <p>4. 指示に合った<br>画像が完成！</p>
+                </div>
+            </div>
+            <div class="analogy">
+                <p><i class="fa-solid fa-puzzle-piece mr-2"></i><strong>例えるなら：</strong> 彫刻家が、石の塊（ノイズ）から、設計図（言葉の指示）をもとに不要な部分を少しずつ削り取って、最終的な作品（画像）を掘り出していくようなイメージです。</p>
+            </div>
+        </div>
+        <div class="slide-number"><!-- 14 / 31 --></div>
+    </div>
+</body>
+</html>

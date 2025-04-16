@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 7: コツ：文体・トーン・役割設定</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; }
+        h3 { font-size: 1.375rem; /* 22px */ font-weight: bold; color: #4A90E2; margin-top: 20px; margin-bottom: 10px; display: flex; align-items: center; }
+        h3 i { margin-right: 8px; }
+        p, li span { word-break: break-word; line-height: 1.8; font-size: 1.125rem; /* 18px */ color: #374151; }
+        span { min-width: 0; }
+
+        /* --- .prompt-code スタイル修正 --- */
+        .prompt-code {
+            display: block; /* ブロック要素として表示 */
+            background-color: #282C34; /* ダーク背景 (Day2準拠) */
+            color: #ABB2BF; /* 明るいテキスト (Day2準拠) */
+            padding: 15px 20px; /* パディング (Day2準拠) */
+            border-radius: 8px; /* 角丸 (Day2準拠) */
+            font-family: 'Courier New', Courier, monospace; /* 等幅フォント (Day2準拠) */
+            font-size: 0.95em; /* フォントサイズ (Day2準拠) */
+            line-height: 1.8; /* 行間 (Day2準拠) */
+            overflow-x: auto; /* 横スクロール (Day2準拠) */
+            white-space: pre-wrap; /* 改行維持＆折り返し (Day2準拠) */
+            word-wrap: break-word; /* 単語途中での折り返し (Day2準拠) */
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        .prompt-code strong {
+            color: #61AFEF; /* ハイライト色 (明るい青 Day2準拠) */
+            font-weight: normal; /* 太字にはせず色で強調 (Day2準拠) */
+        }
+        /* --- 修正ここまで --- */
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 20px; }
+        .tip-box { background-color: #fff; border: 1px solid #D1D5DB; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">テキスト生成AIの世界</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-wand-magic-sparkles mr-3 text-[#4A90E2]"></i>プロンプトのコツ：もっとAIを使いこなす</h2>
+            <p>目的を明確にしたら、さらに細かい指示でAIの出力をコントロールしましょう。</p>
+
+            <div class="grid-container">
+                <div class="tip-box">
+                    <h3><i class="fa-solid fa-pen-nib"></i>文体・トーンの指定</h3>
+                    <p>文章の雰囲気を変えられます。</p>
+                    <code class="prompt-code">会議の議事録を、<strong>箇条書き</strong>で<strong>簡潔に</strong>まとめてください。<strong>丁寧語</strong>を使ってください。</code>
+                    <code class="prompt-code">新しいゲームアプリを紹介する<strong>フレンドリー</strong>で<strong>わくわくする</strong>ようなブログ記事を書いてください。</code>
+                </div>
+
+                <div class="tip-box">
+                    <h3><i class="fa-solid fa-user-tie"></i>役割(ペルソナ)の設定</h3>
+                    <p>AIに特定の専門家やキャラクターになりきってもらいます。</p>
+                    <code class="prompt-code">あなたは<strong>経験豊富なマーケター</strong>です。新しいエコ製品のキャッチコピーを<strong>5つ</strong>提案してください。</code>
+                    <code class="prompt-code">あなたは<strong>親切な先生</strong>です。小学生に分数の足し算を<strong>分かりやすく</strong>説明してください。</code>
+                </div>
+
+                <div class="tip-box">
+                   <h3><i class="fa-solid fa-comments"></i>対話形式の活用</h3>
+                    <p>一度で完璧を目指さず、対話しながら調整します。</p>
+                    <code class="prompt-code">AI: (生成結果)
+User: ありがとう。もう少し<strong>具体例</strong>を増やして、<strong>専門用語を減らして</strong>もらえますか？</code>
+                </div>
+            </div>
+             <p class="mt-6 text-center text-lg font-semibold text-[#4A90E2]">
+                <i class="fa-solid fa-lightbulb mr-2"></i>いろいろ試して、自分なりの「魔法の言葉（プロンプト）」を見つけよう！
+            </p>
+        </div>
+        <div class="slide-number"><!-- 7 / 29 --></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - AIを深く学ぶために</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Rounded Mplus 1c', 'M PLUS Rounded 1c', 'Kosugi Maru', sans-serif; /* 元のフォント */
+            background-color: #f0f9ff; /* 元の背景色 */
+            overflow: auto;
+        }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
+            border-radius: 12px; /* 元の角丸 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; display: flex; align-items: center; } /* flex追加 */
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; }
+
+        /* --- 元のコンテンツスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .pulse-animation { animation: pulse 3s ease-in-out infinite; }
+        .resource-card { border-radius: 16px; box-shadow: 0 8px 16px rgba(0,0,0,0.08); transition: all 0.3s; overflow: auto; }
+        .resource-card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+        .level-badge { border-radius: 20px; transition: all 0.2s; }
+        .pathway-arrow { position: relative; }
+        .pathway-arrow:after { content: ''; position: absolute; bottom: -15px; left: 50%; width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 15px solid #e2e8f0; transform: translateX(-50%); }
+        .pathway-arrow:last-child:after { display: none; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+             <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4da.svg" alt="Books emoji" class="w-8 h-8 inline mr-2"> <!-- アイコンサイズ調整 -->
+                AIを深く学ぶために
+            </div>
+        </div>
+
+        <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+             <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-6 max-w-3xl mx-auto text-center">
+                <p class="text-xl text-gray-700">AIの専門知識を深め、研究や応用に取り組むためのステップとリソースを紹介します。</p>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-xl font-bold text-purple-700 text-center mb-4">AIを専門的に学ぶステップ</h3>
+
+                <div class="flex justify-around mb-6">
+                    <div class="pathway-arrow text-center w-1/4">
+                        <div class="resource-card bg-blue-50 p-4 pulse-animation">
+                            <div class="flex justify-center mb-2">
+                                <div class="bg-blue-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-blue-700">1</span>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-1 text-sm">基礎知識の習得</h4>
+                            <div class="bg-white rounded-lg p-2">
+                                <p class="text-xs text-gray-700">線形代数、微積分、確率統計などの数学的基礎と、プログラミング（Pythonなど）の習得。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pathway-arrow text-center w-1/4">
+                        <div class="resource-card bg-green-50 p-4 pulse-animation">
+                            <div class="flex justify-center mb-2">
+                                <div class="bg-green-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-green-700">2</span>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-1 text-sm">専門分野の学習</h4>
+                            <div class="bg-white rounded-lg p-2">
+                                <p class="text-xs text-gray-700">機械学習、深層学習、自然言語処理、コンピュータビジョンなどのAI分野の専門知識を学ぶ。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pathway-arrow text-center w-1/4">
+                        <div class="resource-card bg-purple-50 p-4 pulse-animation">
+                            <div class="flex justify-center mb-2">
+                                <div class="bg-purple-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-purple-700">3</span>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-1 text-sm">実践と研究</h4>
+                            <div class="bg-white rounded-lg p-2">
+                                <p class="text-xs text-gray-700">実際のデータを用いたプログラミング、研究論文の読解、学会発表などを通して実践的なスキルを磨く。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center w-1/4">
+                        <div class="resource-card bg-pink-50 p-4 pulse-animation">
+                            <div class="flex justify-center mb-2">
+                                <div class="bg-pink-100 rounded-full p-2 w-14 h-14 flex items-center justify-center">
+                                    <span class="text-2xl font-bold text-pink-700">4</span>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-gray-800 mb-1 text-sm">応用と倫理</h4>
+                            <div class="bg-white rounded-lg p-2">
+                                <p class="text-xs text-gray-700">学んだ知識を応用して社会課題の解決に取り組み、AIの倫理的な側面についても深く考察する。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="resource-card bg-white p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-blue-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-university text-blue-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">大学の専門課程とオンラインプラットフォーム</h4>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <span class="text-blue-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">国内外の大学における情報科学科、AI学科などの専門課程</span>
+                            <span class="ml-auto level-badge bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full">専門</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-blue-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">edX、Coursera、Udacityなどのオンラインプラットフォームの専門コースや学位プログラム</span>
+                            <span class="ml-auto level-badge bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">中級～専門</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-blue-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">大学共同利用機関法人 情報・システム研究機構 (ROIS) などの研究機関の教育プログラム</span>
+                            <span class="ml-auto level-badge bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">研究</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-card bg-white p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-green-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-microscope text-green-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">研究リソースとコミュニティ</h4>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <span class="text-green-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">arXivなどのプレプリントサーバーでの最新研究論文の購読</span>
+                            <span class="ml-auto level-badge bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">研究</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">国際的なAI関連学会 (NeurIPS, ICML, CVPRなど) の論文誌や会議への参加</span>
+                            <span class="ml-auto level-badge bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">研究</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">GitHubなどのプラットフォームでのオープンソースプロジェクトへの貢献</span>
+                            <span class="ml-auto level-badge bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">中級～専門</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">Kaggleなどのデータ分析コンペティションへの参加</span>
+                            <span class="ml-auto level-badge bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">中級～専門</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="resource-card bg-white p-4">
+                    <div class="flex items-center mb-3">
+                        <div class="bg-purple-100 rounded-full p-2 mr-3 flex-shrink-0">
+                            <i class="fas fa-cog text-purple-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">専門ツールと文献</h4>
+                    </div>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <span class="text-purple-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">TensorFlow、PyTorchなどの深層学習フレームワークの習得</span>
+                            <span class="ml-auto level-badge bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">中級～専門</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-purple-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">Scikit-learn、PandasなどのPythonライブラリの活用</span>
+                            <span class="ml-auto level-badge bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">中級～専門</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-purple-600 mr-2">•</span>
+                            <span class="text-xs text-gray-700">AI分野の著名な教科書や専門書 (例: Deep Learning by Goodfellow et al.) の読解</span>
+                            <span class="ml-auto level-badge bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full">研究</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 rounded-xl p-4 max-w-4xl mx-auto mb-2 mt-auto"> <!-- 位置調整 -->
+                <h3 class="text-lg font-bold text-indigo-800 text-center mb-3">より高度なAIプロジェクトの例</h3>
+                <div class="grid grid-cols-4 gap-3">
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="float-animation">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f916.svg" alt="Robot face emoji" class="w-10 h-10 mx-auto mb-1">
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">強化学習を用いた自律型エージェントの開発</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="float-animation">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5e3.svg" alt="Speaking head in silhouette emoji" class="w-10 h-10 mx-auto mb-1">
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">Transformerモデルを用いた高度な自然言語処理タスク</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="float-animation">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f4bb.svg" alt="Laptop emoji" class="w-10 h-10 mx-auto mb-1">
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">特定の社会課題に対するAIソリューションの提案とプロトタイプ開発</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="float-animation">
+                            <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c6.svg" alt="Trophy emoji" class="w-10 h-10 mx-auto mb-1">
+                        </div>
+                        <p class="text-xs text-gray-700 font-medium">最先端のAI研究論文の実装と評価</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">28 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

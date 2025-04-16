@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - 無料ツールで画像生成！</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォント */ background-color: #f0f9ff; /* 元の背景色 */ overflow: auto; }
+        .slide {
+            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            /* 元の背景グラデーションを維持 */
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
+            border-radius: 12px; /* 元の角丸 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box; /* 追加 */
+        }
+        @keyframes fadeInUp { /* アニメーション追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; display: flex; align-items: center; } /* flex追加 */
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; justify-content: center;} /* コンテンツ中央寄せ */
+
+        /* --- 元のコンテンツスタイルは変更しない --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        .tool-card { background: white; border-radius: 12px; padding: 20px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .tool-card:hover { transform: scale(1.05); }
+        .tool-logo { height: 50px; margin-bottom: 10px; object-fit: contain; }
+        .highlight { background-color: #e9d5ff; padding: 2px 5px; border-radius: 3px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+             <!-- 元のタイトルとアイコンを使用 -->
+            <div class="summary-title">
+                 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f5bc.svg" alt="Framed picture emoji" class="w-8 h-8 inline mr-2"> <!-- アイコンサイズ調整 -->
+                無料ツールで画像生成！
+            </div>
+        </div>
+
+         <!-- コンテンツ部分をラップ -->
+        <div class="slide-content fade-in-up">
+            <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="bg-white bg-opacity-70 rounded-xl p-3 mb-8 max-w-3xl mx-auto text-center">
+                <p class="text-xl text-gray-700">テキストから画像を自動生成！ レポートの挿絵、プレゼンテーション資料、アイデアの視覚化に活用！</p>
+            </div>
+
+            <p class="text-lg text-center text-gray-800 mb-8">
+                「こんな画像があったらいいな」と思ったことはありませんか？<br>
+                生成AIを使えば、<span class="highlight text-purple-900">言葉で指示するだけでオリジナルの画像</span>を作成できます！
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl mx-auto"> <!-- mx-auto 追加 -->
+                <div class="tool-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Copilot_logo.svg/1024px-Microsoft_Copilot_logo.svg.png" alt="Microsoft Copilot Logo" class="tool-logo mx-auto">
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Microsoft Copilot</h3>
+                    <p class="text-sm text-gray-600">DALL-E 3を基盤とし、チャットを通じて高品質な画像を生成できます。</p>
+                </div>
+                <div class="tool-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Stable_Diffusion_logo.png/900px-Stable_Diffusion_logo.png?20231116163017" alt="Stable Diffusion Logo" class="tool-logo mx-auto" style="max-height: 45px;">
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Stable Diffusion (Web UI)</h3>
+                    <p class="text-sm text-gray-600">多数の無料ウェブサイトで試用可能。高度なカスタマイズが可能です。</p>
+                </div>
+                 <div class="tool-card">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Canva_logo.svg/1024px-Canva_logo.svg.png" alt="Canva Logo" class="tool-logo mx-auto">
+                    <h3 class="text-lg font-bold text-gray-800 mb-1">Canva AI Image Generator</h3>
+                    <p class="text-sm text-gray-600">デザインツールCanva内で利用可能。資料作成との連携が容易です。</p>
+                </div>
+            </div>
+
+            <p class="text-center mt-8 text-gray-700">
+                次のスライドから、これらの基本的な使い方とそれぞれのツールの特徴を見ていきましょう！
+            </p>
+        </div>
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">24 / 48</span>
+        </div>
+        -->
+    </div>
+</body>
+</html>

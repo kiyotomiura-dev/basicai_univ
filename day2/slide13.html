@@ -8,89 +8,95 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #ec4899; display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #ec4899; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; display: flex; flex-direction: column; }
         .explanation-box { background-color: #fdf2f8; border-left: 4px solid #ec4899; padding: 20px; border-radius: 8px; margin-bottom: 25px; }
+        .explanation-box h2 { font-size: 1.5rem; font-weight: 600; color: #9d174d; margin-bottom: 10px; }
+        .explanation-box p { font-size: 1.1rem; color: #831843; line-height: 1.7; word-break: keep-all;}
         .comparison-section { margin-top: 15px; flex-grow: 1; }
-        .comparison-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: start; } /* align-itemsをstartに */
-        .example-card { border-radius: 8px; padding: 20px; }
+        .comparison-section > h2 { font-size: 1.6rem; font-weight: 600; color: #be185d; margin-bottom: 20px; text-align: center;}
+        .comparison-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 20px; align-items: stretch; }
+        .example-card { border-radius: 8px; padding: 20px; display: flex; flex-direction: column; }
         .bad-example { background-color: #fef3c7; border: 1px solid #fde68a; }
         .good-example { background-color: #fce7f3; border: 1px solid #fbcfe8; }
         .example-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; }
         .bad-example h3 { color: #b45309; } .bad-example h3 i { color: #f59e0b; }
         .good-example h3 { color: #be185d; } .good-example h3 i { color: #ec4899; }
         .prompt-text { background-color: white; padding: 10px; border-radius: 4px; font-style: italic; color: #4b5563; margin-bottom: 15px; min-height: 60px; display: flex; align-items: center; justify-content: center; text-align: center;}
-        .output-area { margin-top: 10px; background-color: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 4px; min-height: 150px; }
+        .output-area { margin-top: 10px; background-color: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 4px; min-height: 150px; flex-grow: 1; } /* flex-grow追加 */
         .output-area p { font-size: 0.95rem; color: #64748b; text-align: left; line-height: 1.6; }
-        .output-area code { font-family: monospace; white-space: pre-wrap; display: block; }
+        .output-area code { font-family: monospace; white-space: pre; /* 折り返さない */ display: block; font-size: 0.9rem;} /* size調整 */
         .good-example .output-area { border-color: #f9a8d4; }
-        .arrow-box { display: flex; align-items: center; justify-content: center; height: 100%; padding-top: 80px; /* 位置調整 */ }
+        .arrow-box { display: flex; align-items: center; justify-content: center; }
         .arrow { font-size: 2.5rem; color: #f9a8d4; }
-        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #db2777; background-color: #fce7f3; padding: 15px; border-radius: 8px; }
+        .takeaway { text-align: center; margin-top: 25px; font-size: 1.2rem; font-weight: 600; color: #db2777; background-color: #fce7f3; padding: 15px; border-radius: 8px; margin-bottom: 10px;} /* margin調整 */
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-pink-700">コツ②：答えの「形」を決める！</h1>
-             <div>
-                <i class="fas fa-ruler-combined text-pink-300 text-4xl"></i>
+    <div class="slide">
+         <!-- 新しいヘッダー -->
+         <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-ruler-combined mr-2"></i>コツ②：回答形式の指定</div>
+         </div>
+         <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="explanation-box">
+                <h2><i class="fas fa-th-large mr-2"></i> なぜ大事？</h2>
+                <p>
+                    AIからの答えを、<strong class="text-pink-600">見やすく、後で使いやすい「形」</strong>で出してもらうためのテクニックです。
+                    「こんなフォーマットでお願い！」と具体的に指示しましょう。
+                </p>
             </div>
-        </div>
-
-        <!-- 説明 -->
-         <div class="explanation-box">
-            <h2 class="text-2xl font-semibold text-pink-600 mb-2"><i class="fas fa-th-large mr-2"></i> なぜ大事？</h2>
-            <p class="text-lg text-gray-800">
-                AIからの答えを、<strong class="text-pink-600">見やすく、後で使いやすい「形」</strong>で出してもらうためのテクニックです。
-                「こんなフォーマットでお願い！」と具体的に指示しましょう。
-            </p>
-        </div>
-
-        <!-- 比較セクション -->
-        <div class="comparison-section">
-             <h2 class="text-2xl font-semibold text-pink-600 mb-4 text-center">比べてみよう！</h2>
-             <div class="comparison-grid">
-                 <!-- イマイチな例 -->
-                <div class="example-card bad-example">
-                    <h3><i class="far fa-times-circle mr-2"></i>指定なし</h3>
-                    <div class="prompt-text">"リンゴ、バナナ、オレンジの特徴は？"</div>
-                    <div class="output-area">
-                        <p>リンゴはシャキシャキした食感が特徴で、赤や緑色があります。バナナは甘くて柔らかく、栄養価が高い果物です。色は黄色ですね。オレンジは柑橘類で、酸味と甘みのバランスが良く、ビタミンCが豊富です。色は橙色です。</p>
-                    </div>
-                 </div>
-                 <!-- 矢印 -->
-                 <div class="arrow-box">
-                    <i class="fas fa-arrow-right arrow"></i>
-                </div>
-                 <!-- 良い例 -->
-                <div class="example-card good-example">
-                     <h3><i class="far fa-check-circle mr-2"></i>「表形式で」と指定</h3>
-                    <div class="prompt-text">"リンゴ、バナナ、オレンジの特徴を<br><strong class='text-pink-700'>表形式</strong>でまとめて"</div>
-                     <div class="output-area">
-                        <code>
+            <div class="comparison-section">
+                 <h2 class="font-semibold">比べてみよう！</h2>
+                 <div class="comparison-grid">
+                    <div class="example-card bad-example">
+                        <h3><i class="far fa-times-circle mr-2"></i>指定なし</h3>
+                        <div class="prompt-text">"リンゴ、バナナ、オレンジの特徴は？"</div>
+                        <div class="output-area">
+                            <p>リンゴはシャキシャキした食感が特徴で、赤や緑色があります。バナナは甘くて柔らかく、栄養価が高い果物です。色は黄色ですね。オレンジは柑橘類で、酸味と甘みのバランスが良く、ビタミンCが豊富です。色は橙色です。</p>
+                        </div>
+                     </div>
+                     <div class="arrow-box"><i class="fas fa-arrow-right arrow"></i></div>
+                    <div class="example-card good-example">
+                         <h3><i class="far fa-check-circle mr-2"></i>「表形式で」と指定</h3>
+                        <div class="prompt-text">"リンゴ、バナナ、オレンジの特徴を<br><strong class='text-pink-700'>表形式</strong>でまとめて"</div>
+                         <div class="output-area">
+                            <code>
 | 果物   | 主な特徴      | 色    |
 | :----- | :------------ | :---- |
 | リンゴ | シャキシャキ  | 赤/緑 |
 | バナナ | 甘い、柔らかい | 黄色  |
 | オレンジ | 酸味、ジューシー | 橙色 |
-                        </code>
-                    </div>
+                            </code>
+                        </div>
+                     </div>
                  </div>
+                 <p class="text-center text-sm text-gray-600 mt-4">他にも「箇条書きで」「JSONで」「プログラムコードで」など色々指定できる！</p>
              </div>
-             <p class="text-center text-sm text-gray-600 mt-4">他にも「箇条書きで」「JSONで」「プログラムコードで」など色々指定できる！</p>
-         </div>
-
-        <!-- まとめ / Takeaway -->
-        <div class="takeaway mt-auto">
-            <p><i class="fas fa-star mr-2"></i>欲しい答えの「形」を指定すれば、AIも分かりやすいし、結果も使いやすい！</p>
+             <div class="takeaway mt-auto">
+                <p><i class="fas fa-star mr-2"></i>欲しい答えの「形」を指定すれば、AIも分かりやすいし、結果も使いやすい！</p>
+            </div>
         </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">13 / 26</span> -->
+        <div class="slide-number">
+            <!-- <span class="text-gray-600">13 / 33</span> -->
         </div>
     </div>
 </body>

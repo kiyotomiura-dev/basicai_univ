@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 6: テキスト生成のプロンプト基本</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 (Slide 1と同様) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; /* 32px */ font-weight: bold; color: #111827; margin-bottom: 20px; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-top: 25px; margin-bottom: 15px; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 15px; font-size: 1.125rem; /* 18px */ color: #374151; display: flex; align-items: flex-start; }
+        li i { margin-right: 10px; color: #4A90E2; margin-top: 6px; width: 20px; text-align: center; }
+        p, li span { word-break: break-word; line-height: 1.8; font-size: 1.125rem; }
+        span { min-width: 0; }
+        .emphasis { font-weight: bold; color: #4A90E2; }
+        .review { background-color: #E0F2FE; border-left: 4px solid #4A90E2; padding: 15px 20px; margin-bottom: 25px; border-radius: 4px; }
+        .review p { font-size: 1.125rem; color: #1E3A8A; }
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 20px; }
+        .example-box { background-color: #fff; border: 1px solid #D1D5DB; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .example-box h4 { font-size: 1.25rem; font-weight: bold; color: #1F2937; margin-bottom: 10px; }
+        .example-box i { margin-right: 8px; }
+        .bad-example i { color: #EF4444; } /* Red */
+        .good-example i { color: #10B981; } /* Green */
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">テキスト生成AIの世界</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-lightbulb mr-3 text-[#4A90E2]"></i>テキスト生成のプロンプト基本</h2>
+
+            <div class="review">
+                <p><i class="fa-solid fa-rotate-left mr-2"></i><strong>Day2の復習:</strong> 良いプロンプトは <span class="emphasis">具体的</span> で <span class="emphasis">明確</span> な指示を与えることが重要でしたね！</p>
+            </div>
+
+            <h3><i class="fa-solid fa-bullseye-pointer mr-2"></i>最重要ポイント：目的をはっきりさせる</h3>
+            <p>
+                AIに「何を」「どのように」作ってほしいのかを具体的に伝えることが、望む結果を得るための第一歩です。
+                <br>曖昧な指示では、AIも何を生成すべきか迷ってしまいます。
+            </p>
+
+            <div class="grid-container">
+                <div class="example-box bad-example">
+                    <h4><i class="fa-solid fa-thumbs-down"></i>良くない例 (曖昧)</h4>
+                    <p>"AIについて書いて"</p>
+                    <p class="text-sm text-gray-500 mt-2">→ 何を？誰向けに？どんな形式で？情報が不足</p>
+                </div>
+                <div class="example-box good-example">
+                    <h4><i class="fa-solid fa-thumbs-up"></i>良い例 (具体的)</h4>
+                    <p>"中学生向けに、AIがどのように私たちの生活に役立っているか、具体的な例を3つ挙げて、ブログ記事風に800字程度で説明してください。"</p>
+                    <p class="text-sm text-gray-500 mt-2">→ 対象、内容、形式、分量などが明確</p>
+                </div>
+            </div>
+
+            <h3 class="mt-6"><i class="fa-solid fa-list-check mr-2"></i>基本要素を意識しよう</h3>
+             <ul>
+                <li><i class="fa-solid fa-check"></i><span><strong class="emphasis">目的・ゴール:</strong> 何を作りたいのか (メール、要約、アイデアリスト...)</span></li>
+                <li><i class="fa-solid fa-check"></i><span><strong class="emphasis">対象読者:</strong> 誰に向けた文章か (専門家、初心者、子供...)</span></li>
+                <li><i class="fa-solid fa-check"></i><span><strong class="emphasis">含める要素:</strong> どんな情報やキーワードを入れるか</span></li>
+                <li><i class="fa-solid fa-check"></i><span><strong class="emphasis">形式・文体:</strong> 箇条書き、丁寧語、フレンドリー...</span></li>
+                <li><i class="fa-solid fa-check"></i><span><strong class="emphasis">長さ・分量:</strong> ○○字程度、短く、詳しく...</span></li>
+            </ul>
+
+        </div>
+        <div class="slide-number"><!-- 6 / 29 --></div>
+    </div>
+</body>
+</html>

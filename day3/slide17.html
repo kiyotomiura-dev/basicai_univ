@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 17: 主要ツール紹介</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.1rem; color: #374151; margin-bottom: 20px; }
+        span { min-width: 0; }
+        .tool-table { width: 100%; border-collapse: collapse; margin-top: 15px; background-color: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .tool-table th, .tool-table td { border: 1px solid #E5E7EB; padding: 12px 15px; text-align: left; font-size: 1rem; line-height: 1.7; }
+        .tool-table th { background-color: #F3F4F6; font-weight: bold; color: #374151; }
+        .tool-table td { color: #4B5563; }
+        .tool-table td i { margin-right: 8px; color: #4A90E2; width: 18px; text-align: center; }
+        .tool-name { font-weight: bold; color: #1F2937; }
+        .note { font-size: 0.9rem; color: #6B7280; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">画像生成AIの世界</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-screwdriver-wrench mr-3 text-[#4A90E2]"></i>主要な画像生成AIツール紹介</h2>
+            <p>たくさんのツールがありますが、ここでは代表的なものをいくつか紹介します。</p>
+            <table class="tool-table">
+                <thead> <tr> <th>ツール名</th> <th>主な特徴</th> <th>使いやすさ</th> <th>料金（目安）</th> </tr> </thead>
+                <tbody>
+                    <tr> <td><span class="tool-name">Midjourney</span></td> <td><i class="fa-solid fa-palette"></i>アーティスティックで高品質な画像が得意。Discord上で利用。</td> <td><i class="fa-solid fa-puzzle-piece"></i>やや慣れが必要</td> <td><i class="fa-solid fa-yen-sign"></i>有料プランのみ</td> </tr>
+                    <tr> <td><span class="tool-name">Stable Diffusion</span></td> <td><i class="fa-solid fa-gear"></i>オープンソースで自由度が高い。Web UIやローカル環境で利用可能。多様なモデルが存在。</td> <td><i class="fa-solid fa-sliders"></i>設定項目が多く、やや難しい / Webサービス版は簡単</td> <td><i class="fa-solid fa-infinity"></i></i>基本無料 (ローカル) / Webサービスは従量課金など</td> </tr>
+                    <tr> <td><span class="tool-name">DALL-E 3 (ChatGPT Plus / Copilot)</span></td> <td><i class="fa-solid fa-lightbulb"></i>テキストの指示に対する忠実度が高いとされる。ChatGPTやCopilot内で利用可能。</td> <td><i class="fa-solid fa-face-smile"></i>非常に簡単</td> <td><i class="fa-solid fa-yen-sign"></i>ChatGPT Plus/Copilot Proの料金に含まれる / Copilot無料版でも利用可（制限あり）</td> </tr>
+                    <tr> <td><span class="tool-name">Adobe Firefly</span></td> <td><i class="fa-solid fa-shield-halved"></i>商用利用に配慮した学習データ。Adobe製品との連携。</td> <td><i class="fa-solid fa-face-smile"></i>比較的簡単</td> <td><i class="fa-solid fa-yen-sign"></i>無料枠あり / Adobe CCプラン or 有料プラン</td> </tr>
+                    <tr> <td><span class="tool-name">Canva 等</span></td> <td><i class="fa-solid fa-wand-magic"></i>デザインツール内の機能として搭載されているものも多い。</td> <td><i class="fa-solid fa-face-smile"></i>非常に簡単</td> <td><i class="fa-solid fa-yen-sign"></i>ツールによる（無料枠あり/有料機能）</td> </tr>
+                </tbody>
+            </table>
+            <p class="note">※上記は一例です。他にも多くのツールやサービスが存在し、機能や料金は頻繁に更新されます。利用前に公式サイトで最新情報をご確認ください。</p>
+        </div>
+        <!-- --- スライド番号修正 --- -->
+        <div class="slide-number"><!-- 17 / 31 --></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 2: 本日のテーマとゴール</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 (Slide 1と同様) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; /* 32px */ font-weight: bold; color: #111827; margin-bottom: 20px; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-top: 30px; margin-bottom: 15px; }
+        p, li, span { word-break: break-word; line-height: 1.8; font-size: 1.125rem; /* 18px */ color: #374151; }
+        span { min-width: 0; }
+        .icon-combo { display: flex; align-items: center; justify-content: center; margin: 40px 0; }
+        .icon-combo i { font-size: 4rem; /* 64px */ color: #4A90E2; }
+        .icon-combo .plus { font-size: 3rem; /* 48px */ color: #6B7280; margin: 0 30px; }
+        .icon-combo .arrow { font-size: 3rem; /* 48px */ color: #6B7280; margin: 0 30px; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">本日のテーマとゴール</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="text-center">テーマ：<span class="text-[#4A90E2]">テキスト生成AI</span>と<span class="text-[#4A90E2]">画像生成AI</span>の相乗効果</h2>
+
+            <div class="icon-combo">
+                <i class="fa-solid fa-file-lines"></i>
+                <span class="plus"><i class="fa-solid fa-plus"></i></span>
+                <i class="fa-solid fa-image"></i>
+                <span class="arrow"><i class="fa-solid fa-arrow-right-long"></i></span>
+                <i class="fa-solid fa-lightbulb"></i>
+                <span class="ml-4 text-2xl font-bold text-gray-700">新しい価値の創出</span>
+            </div>
+
+            <p class="text-center text-lg mb-8">
+                文章を作るAIと言葉から絵を描くAI。それぞれ単独でも強力ですが、<br>
+                これらを<strong class="text-[#4A90E2]">組み合わせる</strong>ことで、アイデア出しから具体的な資料作成まで、<br>
+                <strong class="text-[#4A90E2]">活用の可能性</strong>が大きく広がります。
+            </p>
+
+            <h3><i class="fa-solid fa-bullseye mr-2"></i>本日のゴール</h3>
+            <p>
+                単にそれぞれのAIの使い方を知るだけでなく、<strong class="text-[#4A90E2]">連携させることのメリット</strong>や<strong class="text-[#4A90E2]">具体的な方法</strong>を理解し、<br>
+                皆さんの<strong class="text-[#4A90E2]">研究、学習、業務</strong>に活かせるイメージを持つことを目指します。
+            </p>
+        </div>
+        <div class="slide-number"><!-- 2 / 29 --></div>
+    </div>
+</body>
+</html>

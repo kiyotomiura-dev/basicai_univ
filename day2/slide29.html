@@ -3,56 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>やってみよう！ プロンプト改善チャレンジ</title>
+    <title>プロンプトを超えて：AIと外部をつなぐ技術</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: hidden; background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%); box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #fbbf24; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+             /* border-top: 4px solid #0891b2; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .challenge-box { background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border-radius: 12px; padding: 40px; text-align: center; max-width: 700px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .challenge-title { font-size: 2rem; font-weight: 700; color: #ca8a04; margin-bottom: 25px; }
-        .bad-prompt-display { background-color: #fff1f2; border: 2px dashed #fda4af; padding: 15px 20px; border-radius: 8px; margin-bottom: 30px; }
-        .bad-prompt-display p { font-size: 1.2rem; font-style: italic; color: #be123c; }
-        .instruction-text { font-size: 1.3rem; color: #7c2d12; margin-bottom: 20px; font-weight: 500; }
-        .hints { margin-top: 30px; font-size: 1rem; color: #57534e; }
-        .hints ul { list-style: none; padding: 0; display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 10px 15px; } /* gap調整 */
-        .hints li { background-color: #f5f5f4; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; display: flex; flex-direction: column; }
+        .intro-text { text-align: center; margin-bottom: 25px; } /* margin調整 */
+        .intro-text p { font-size: 1.15rem; color: #374151; line-height: 1.7; word-break: keep-all;} /* size, word-break調整 */
+        .intro-text strong { color: #0891b2; } /* 元のアクセントカラー */
+        .tech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px; flex-grow: 1;} /* minmax調整 */
+        .tech-card { background-color: #ecfeff; border: 1px solid #a5f3fc; border-radius: 10px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center;}
+        .tech-card .icon-area { height: 60px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; }
+        .tech-card .icon-area i { font-size: 2.8rem; color: #0e7490; }
+        .tech-card h3 { font-size: 1.2rem; font-weight: 600; color: #155e75; margin-bottom: 8px; }
+        .tech-card p { font-size: 0.95rem; color: #164e63; line-height: 1.6; word-break: keep-all; flex-grow: 1; }
+        .tech-card .pros { margin-top: 10px; font-size: 0.9rem; color: #0e7490; }
+        .tech-card .pros i { margin-right: 5px; }
+        .conclusion { text-align: center; margin-top: 25px; font-size: 1.2rem; font-weight: 600; color: #0e7490; background-color: #cffafe; padding: 15px; border-radius: 8px; margin-bottom: 10px;} /* margin調整 */
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <div class="challenge-box">
-            <h1 class="challenge-title"><i class="fas fa-lightbulb mr-2"></i>チャレンジタイム！</h1>
-            <p class="instruction-text">下の「イマイチなプロンプト」を、もっと良くするにはどうすればいいかな？<br>学んだテクニックを使って改善してみよう！</p>
-
-            <div class="bad-prompt-display">
-                <p>"旅行の計画を立てて"</p>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+         <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-plug mr-2"></i>プロンプトを超えて：外部連携技術</div>
+         </div>
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+             <div class="intro-text">
+                <p>
+                    LLMは賢いですが、<strong class="text-cyan-600">単体ではできないこと</strong>もあります（例：最新ニュース検索、会社のDBアクセス、メール送信）。<br>
+                    これらを可能にし、ReActのような高度な応用を実現するのが<strong class="text-cyan-600">「外部連携」</strong>の技術です。
+                </p>
             </div>
-
-            <p class="instruction-text">
-                グループで話し合ったり、自分で考えたりしてみよう！<br>
-                （または、先生がデモンストレーションします）
-            </p>
-
-            <div class="hints">
-                 <p class="mb-2">ヒント：</p>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt mr-1"></i> どこへ？</li>
-                    <li><i class="fas fa-users mr-1"></i> 誰と？</li>
-                    <li><i class="fas fa-calendar-alt mr-1"></i> いつ？期間は？</li>
-                    <li><i class="fas fa-hiking mr-1"></i> 何したい？(目的)</li>
-                    <li><i class="fas fa-yen-sign mr-1"></i> 予算は？</li>
-                    <li><i class="fas fa-list mr-1"></i> どんな形で答えてほしい？</li>
-                    <li><i class="fas fa-user-tie mr-1"></i> 誰になりきってほしい？</li>
-                 </ul>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="icon-area"><i class="fas fa-boxes-stacked"></i></div>
+                     <h3>エージェントフレームワーク</h3>
+                     <p>LangChainやLlamaIndexなどのライブラリ。LLMと様々なツール（検索、DB、計算機など）を組み合わせた複雑な処理フロー（ReAct等）の<strong class="text-cyan-800">開発を助ける道具箱</strong>のようなもの。</p>
+                     <p class="pros"><i class="fas fa-check"></i> 柔軟な連携が可能 / コミュニティ活発</p>
+                </div>
+                 <div class="tech-card">
+                     <div class="icon-area"><i class="fas fa-cogs"></i></div>
+                    <h3>モデルAPIの機能</h3>
+                    <p>OpenAIのFunction CallingやAssistants API (Tools)など。LLM自身が「どの外部ツールをどんな情報で使うべきか」を判断し、<strong class="text-cyan-800">構造化データ（JSON）で指示</strong>を返す機能。</p>
+                    <p class="pros"><i class="fas fa-check"></i> モデルがツール選択 / 比較的シンプル</p>
+                 </div>
+                 <div class="tech-card">
+                     <div class="icon-area"><i class="fab fa-windows"></i></div>
+                     <h3>プラットフォーム機能</h3>
+                     <p>ChatGPTのGPTs (Actions)など。特定のプラットフォーム上で、<strong class="text-cyan-800">比較的簡単に外部APIとの連携を設定</strong>できる機能。専門知識が少なくても利用可能。</p>
+                     <p class="pros"><i class="fas fa-check"></i> 手軽に試せる / プラットフォーム依存</p>
+                 </div>
             </div>
+             <div class="conclusion mt-auto">
+                 <p><i class="fas fa-lightbulb mr-2"></i>プロンプト技術とこれらの外部連携技術を組み合わせることで、より強力で実用的なAIアプリケーションが作れる！</p>
+             </div>
         </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-             <!-- <span class="text-gray-600">22 / 26</span> -->
+        <div class="slide-number">
+            <!-- <span class="text-gray-600">28 / 33</span> -->
         </div>
     </div>
 </body>

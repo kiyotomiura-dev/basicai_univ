@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 20: 演習準備2 ツール紹介</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+         /* --- ヘッダータイトル修正 --- */
+        .slide-header .exercise-prep-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; color: #374151; margin-bottom: 15px; max-width: 80%; }
+        .tool-icons { margin: 30px 0; }
+        .tool-icons i { font-size: 3.5rem; margin: 0 20px; color: #4A90E2; }
+        .demo-area { margin-top: 30px; background-color: #E0F2FE; border: 1px solid #93C5FD; border-radius: 8px; padding: 25px 40px; }
+        .demo-area i { font-size: 2.5rem; color: #3B82F6; margin-right: 15px; vertical-align: middle; }
+        .demo-area span { font-size: 1.3rem; font-weight: bold; color: #1E40AF; vertical-align: middle; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+             <!-- --- ヘッダータイトル修正 --- */ -->
+            <div class="exercise-prep-title">演習準備</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-image-portrait mr-3 text-[#4A90E2]"></i>【演習準備 2】 ツール紹介と簡単なデモ（画像生成）</h2>
+            <p>それでは、実際に画像生成AIを使って、言葉から絵を描き出してみましょう！<br>先ほど紹介したツールなどを使って、プロンプトを入力すると画像が生成される様子を見てみます。</p>
+            <div class="tool-icons"> <i class="fa-solid fa-brain" title="Stable Diffusion (Concept)"></i> <i class="fa-solid fa-paintbrush" title="Generic AI Painting"></i> <i class="fa-solid fa-star" title="Midjourney (Concept)"></i> <i class="fa-brands fa-adobe" title="Adobe Firefly"></i> </div>
+            <p>Webブラウザで手軽に試せるサービスもたくさんあります。</p>
+            <div class="demo-area"> <span><i class="fa-solid fa-person-chalkboard"></i>簡単なデモンストレーションを行います！</span> <p class="text-base font-normal mt-2 text-gray-700">（デモ内容：ツールの画面紹介、簡単なプロンプトで画像を生成、ネガティブプロンプトの効果確認など）</p> </div>
+        </div>
+        <!-- --- スライド番号修正 --- -->
+        <div class="slide-number"><!-- 20 / 31 --></div>
+    </div>
+</body>
+</html>

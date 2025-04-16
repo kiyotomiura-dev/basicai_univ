@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 22: テキストから画像を生成</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        /* 実践・応用セクションのタイトル */
+        .slide-header .practice-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; text-align: center; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; color: #374151; margin-bottom: 25px; text-align: center; max-width: 90%; }
+        .flow-diagram { display: flex; align-items: center; justify-content: center; width: 100%; margin-top: 30px; }
+        .flow-item { text-align: center; margin: 0 20px; }
+        .flow-item i { font-size: 4rem; color: #4A90E2; margin-bottom: 15px; }
+        .flow-item p { font-size: 1.1rem; font-weight: bold; color: #374151; margin-bottom: 5px; }
+        .flow-item .description { font-size: 0.9rem; color: #6B7280; line-height: 1.5; }
+        .flow-arrow i { font-size: 2.5rem; color: #9CA3AF; margin: 0 15px; }
+        .example-box { margin-top: 40px; background-color: #E0F2FE; border-radius: 8px; padding: 20px 30px; width: 85%; text-align: left; }
+        .example-box h4 { font-size: 1.2rem; font-weight: bold; color: #1E3A8A; margin-bottom: 10px; }
+        .example-box p { font-size: 1rem; line-height: 1.7; color: #1E40AF; margin-bottom: 5px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="practice-title"><i class="fa-solid fa-lightbulb-on mr-2"></i>実践演習＆応用</div>
+        </div>
+        <div class="slide-content">
+            <h2>【実践】生成物を組み合わせる①：テキストから画像を生成</h2>
+            <p>テキスト生成AIで作った文章やアイデアを元に、画像生成AIでイメージを具体化する流れを見てみましょう。</p>
+
+            <div class="flow-diagram">
+                <div class="flow-item">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <p>1. テキスト生成</p>
+                    <p class="description">アイデア、物語、<br>キャッチコピーなどを<br>AIで作成</p>
+                </div>
+                <div class="flow-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                <div class="flow-item">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>2. キーワード抽出</p>
+                     <p class="description">生成テキストから<br>画像のプロンプトに<br>使えそうな言葉を選ぶ</p>
+                </div>
+                 <div class="flow-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                <div class="flow-item">
+                    <i class="fa-solid fa-image"></i>
+                    <p>3. 画像生成</p>
+                    <p class="description">抽出したキーワードで<br>画像生成AIに<br>プロンプトを入力</p>
+                </div>
+                 <div class="flow-arrow"><i class="fa-solid fa-arrow-right-long"></i></div>
+                <div class="flow-item">
+                     <i class="fa-solid fa-file-image"></i>
+                    <p>4. 資料等へ活用</p>
+                    <p class="description">生成された画像を<br>プレゼン資料や<br>Webサイトなどに利用</p>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h4><i class="fa-solid fa-lightbulb mr-2"></i>活用例</h4>
+                <p><strong>テキスト生成AIで作成したキャッチコピー:</strong> 「信州の澄んだ空気と水が育んだ、宝石のようなリンゴ」</p>
+                <p><strong>↓ 画像生成プロンプトへ応用:</strong></p>
+                <p class="prompt-code text-sm">"A beautiful red apple shining like a jewel, clear water stream in the background, sunny day in Shinshu Nagano, photorealistic, high detail"</p>
+                <p class="text-sm italic">（宝石のように輝く美しい赤いリンゴ、背景に澄んだ水の流れ、長野県信州の晴れた日、写真のようにリアル、高精細）</p>
+            </div>
+
+        </div>
+        <div class="slide-number"><!-- 22 / 31 --></div>
+    </div>
+</body>
+</html>

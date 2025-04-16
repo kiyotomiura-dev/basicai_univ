@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 27: 本日のまとめ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        /* まとめセクションのタイトル */
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 30px; text-align: center; }
+        ul { list-style: none; padding-left: 0; margin: 0 auto; max-width: 85%; } /* 中央寄せ、幅調整 */
+        li { margin-bottom: 20px; font-size: 1.2rem; /* 少し大きめ */ color: #374151; display: flex; align-items: flex-start; background-color: #fff; padding: 18px 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 5px solid #4A90E2; }
+        li i { margin-right: 15px; color: #4A90E2; font-size: 1.5rem; width: 25px; text-align: center; margin-top: 5px; }
+        p, li span { word-break: break-word; line-height: 1.7; }
+        span { min-width: 0; }
+        .highlight { color: #4A90E2; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="summary-title"><i class="fa-solid fa-clipboard-check mr-2"></i>本日のまとめ</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="text-center"><i class="fa-solid fa-lightbulb mr-3 text-yellow-400"></i>今日学んだこと：テキストAIと画像AIの連携</h2>
+            <ul>
+                <li>
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>テキスト生成AIは、文章作成、要約、アイデア出しなどを助ける強力なツール。ただし<span class="highlight">事実確認</span>と<span class="highlight">校正</span>が不可欠。</span>
+                </li>
+                 <li>
+                    <i class="fa-solid fa-image"></i>
+                    <span>画像生成AIは、言葉からイメージを形にする魔法のような技術。<span class="highlight">プロンプトの工夫</span>で表現力が向上するが、<span class="highlight">著作権や倫理</span>に注意が必要。</span>
+                </li>
+                 <li>
+                    <i class="fa-solid fa-link"></i>
+                    <span>テキストAIと画像AIを<span class="highlight">組み合わせる</span>ことで、アイデアの発想から資料作成まで、活用の幅が大きく広がる。</span>
+                </li>
+                <li>
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>AIの生成物は「下書き」と捉え、<span class="highlight">試行錯誤</span>しながら<span class="highlight">人間が主体的に</span>編集・改善していくことが重要。</span>
+                </li>
+                 <li>
+                    <i class="fa-solid fa-infinity"></i>
+                    <span>AI技術は<span class="highlight">日々進化</span>しており、動画、音楽、3Dなど様々な分野に応用が広がっている。</span>
+                </li>
+            </ul>
+        </div>
+        <div class="slide-number"><!-- 27 / 31 --></div>
+    </div>
+</body>
+</html>

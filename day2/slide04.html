@@ -8,86 +8,88 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #6366f1; display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #6366f1; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; align-items: start; margin-top: 20px;}
-        .definition-box { background-color: #eef2ff; border-radius: 8px; padding: 25px; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; align-items: start; } /* align-items修正 */
+        .definition-box { background-color: #eef2ff; border-radius: 8px; padding: 25px; height: 100%; } /* 高さを揃える */
         .definition-box h2 { font-size: 1.6rem; font-weight: 600; color: #4338ca; margin-bottom: 15px; }
-        .definition-box p { font-size: 1.1rem; color: #4f46e5; margin-bottom: 15px; line-height: 1.7; }
+        .definition-box p { font-size: 1.1rem; color: #4f46e5; margin-bottom: 15px; line-height: 1.7; word-break: keep-all; }
         .prompt-elements { list-style: none; padding: 0; margin-top: 15px; }
-        .prompt-elements li { background-color: #fff; margin-bottom: 8px; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #818cf8; display: flex; align-items: center; font-size: 1rem; color: #4338ca;}
-        .prompt-elements li i { margin-right: 10px; color: #6366f1; }
-        .role-diagram { text-align: center; background-color: #f9fafb; padding: 20px; border-radius: 10px; margin-top: 10px; }
+        .prompt-elements li { background-color: #fff; margin-bottom: 8px; padding: 8px 12px; border-radius: 6px; border-left: 3px solid #818cf8; display: flex; align-items: center; font-size: 1rem; color: #4338ca; word-break: keep-all; }
+        .prompt-elements li i { margin-right: 10px; color: #6366f1; width: 16px; text-align: center; }
+        .role-diagram { text-align: center; background-color: #f9fafb; padding: 20px; border-radius: 10px; margin-top: 10px; height: 100%; display: flex; flex-direction: column; justify-content: center;} /* 高さを揃え、中央寄せ */
         .role-diagram h2 { font-size: 1.6rem; font-weight: 600; color: #4338ca; margin-bottom: 20px; }
-        .flow-chart { display: flex; align-items: center; justify-content: space-around; }
+        .flow-chart { display: flex; align-items: center; justify-content: space-around; margin-bottom: 15px; /* 下マージン追加 */ }
         .flow-item { display: flex; flex-direction: column; align-items: center; max-width: 20%; }
         .flow-item i { font-size: 2.5rem; margin-bottom: 8px; }
         .flow-item span { font-size: 0.9rem; font-weight: 500; }
         .flow-arrow { font-size: 1.8rem; color: #6366f1; }
+        .role-diagram p { text-align: center; color: #4f46e5; font-size: 1.1rem; line-height: 1.7; word-break: keep-all; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-10">
-            <h1 class="text-4xl font-bold text-indigo-800">プロンプトって何？ AIへの「お願いメモ」</h1>
-             <div>
-                <i class="fas fa-sticky-note text-indigo-300 text-4xl"></i>
-            </div>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+            <div class="summary-title"><i class="fas fa-comment-dots mr-2"></i>プロンプトの定義と役割</div>
         </div>
 
-        <div class="content-grid">
-            <!-- 定義と構成要素 -->
-            <div class="definition-box">
-                 <h2>プロンプトの正体</h2>
-                <p>
-                    簡単に言うと、<strong class="text-indigo-700">AIに「こうしてほしい！」と伝えるためのメッセージ全体</strong>のことです。
-                    ただの質問だけじゃなくて、色々な部品（要素）でできています。
-                </p>
-                <h3 class="font-semibold text-indigo-600 mb-2">プロンプトの主な部品：</h3>
-                <ul class="prompt-elements">
-                    <li><i class="fas fa-bullseye"></i>指示・命令 (「〇〇して」)</li>
-                    <li><i class="fas fa-info-circle"></i>背景情報・ヒント (「～という状況で」)</li>
-                    <li><i class="fas fa-paperclip"></i>入力データ (文章、コードなど)</li>
-                    <li><i class="fas fa-list-ol"></i>お手本・例 (Few-Shotの場合)</li>
-                    <li><i class="fas fa-ruler-combined"></i>答えの形の指定</li>
-                </ul>
-            </div>
-
-            <!-- 役割 (図解) -->
-            <div class="role-diagram">
-                <h2>プロンプトの役割：AIをナビゲート！</h2>
-                <div class="flow-chart">
-                    <div class="flow-item">
-                        <i class="fas fa-user text-indigo-500"></i>
-                        <span>あなた</span>
-                    </div>
-                    <i class="fas fa-arrow-right flow-arrow"></i>
-                    <div class="flow-item">
-                         <i class="fas fa-pen-alt text-orange-500"></i>
-                        <span>プロンプト<br>(お願いメモ)</span>
-                     </div>
-                     <i class="fas fa-arrow-right flow-arrow"></i>
-                     <div class="flow-item">
-                        <i class="fas fa-robot text-teal-500"></i>
-                        <span>AI</span>
-                    </div>
-                    <i class="fas fa-arrow-right flow-arrow"></i>
-                    <div class="flow-item">
-                        <i class="fas fa-lightbulb text-yellow-500"></i>
-                        <span>答え・結果</span>
-                    </div>
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="content-grid">
+                <!-- 定義と構成要素 -->
+                <div class="definition-box">
+                    <h2>プロンプトの正体</h2>
+                    <p>
+                        簡単に言うと、<strong class="text-indigo-700">AIに「こうしてほしい！」と伝えるためのメッセージ全体</strong>のことです。
+                        ただの質問だけじゃなくて、色々な部品（要素）でできています。
+                    </p>
+                    <h3 class="font-semibold text-indigo-600 mb-2">プロンプトの主な部品：</h3>
+                    <ul class="prompt-elements">
+                        <li><i class="fas fa-bullseye"></i>指示・命令 (「〇〇して」)</li>
+                        <li><i class="fas fa-info-circle"></i>背景情報・ヒント (「～という状況で」)</li>
+                        <li><i class="fas fa-paperclip"></i>入力データ (文章、コードなど)</li>
+                        <li><i class="fas fa-list-ol"></i>お手本・例 (Few-Shotの場合)</li>
+                        <li><i class="fas fa-ruler-combined"></i>答えの形の指定</li>
+                    </ul>
                 </div>
-                 <p class="text-center text-indigo-700 mt-4 text-lg">
-                    プロンプトは、AIに<strong class="text-indigo-800">「こっちの方向だよ！」「こんな感じでお願い！」</strong>と<br>道案内をして、欲しい答えに導く<strong class="text-indigo-800">ナビゲーター</strong>役です。
-                </p>
+                <!-- 役割 (図解) -->
+                <div class="role-diagram">
+                    <h2>プロンプトの役割：AIをナビゲート！</h2>
+                    <div class="flow-chart">
+                        <div class="flow-item"><i class="fas fa-user text-indigo-500"></i><span>あなた</span></div>
+                        <i class="fas fa-arrow-right flow-arrow"></i>
+                        <div class="flow-item"><i class="fas fa-pen-alt text-orange-500"></i><span>プロンプト<br>(お願いメモ)</span></div>
+                        <i class="fas fa-arrow-right flow-arrow"></i>
+                        <div class="flow-item"><i class="fas fa-robot text-teal-500"></i><span>AI</span></div>
+                        <i class="fas fa-arrow-right flow-arrow"></i>
+                        <div class="flow-item"><i class="fas fa-lightbulb text-yellow-500"></i><span>答え・結果</span></div>
+                    </div>
+                    <p>
+                        プロンプトは、AIに<strong class="text-indigo-800">「こっちの方向だよ！」「こんな感じでお願い！」</strong>と道案内をして、欲しい答えに導く<strong class="text-indigo-800">ナビゲーター</strong>役です。
+                    </p>
+                </div>
             </div>
         </div>
 
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
-             <!-- <span class="text-gray-600">4 / 26</span> -->
+        <div class="slide-number">
+             <!-- <span class="text-gray-600">4 / 33</span> -->
         </div>
     </div>
 </body>

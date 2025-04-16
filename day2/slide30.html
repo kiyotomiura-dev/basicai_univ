@@ -8,63 +8,56 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #1d4ed8; display: flex; flex-direction: column; justify-content: center; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #1d4ed8; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .summary-list { max-width: 800px; margin: 30px auto; }
-        .summary-item { background-color: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px; padding: 18px 25px; margin-bottom: 18px; display: flex; align-items: center; gap: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s ease;}
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; display: flex; flex-direction: column; justify-content: center;} /* 中央寄せ */
+        .summary-list { max-width: 800px; margin: 20px auto; } /* margin調整 */
+        .summary-item { background-color: #eff6ff; border-left: 4px solid #3b82f6; border-radius: 8px; padding: 15px 25px; margin-bottom: 15px; display: flex; align-items: center; gap: 18px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: transform 0.2s ease;} /* padding, margin, gap 調整 */
         .summary-item:hover { transform: scale(1.03); }
-        .summary-item i { font-size: 1.8rem; /* 少し小さく */ color: #2563eb; min-width: 30px; text-align: center; }
-        .summary-item p { font-size: 1.15rem; /* 少し調整 */ color: #1e3a8a; font-weight: 500; line-height: 1.6;}
+        .summary-item i { font-size: 1.7rem; color: #2563eb; min-width: 25px; text-align: center; flex-shrink: 0;} /* size調整 */
+        .summary-item p { font-size: 1.1rem; color: #1e3a8a; font-weight: 500; line-height: 1.6; word-break: keep-all;} /* size, line-height, word-break調整 */
         .summary-item strong { color: #1d4ed8; }
-        .final-message { text-align: center; margin-top: 35px; font-size: 1.3rem; font-weight: 600; color: #1e40af; }
+        .final-message { text-align: center; margin-top: 30px; font-size: 1.3rem; font-weight: 600; color: #1e40af; } /* margin調整 */
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-         <div class="text-center mb-10">
-            <h1 class="text-4xl font-bold text-blue-700 inline-flex items-center">
-                <i class="fas fa-graduation-cap mr-4"></i> 今日のまとめ：プロンプト使いへの道！
-            </h1>
+    <div class="slide">
+         <!-- 新しいヘッダー -->
+         <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-graduation-cap mr-2"></i>本日のまとめ</div>
+         </div>
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <!-- <h1 class="text-4xl font-bold text-blue-700 inline-flex items-center justify-center mb-8"><i class="fas fa-graduation-cap mr-4"></i> 今日のまとめ：プロンプト使いへの道！</h1> -->
+            <div class="summary-list">
+                <div class="summary-item"><i class="fas fa-key"></i><p>AIへの<strong class="text-blue-600">「伝え方」（プロンプト）</strong>がAIを賢く使うカギ！</p></div>
+                <div class="summary-item"><i class="fas fa-robot"></i><p>AIは<strong class="text-blue-600">「次に来る言葉」を予測</strong>して文章を作る。プロンプトは最初の「文脈」。</p></div>
+                <div class="summary-item"><i class="fas fa-list-ol"></i><p><strong class="text-violet-600">Zero-Shot</strong>（例なし）と<strong class="text-teal-600">Few-Shot</strong>（例あり）はAIの<strong class="text-blue-600">「見て学ぶ力」</strong>を活用する。</p></div>
+                <div class="summary-item"><i class="fas fa-tools"></i><p>目的, 形式, 話し方, 役割, 基本ルール, 条件指定など<strong class="text-blue-600">多くの「コツ」</strong>を組み合わせよう。</p></div>
+                <div class="summary-item"><i class="fas fa-brain"></i><p>複雑な問題は<strong class="text-amber-600">「考え方の手順も一緒に」</strong>(CoT)と頼むのが有効。</p></div>
+                <div class="summary-item"><i class="fas fa-plug"></i><p>ReActやToT、外部連携技術で、<strong class="text-cyan-600">プロンプトだけではできない高度なこと</strong>も可能になる。</p></div>
+                <div class="summary-item"><i class="fas fa-redo"></i><p>一発で諦めず、<strong class="text-indigo-600">試して→直す</strong>を繰り返して、プロンプトを育てよう！</p></div>
+            </div>
+            <p class="final-message">今日からあなたもプロンプトエンジニア！ AIとの対話を楽しもう！ <i class="fas fa-hands-helping ml-1"></i></p>
         </div>
-
-        <!-- まとめリスト -->
-        <div class="summary-list">
-            <div class="summary-item">
-                <i class="fas fa-key"></i>
-                <p>AIへの<strong class="text-blue-600">「伝え方」＝プロンプト</strong>が、AIを賢く使うための超重要スキル！</p>
-            </div>
-            <div class="summary-item">
-                 <i class="fas fa-robot"></i>
-                 <p>AIは<strong class="text-blue-600">「次に来る言葉」を予測</strong>して文章を作る。プロンプトはその最初の「文脈」になる。</p>
-            </div>
-            <div class="summary-item">
-                 <i class="fas fa-list-ol"></i>
-                 <p><strong class="text-violet-600">Zero-Shot</strong>（お手本なし）と<strong class="text-teal-600">Few-Shot</strong>（お手本あり）は、AIの<strong class="text-blue-600">「見て学ぶ力」</strong>を活用するテクニック。</p>
-            </div>
-            <div class="summary-item">
-                 <i class="fas fa-tools"></i>
-                <p>目的・形・話し方・役割・ルール指定など、<strong class="text-blue-600">色々な「コツ」を組み合わせる</strong>と効果大！</p>
-            </div>
-             <div class="summary-item">
-                <i class="fas fa-brain"></i>
-                <p>複雑な問題は、<strong class="text-amber-600">「考え方の手順も教えて」</strong>(CoT)と頼むと上手くいくことも。</p>
-            </div>
-            <div class="summary-item">
-                 <i class="fas fa-redo"></i>
-                <p>一発で決めようとせず、<strong class="text-indigo-600">試して→直す</strong>を繰り返して、プロンプトを育てよう！</p>
-            </div>
-        </div>
-
-        <!-- 最後のメッセージ -->
-        <p class="final-message">
-           今日から君もプロンプトエンジニア！ AIとの対話を楽しもう！ <i class="fas fa-hands-helping ml-1"></i>
-        </p>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-             <!-- <span class="text-gray-600">23 / 26</span> -->
+        <div class="slide-number">
+             <!-- <span class="text-gray-600">30 / 33</span> -->
         </div>
     </div>
 </body>

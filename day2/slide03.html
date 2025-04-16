@@ -8,83 +8,75 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #10b981; display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #10b981; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; /* gapを少し狭める */ flex-grow: 1; margin-top: 20px; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; /* ヘッダー下線からの余白 */ }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; }
         .section-box { background-color: #f0fdf4; border-radius: 10px; padding: 25px; }
         .section-box h2 { font-size: 1.6rem; font-weight: 600; color: #065f46; margin-bottom: 15px; display: flex; align-items: center; }
         .section-box h2 i { margin-right: 12px; color: #10b981; }
         .section-box ul { list-style: none; padding: 0; }
-        /* --- 修正箇所：Flexbox設定とテキストコンテナのスタイル見直し --- */
-        .section-box li {
-            color: #047857;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: flex-start; /* 上揃えに戻す */
-            line-height: 1.7;
-        }
-        .section-box li i {
-            margin-right: 10px;
-            margin-top: 5px; /* 上揃えのためマージン復活 */
-            color: #34d399;
-            font-size: 0.9rem;
-            width: 20px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-        /* テキスト部分を囲むspan用のスタイル */
-        .list-text {
-             font-size: 1.05rem; /* さらに少し小さく */
-             min-width: 0; /* flexアイテムが適切に縮小・折り返しできるように */
-             word-break: break-word; /* keep-allではなく標準的な折り返しに一旦戻す */
-        }
-        /* --- 修正箇所ここまで --- */
+        .section-box li { font-size: 1.05rem; color: #047857; margin-bottom: 15px; display: flex; align-items: flex-start; line-height: 1.7; }
+        .section-box li i { margin-right: 10px; margin-top: 5px; color: #34d399; font-size: 0.9rem; width: 20px; text-align: center; flex-shrink: 0; }
+        .section-box .list-text { min-width: 0; word-break: break-word; }
         .highlight { font-weight: 600; background-color: #a7f3d0; padding: 0 4px; border-radius: 3px; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-10">
-            <h1 class="text-4xl font-bold text-emerald-700">今日の目標と内容</h1>
-             <div>
-                <i class="fas fa-route text-emerald-300 text-4xl"></i>
-            </div>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+            <div class="summary-title"><i class="fas fa-bullseye mr-2"></i>今日の目標と内容</div>
         </div>
 
-        <div class="content-grid">
-            <!-- 学習目標 -->
-            <div class="section-box">
-                 <h2><i class="fas fa-bullseye"></i>今日のゴール (できるようになること)</h2>
-                <ul>
-                    <li><i class="fas fa-check"></i><span class="list-text">AIへの「伝え方」がなぜ大事か、<span class="highlight">理由や仕組み</span>も一緒にわかる！</span></li>
-                    <li><i class="fas fa-check"></i><span class="list-text">「お手本なし」「お手本あり」の頼み方 (<span class="highlight">Zero/Few-Shot</span>) のコツと、なぜそれが効くのか (<span class="highlight">見て学ぶ力</span>) がわかる！</span></li>
-                    <li><i class="fas fa-check"></i><span class="list-text">基本的なお願いテクニックと、<span class="highlight">「考えさせる」テクニック</span> (CoTなど) のさわりを知る！</span></li>
-                    <li><i class="fas fa-check"></i><span class="list-text">プロンプト技術のすごい所と、<span class="highlight">まだ難しい所</span>、<span class="highlight">プロンプト以外の技術</span>との関係を知る！</span></li>
-                </ul>
-            </div>
-
-            <!-- アジェンダ -->
-            <div class="section-box">
-                 <h2><i class="far fa-compass"></i>今日学ぶこと (流れ)</h2>
-                 <ul>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">はじめに</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">プロンプト基礎 ＆ AIが言葉を作る仕組み</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">テクニック：お手本なし vs お手本あり (見て学ぶ力)</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">実践！もっと上手にお願いするコツ集 (目的, 形式, 話し方, 役割, システム指示, ルール/ヒント)</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">合わせ技 ＆ 構造化</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">プロンプト改善ヒント ＆ 良い vs 悪い</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">応用テクニック (CoT, パラメータ調整, Self-Consistency, ReAct, ToT)</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">プロンプトを超えて：外部連携技術</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">演習 or 実演</span></li>
-                    <li><i class="fas fa-angle-right"></i><span class="list-text">まとめ、これからの話、質問タイム</span></li>
-                </ul>
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="content-grid">
+                <!-- 学習目標 -->
+                <div class="section-box">
+                    <h2><i class="fas fa-bullseye"></i>今日のゴール (できるようになること)</h2>
+                    <ul>
+                        <li><i class="fas fa-check"></i><span class="list-text">AIへの「伝え方」がなぜ大事か、<span class="highlight">理由や仕組み</span>も一緒にわかる！</span></li>
+                        <li><i class="fas fa-check"></i><span class="list-text">「お手本なし」「お手本あり」の頼み方 (<span class="highlight">Zero/Few-Shot</span>) のコツと、なぜそれが効くのか (<span class="highlight">見て学ぶ力</span>) がわかる！</span></li>
+                        <li><i class="fas fa-check"></i><span class="list-text">基本的なお願いテクニックと、<span class="highlight">「考えさせる」テクニック</span> (CoTなど) のさわりを知る！</span></li>
+                        <li><i class="fas fa-check"></i><span class="list-text">プロンプト技術のすごい所と、<span class="highlight">まだ難しい所</span>、<span class="highlight">プロンプト以外の技術</span>との関係を知る！</span></li>
+                    </ul>
+                </div>
+                <!-- アジェンダ -->
+                <div class="section-box">
+                    <h2><i class="far fa-compass"></i>今日学ぶこと (流れ)</h2>
+                    <ul>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">はじめに</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">プロンプト基礎 ＆ AIが言葉を作る仕組み</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">テクニック：お手本なし vs お手本あり (見て学ぶ力)</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">実践！もっと上手にお願いするコツ集 (目的, 形式, 話し方, 役割, システム指示, ルール/ヒント)</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">合わせ技 ＆ 構造化</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">プロンプト改善ヒント ＆ 良い vs 悪い</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">応用テクニック (CoT, パラメータ調整, Self-Consistency, ReAct, ToT)</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">プロンプトを超えて：外部連携技術</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">演習 or 実演</span></li>
+                       <li><i class="fas fa-angle-right"></i><span class="list-text">まとめ、これからの話、質問タイム</span></li>
+                   </ul>
+                </div>
             </div>
         </div>
 
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
+        <div class="slide-number">
             <!-- <span class="text-gray-600">3 / 33</span> -->
         </div>
     </div>

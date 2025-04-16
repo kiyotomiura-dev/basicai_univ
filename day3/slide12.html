@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 12: 演習1 テキスト生成・校正</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 30px 50px; /* 上下左右のPadding調整 */ box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; /* margin調整 */ padding-bottom: 10px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .exercise-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; /* 上詰め */ align-items: center; overflow-y: auto; /* 内容が多い場合にスクロール */ }
+        .slide-number { position: absolute; bottom: 15px; right: 25px; font-size: 0.875rem; color: #9CA3AF; } /* 位置調整 */
+        h2 { font-size: 1.8rem; /* サイズ調整 */ font-weight: bold; color: #111827; margin-bottom: 10px; text-align: center; }
+        h3 { font-size: 1.3rem; /* サイズ調整 */ font-weight: bold; color: #4A90E2; margin-top: 15px; margin-bottom: 8px; }
+        h4 { font-size: 1.1rem; font-weight: bold; color: #1F2937; margin-bottom: 5px; }
+        p { word-break: break-word; line-height: 1.7; /* 行間調整 */ font-size: 1rem; /* サイズ調整 */ color: #374151; margin-bottom: 8px; text-align: left; /* 左揃えに変更 */ max-width: 100%; }
+        p.center-text { text-align: center; max-width: 90%; margin-bottom: 10px;}
+        .exercise-box { background-color: #fff; border: 1px solid #4A90E2; border-left: 4px solid #4A90E2; border-radius: 8px; padding: 15px 25px; /* Padding調整 */ margin-top: 10px; width: 95%; /* 幅調整 */ box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .exercise-box ul { list-style: decimal; padding-left: 25px; /* Padding調整 */ margin-top: 8px; text-align: left; }
+        .exercise-box li { margin-bottom: 8px; font-size: 0.95rem; /* サイズ調整 */ }
+        .exercise-box li ul { list-style: disc; padding-left: 18px; margin-top: 4px; }
+        .exercise-box li li { font-size: 0.9rem; /* サイズ調整 */ }
+        .exercise-box strong { color: #DC2626; /* Red */ }
+        .exercise-box .info-label { font-weight: bold; color: #1f2937; margin-right: 5px; }
+        .prompt-code {
+            display: block; background-color: #282C34; color: #ABB2BF; padding: 8px 12px; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 0.85em; /* サイズ調整 */ line-height: 1.6; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin-top: 5px; text-align: left;
+        }
+         .prompt-code .highlight { color: #61AFEF; font-weight: normal;} /* 青でハイライト */
+        .timer { margin-top: 15px; font-size: 1.3rem; /* サイズ調整 */ font-weight: bold; color: #1F2937; text-align: center; }
+        .timer i { margin-right: 8px; }
+        .divider { border-bottom: 1px dashed #4A90E2; margin: 15px 0; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="exercise-title"><i class="fa-solid fa-pencil-alt mr-2"></i>演習1：テキスト生成と校正</div>
+        </div>
+        <div class="slide-content">
+            <h2>(基本)地域の魅力を発信するSNS投稿文 / (発展)広報協力依頼メール</h2>
+            <p class="center-text">テキスト生成AIを使い、SNS投稿文とビジネスメールを作成・校正する練習をしましょう。</p>
+
+            <div class="exercise-box">
+                <h3><i class="fa-solid fa-bullhorn mr-2"></i>【基本課題】SNS投稿文の作成・校正</h3>
+                <p><span class="info-label">タスク：</span>長野県の「隠れた魅力」（食べ物、場所、祭り等）を1つ決め、ターゲットを設定し、魅力を伝えるSNS投稿文（150字程度）を生成・校正します。</p>
+                <ul>
+                    <li>テキスト生成AIを開き、プロンプトを入力して生成します。
+                        <code class="prompt-code">プロンプト例: 「長野県〇〇市の【魅力：例『おやき作り体験』】について、【ターゲット：例『東京の女子大生』】に響く【Instagramキャプション】を【150字程度】で作成。楽しそうな雰囲気で、#ハッシュタグを3つ提案して。」</code>
+                    </li>
+                    <li>生成文を校正します。（魅力が伝わるか？ ターゲットに合っているか？ SNSらしいか？ 事実確認、具体性など）</li>
+                </ul>
+            </div>
+
+            <div class="divider"></div>
+
+             <div class="exercise-box">
+                <h3><i class="fa-solid fa-envelope-open-text mr-2"></i>【発展課題】広報協力依頼メールの作成・校正</h3>
+                <p><span class="info-label">状況：</span>基本課題で考えた魅力発信プロジェクトを広報するため、外部機関（例：地元の新聞社、観光協会）に協力を依頼したい。</p>
+                 <p><span class="info-label">タスク：</span>担当者宛に、プロジェクトの説明と協力（取材など）のお願い、打ち合わせのアポイントを依頼するメールを生成・校正します。</p>
+                <ul>
+                    <li>テキスト生成AIを開き、プロンプトを入力して生成します。
+                        <code class="prompt-code">プロンプト例: 「あなたは長野県の魅力発信プロジェクトのメンバーです。【宛先：例『信濃毎日新聞 編集部 御中』】に、【内容：例『〇〇のおやき作り体験プロジェクト』の取材協力】をお願いするメールを作成してください。プロジェクト概要と目的を簡潔に伝え、打ち合わせの【希望日時を3つ提示】（〇月〇日午前、...）。丁寧な言葉遣いで、最後に【自分の氏名・所属（大学名・学部）】を記載してください。」</code>
+                    </li>
+                    <li>生成文を校正します。（宛名・署名は適切か？ プロジェクト概要は簡潔か？ 協力依頼は明確か？ 希望日時は入っているか？ 言葉遣いは適切か？ 誤字脱字はないか？）</li>
+                </ul>
+            </div>
+
+
+            <div class="timer">
+                <i class="fa-solid fa-stopwatch"></i> 制限時間: 約 15-20分 (基本+発展)
+            </div>
+
+        </div>
+        <div class="slide-number"><!-- 12 / 31 --></div>
+    </div>
+</body>
+</html>

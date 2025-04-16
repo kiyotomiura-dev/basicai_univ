@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 16: 画像生成プロンプトのコツ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 15px; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; color: #374151; margin-bottom: 20px; }
+        span { min-width: 0; }
+        .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 15px; }
+        .tip-item { background-color: #fff; border: 1px solid #D1D5DB; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .tip-item h3 { font-size: 1.3rem; font-weight: bold; color: #4A90E2; margin-bottom: 10px; display: flex; align-items: center; }
+        .tip-item h3 i { margin-right: 10px; }
+        .tip-item p { font-size: 1rem; color: #4B5563; line-height: 1.7; margin-bottom: 8px; }
+        .tip-item .example { font-size: 0.9rem; color: #6B7280; font-style: italic; }
+        .prompt-code { display: block; background-color: #282C34; color: #ABB2BF; padding: 8px 15px; border-radius: 6px; font-family: 'Courier New', Courier, monospace; font-size: 0.9em; line-height: 1.7; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word; margin-top: 5px; }
+        .prompt-code .negative { color: #E06C75; } /* Negative Prompt */
+        .prompt-code .param { color: #56B6C2; } /* Parameter */
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">画像生成AIの世界</div>
+        </div>
+        <div class="slide-content">
+             <h2><i class="fa-solid fa-wand-magic-sparkles mr-3 text-[#4A90E2]"></i>画像生成プロンプトのコツ</h2>
+             <p>基本要素に加えて、以下の点を意識すると、よりイメージに近い画像を作りやすくなります。</p>
+             <div class="tips-grid">
+                 <div class="tip-item"> <h3><i class="fa-solid fa-magnifying-glass"></i>具体的に描写する</h3> <p>曖昧な言葉より、具体的な単語を使いましょう。形容詞や状況説明を付け加えます。</p> <p class="example">悪い例: "犬" → 良い例: "公園で楽しそうに走るゴールデンレトリバー"</p> </div>
+                 <div class="tip-item"> <h3><i class="fa-solid fa-list-ol"></i>単語をカンマ区切りで並べる</h3> <p>多くのツールでは、重要なキーワードをカンマ `,` で区切って列挙する形式が有効です。</p> <p class="example">例: "beautiful landscape, fantasy art, mountain, river, sunset, detailed illustration"</p> </div>
+                 <div class="tip-item"> <h3><i class="fa-solid fa-ban"></i>ネガティブプロンプトを活用</h3> <p>「描いてほしくない要素」を指定することで、意図しない画像の生成を防ぎます。</p> <p class="example">例: 手を描くのが苦手な場合</p> <code class="prompt-code"><span class="negative">Negative prompt: extra fingers, deformed hands, bad anatomy</span></code> </div>
+                 <div class="tip-item"> <h3><i class="fa-solid fa-sliders"></i>パラメータを調整する</h3> <p>ツールによっては、画像の比率、画風の強さ、乱数シード値などを調整できます。</p> <p class="example">例: 横長の画像にする場合</p> <code class="prompt-code"><span class="param">--ar 16:9</span> (Midjourney) や Aspect Ratio設定 (Stable Diffusion)</code> </div>
+                 <div class="tip-item"> <h3><i class="fa-solid fa-wand-sparkles"></i>魔法の言葉 (Magic Words)</h3> <p>特定の画風や品質を出すための「おまじない」のような単語群があります。（例: "masterpiece", "best quality", "cinematic lighting" など）</p> <p class="example">※ツールやモデルによって効果は異なります。</p> </div>
+                 <div class="tip-item"> <h3><i class="fa-solid fa-repeat"></i>試行錯誤を楽しむ！</h3> <p>一度で完璧な画像は出ないことも。プロンプトを変えたり、パラメータを調整したりして、何度も試すことが上達の近道です。</p> </div>
+             </div>
+        </div>
+        <!-- --- スライド番号修正 --- -->
+        <div class="slide-number"><!-- 16 / 31 --></div>
+    </div>
+</body>
+</html>

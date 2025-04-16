@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 5: どうやって文章を作る？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイルをここに記述 (Slide 1と同様) */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; /* 32px */ font-weight: bold; color: #111827; margin-bottom: 15px; }
+        h3 { font-size: 1.5rem; /* 24px */ font-weight: bold; color: #4A90E2; margin-bottom: 15px; }
+        p, span { word-break: break-word; line-height: 1.8; font-size: 1.125rem; /* 18px */ color: #374151; }
+        span { min-width: 0; }
+        .concept-diagram {
+            background-color: #ffffff;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .diagram-item { text-align: center; max-width: 200px; }
+        .diagram-item i { font-size: 3rem; /* 48px */ color: #4A90E2; margin-bottom: 10px; }
+        .diagram-item p { font-size: 1rem; /* 16px */ color: #4B5563; line-height: 1.6; }
+        .arrow i { font-size: 2.5rem; color: #9CA3AF; }
+        .prediction-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #E0F2FE; /* Light blue bg */
+            border: 1px dashed #4A90E2;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .prediction-box p { font-size: 1.125rem; color: #1E3A8A; } /* Darker blue text */
+        .prediction-box strong { color: #DC2626; /* Red */ font-weight: bold; }
+        .tech-term { font-family: Consolas, 'Courier New', monospace; background-color: #e5e7eb; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="title">テキスト生成AIの世界</div>
+        </div>
+        <div class="slide-content">
+            <h2>【さわり】どうやって文章を作るの？ <i class="fa-solid fa-gear ml-2 text-gray-500"></i></h2>
+            <h3>キーワード：<span class="tech-term mx-1">大規模言語モデル (LLM)</span> と <span class="tech-term mx-1">Transformer</span></h3>
+
+            <p class="mb-4">
+                とても簡単に言うと、「<strong class="text-[#4A90E2]">たくさんの本やWebサイト</strong>」を読んで、言葉と言葉の「<strong class="text-[#4A90E2]">つながり方</strong>」や「<strong class="text-[#4A90E2]">次に来そうな単語</strong>」を統計的に学習した、ものすごく賢いAIです。
+            </p>
+            <p>
+                特に <span class="tech-term">Transformer</span> という仕組みが、文脈全体の関係性を捉えるのが得意で、自然な文章生成を可能にしています。（※詳しい仕組みは複雑なので、ここではイメージだけ！）
+            </p>
+
+            <!-- 概念図 -->
+            <div class="concept-diagram">
+                <div class="diagram-item">
+                    <i class="fa-solid fa-book-open"></i>
+                    <i class="fa-solid fa-globe ml-2"></i>
+                    <p>大量のテキストデータ<br>(本、Webサイトなど)</p>
+                </div>
+                <div class="arrow">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                    <p class="text-xs mt-1">学習</p>
+                </div>
+                <div class="diagram-item">
+                    <i class="fa-solid fa-brain"></i>
+                    <p><span class="tech-term">LLM</span><br>(Transformerベース)</p>
+                </div>
+                 <div class="arrow">
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                     <p class="text-xs mt-1">生成</p>
+                </div>
+                <div class="diagram-item">
+                    <i class="fa-solid fa-file-alt"></i>
+                     <i class="fa-solid fa-comments ml-2"></i>
+                    <p>自然な文章<br>(メール、記事、返答など)</p>
+                </div>
+            </div>
+
+            <!-- 次の単語予測のイメージ -->
+            <div class="prediction-box">
+                <p><i class="fa-solid fa-lightbulb mr-2"></i>AIの思考プロセス（イメージ）：<br>「今日は」「良い」... 次は <strong class="text-2xl mx-1">「天気」</strong> が来そうだ！</p>
+            </div>
+
+        </div>
+        <div class="slide-number"><!-- 5 / 29 --></div>
+    </div>
+</body>
+</html>

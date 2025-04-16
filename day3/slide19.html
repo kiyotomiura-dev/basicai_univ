@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 19: 注意点</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #DC2626; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        /* --- ヘッダータイトル修正 --- */
+        .slide-header .caution-title { font-size: 1.5rem; font-weight: bold; color: #DC2626; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #DC2626; }
+        .slide-content { flex-grow: 1; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #DC2626; margin-bottom: 20px; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; color: #374151; margin-bottom: 20px; }
+        span { min-width: 0; }
+        .caution-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .caution-item { background-color: #FFFBEB; border: 1px solid #FDE68A; border-radius: 8px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .caution-item h3 { font-size: 1.25rem; font-weight: bold; color: #B45309; margin-bottom: 10px; display: flex; align-items: center; }
+        .caution-item h3 i { font-size: 1.5rem; margin-right: 10px; color: #D97706; }
+        .caution-item ul { list-style: disc; padding-left: 25px; margin-top: 10px; }
+        .caution-item li { margin-bottom: 8px; font-size: 1rem; color: #78350F; line-height: 1.7; }
+        .responsible-use { margin-top: 30px; text-align: center; font-size: 1.2rem; font-weight: bold; color: #DC2626; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-triangle-exclamation mr-2"></i>Day 3</div>
+            <!-- --- ヘッダータイトル修正 --- */ -->
+            <div class="caution-title">画像生成AIを利用する上での注意</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-circle-exclamation mr-3"></i>注意点：賢く、正しく使うために</h2>
+            <p>便利な画像生成AIですが、利用にあたってはいくつか注意すべき点があります。</p>
+            <div class="caution-grid">
+                <div class="caution-item"> <h3><i class="fa-solid fa-copyright"></i>著作権・権利関係</h3> <ul> <li>AIの学習データに著作物が含まれている可能性。</li> <li>生成した画像が既存の著作物やキャラクターに酷似してしまうリスク。</li> <li>ツールによっては商用利用が制限されている場合がある。</li> <li>現時点ではAIが生成した画像自体の著作権は認められない傾向。</li> <li>有名人や実在の人物の画像を無断で生成・利用しない。</li> </ul> </div>
+                <div class="caution-item"> <h3><i class="fa-solid fa-gavel"></i>倫理的な問題</h3> <ul> <li>フェイク画像（偽情報）の作成・拡散への悪用リスク。</li> <li>差別的、暴力的、わいせつな画像の生成・利用。</li> <li>特定の個人や団体を誹謗中傷する目的での利用。</li> <li>なりすましや詐欺への悪用。</li> </ul> </div>
+                <div class="caution-item"> <h3><i class="fa-solid fa-puzzle-piece"></i>意図しない生成物</h3> <ul> <li>人間の手や指の描写が不自然になることがある（指が多い/少ないなど）。</li> <li>文字やロゴが正しく描画されないことがある。</li> <li>物理法則や常識から逸脱した奇妙な画像が生成されることがある。</li> <li>プロンプトの解釈違いによる意図しない結果。</li> </ul> </div>
+            </div>
+            <p class="responsible-use"> <i class="fa-solid fa-scale-balanced mr-2"></i>利用規約をよく読み、倫理観を持って、責任ある使い方を心がけましょう！ </p>
+        </div>
+        <!-- --- スライド番号修正 --- -->
+        <div class="slide-number"><!-- 19 / 31 --></div>
+    </div>
+</body>
+</html>

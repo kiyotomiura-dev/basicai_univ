@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 26: さらなる応用例</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .practice-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 25px; text-align: center; }
+        p { word-break: break-word; line-height: 1.8; font-size: 1.125rem; color: #374151; margin-bottom: 30px; text-align: center; max-width: 90%; }
+        .future-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; width: 90%; }
+        .future-item { background-color: #fff; border-radius: 8px; padding: 25px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.08); border-bottom: 4px solid #4A90E2; }
+        .future-item i { font-size: 3.5rem; color: #4A90E2; margin-bottom: 15px; }
+        .future-item h3 { font-size: 1.3rem; font-weight: bold; color: #1F2937; margin-bottom: 10px; }
+        .future-item p { font-size: 0.95rem; color: #4B5563; line-height: 1.6; margin-bottom: 0; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="practice-title"><i class="fa-solid fa-lightbulb-on mr-2"></i>実践演習＆応用</div>
+        </div>
+        <div class="slide-content">
+            <h2><i class="fa-solid fa-infinity mr-3 text-[#4A90E2]"></i>さらなる応用例：広がる生成AIの世界</h2>
+            <p>今日学んだテキスト生成・画像生成以外にも、AIは様々なコンテンツを生み出す力を持ち始めています。</p>
+
+            <div class="future-grid">
+                <div class="future-item">
+                    <i class="fa-solid fa-clapperboard"></i>
+                    <h3>動画生成 AI</h3>
+                    <p>テキストや画像から短い動画を生成する技術 (Sora, Runway Gen-2, Pika Labs など)。プロモーション動画やコンセプト映像作成への活用が期待されます。</p>
+                </div>
+                 <div class="future-item">
+                    <i class="fa-solid fa-music"></i>
+                    <h3>音楽生成 AI</h3>
+                    <p>テキスト指示やイメージに合わせて、オリジナルのBGMや楽曲を生成する技術 (Suno AI, Udio, Google MusicLM など)。映像制作やゲーム開発での利用が進んでいます。</p>
+                </div>
+                <div class="future-item">
+                    <i class="fa-solid fa-cube"></i>
+                    <h3>3Dモデル生成 AI</h3>
+                    <p>テキストや画像から3Dオブジェクトを生成する技術。ゲーム開発、メタバース、製品デザインなどでの活用が見込まれます。</p>
+                </div>
+                 <div class="future-item">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>コード生成 AI</h3>
+                    <p>自然言語の指示からプログラムコードを生成・補完する技術 (GitHub Copilot, ChatGPT など)。プログラミングの効率化に貢献します。</p>
+                </div>
+                 <div class="future-item">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>データ分析・可視化</h3>
+                    <p>大量のデータを分析し、レポートやグラフを自動生成するAI。ビジネスインテリジェンスでの活用が進んでいます。</p>
+                </div>
+                 <div class="future-item">
+                    <i class="fa-solid fa-flask-vial"></i>
+                    <h3>科学研究・開発</h3>
+                    <p>新薬開発、材料探索、タンパク質構造予測など、専門分野での研究開発を加速させるAIも登場しています。</p>
+                </div>
+            </div>
+             <p class="mt-6 text-center font-semibold text-[#4A90E2]">技術は日々進化中！常に新しい情報をキャッチアップしよう！</p>
+        </div>
+        <div class="slide-number"><!-- 26 / 31 --></div>
+    </div>
+</body>
+</html>

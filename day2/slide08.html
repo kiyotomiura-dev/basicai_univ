@@ -8,96 +8,107 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #14b8a6; display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #14b8a6; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; margin-top: 20px; }
-        .box { background-color: #f0fdfa; border-radius: 10px; padding: 25px; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; flex-grow: 1; margin-top: 10px; }
+        .box { background-color: #f0fdfa; border-radius: 10px; padding: 25px; height: 100%; display: flex; flex-direction: column; }
         .box h2 { color: #0f766e; font-size: 1.5rem; font-weight: 600; margin-bottom: 15px; display: flex; align-items: center; }
         .box h2 i { margin-right: 10px; }
-        .box p { font-size: 1.1rem; color: #115e59; line-height: 1.7; margin-bottom: 15px; }
-        .diagram { display: flex; align-items: center; justify-content: space-around; gap: 10px; margin-top: 15px; background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-wrap: wrap; position: relative; }
-        .diagram i { font-size: 2.5rem; }
-        .diagram .arrow { color: #14b8a6; font-size: 2rem; }
-        .example-icon { background-color: #ccfbf1; color: #134e4a; padding: 5px 8px; border-radius: 4px; font-size: 1.2rem; display: flex; align-items: center; gap: 5px; font-weight: 500; }
+        .box p { font-size: 1.1rem; color: #115e59; line-height: 1.7; margin-bottom: 15px; word-break: keep-all; }
+        .diagram { display: flex; align-items: center; justify-content: space-around; gap: 8px; /* gap調整 */ margin-top: 15px; background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); flex-wrap: wrap; }
+        .diagram i { font-size: 2rem; } /* アイコンサイズ調整 */
+        .diagram .arrow { color: #14b8a6; font-size: 1.8rem; }
+        .example-icon { background-color: #ccfbf1; color: #134e4a; padding: 5px 8px; border-radius: 4px; font-size: 1rem; /* size調整 */ display: flex; align-items: center; gap: 5px; font-weight: 500; }
         .example-text { background-color: white; padding: 15px; border-radius: 6px; margin-top: 10px; border-left: 3px solid #5eead4; font-size: 1rem; }
         .example-text pre { background-color: #f8fafc; padding: 10px; border-radius: 4px; font-size: 0.9em; overflow-x: auto; margin-top: 8px; font-family: monospace; }
         .pros-cons-list ul { list-style: none; padding: 0; }
-        .pros-cons-list li { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 1.1rem; }
-        .pros-cons-list li i { width: 25px; text-align: center; margin-right: 10px; margin-top: 4px; }
+        .pros-cons-list li { display: flex; align-items: flex-start; margin-bottom: 10px; font-size: 1.1rem; word-break: keep-all; line-height: 1.6; }
+        .pros-cons-list li i { width: 25px; text-align: center; margin-right: 10px; margin-top: 5px; flex-shrink: 0; }
         .pros i { color: #10b981; } .pros span { color: #059669; }
         .cons i { color: #f43f5e; } .cons span { color: #be123c; }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-teal-700">テクニック②：お手本を見せてお願い！ (Few-Shot)</h1>
-             <div>
-                <i class="fas fa-list-ol text-teal-300 text-4xl"></i>
-            </div>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+            <div class="summary-title"><i class="fas fa-list-ol mr-2"></i>基本手法②：Few-Shot</div>
         </div>
-
-         <div class="content-grid">
-            <!-- 定義と図解 -->
-            <div class="box">
-                <h2><i class="fas fa-info-circle"></i>Few-Shotって？</h2>
-                <p>
-                    AIに「<strong class="text-teal-800">こんな風に答えてね！</strong>」という<strong class="text-teal-800">お手本（例）</strong>をいくつか見せてから、本番のお願いをする方法です。"Few"は「いくつかの」って意味だよ。
-                </p>
-                 <p>
-                    お手本を見せることで、AIに<strong class="text-teal-800">やってほしいことのパターン</strong>や、<strong class="text-teal-800">答えてほしい形（書き方）</strong>を伝えることができます。
-                </p>
-                 <div class="diagram">
-                    <i class="fas fa-user text-indigo-500"></i>
-                    <i class="fas fa-arrow-right arrow"></i>
-                    <div class="example-icon"><i class="far fa-lightbulb"></i> お手本1</div>
-                    <i class="fas fa-plus text-gray-400 mx-1"></i>
-                    <div class="example-icon"><i class="far fa-lightbulb"></i> お手本2</div>
-                     <i class="fas fa-plus text-gray-400 mx-1"></i>
-                    <i class="fas fa-comment-dots text-orange-500" title="本番のお願い"></i>
-                    <i class="fas fa-arrow-right arrow"></i>
-                    <i class="fas fa-robot text-teal-500"></i>
-                    <i class="fas fa-arrow-right arrow"></i>
-                    <i class="fas fa-star text-yellow-500" title="良い答え！"></i>
-                 </div>
-                 <p class="text-center text-sm text-gray-600 mt-2">「このお手本みたいにやってね！」と頼むイメージ。</p>
-             </div>
-
-            <!-- 具体例と良い点/注意点 -->
-            <div>
-                <div class="box mb-6">
-                    <h2><i class="fas fa-quote-left"></i>例えばこんな感じ：感情分析</h2>
-                    <p>文章がポジティブかネガティブか判断させたい時…</p>
-                     <div class="example-text">
-                        <p><strong>お手本：</strong></p>
-                        <pre><code>文章: 最高！ -> 感情: ポジティブ
-文章: 最悪…。 -> 感情: ネガティブ</code></pre>
-                        <p class="mt-3"><strong>本番のお願い：</strong></p>
-                        <pre><code>文章: がっかりした -> 感情:</code></pre>
-                         <p class="mt-2 text-sm text-teal-700">(AIは「ネガティブ」と答えやすくなる)</p>
-                     </div>
-                 </div>
-
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+             <div class="content-grid">
+                <!-- 定義と図解 -->
                 <div class="box">
-                     <h2><i class="fas fa-balance-scale"></i>良い点 <i class="fas fa-thumbs-up text-green-500 ml-1"></i> / 注意点 <i class="fas fa-thumbs-down text-red-500 ml-1"></i></h2>
-                    <div class="pros-cons-list">
-                        <ul>
-                            <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">答えの精度アップ！</strong> AIがやるべきことを理解しやすい。</span></li>
-                            <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">答えの形を整えやすい！</strong> 「この書き方で」と示せる。</span></li>
-                            <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">お手本作りが手間。</strong> 良い例を考えるのがちょっと大変。</span></li>
-                            <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">お願い文が長くなる。</strong> たくさん書く必要があるかも。</span></li>
-                            <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">お手本の質が大事！</strong> 変なお手本だと逆効果も。</span></li>
-                        </ul>
+                    <h2><i class="fas fa-info-circle"></i>Few-Shotって？</h2>
+                    <p>
+                        AIに「<strong class="text-teal-800">こんな風に答えてね！</strong>」という<strong class="text-teal-800">お手本（例）</strong>をいくつか見せてから、本番のお願いをする方法です。"Few"は「いくつかの」って意味だよ。
+                    </p>
+                    <p>
+                        お手本を見せることで、AIに<strong class="text-teal-800">やってほしいことのパターン</strong>や、<strong class="text-teal-800">答えてほしい形（書き方）</strong>を伝えることができます。
+                    </p>
+                    <div class="diagram mt-auto">
+                        <i class="fas fa-user text-indigo-500"></i>
+                        <i class="fas fa-arrow-right arrow"></i>
+                        <div class="example-icon"><i class="far fa-lightbulb"></i> 例1</div>
+                        <i class="fas fa-plus text-gray-400 mx-1"></i>
+                        <div class="example-icon"><i class="far fa-lightbulb"></i> 例2</div>
+                        <i class="fas fa-plus text-gray-400 mx-1"></i>
+                        <i class="fas fa-comment-dots text-orange-500" title="本番のお願い"></i>
+                        <i class="fas fa-arrow-right arrow"></i>
+                        <i class="fas fa-robot text-teal-500"></i>
+                        <i class="fas fa-arrow-right arrow"></i>
+                        <i class="fas fa-star text-yellow-500" title="良い答え！"></i>
+                    </div>
+                    <p class="text-center text-sm text-gray-600 mt-2">「このお手本みたいにやってね！」と頼むイメージ。</p>
+                </div>
+                <!-- 具体例と良い点/注意点 -->
+                <div class="box">
+                     <div class="mb-6">
+                        <h2><i class="fas fa-quote-left"></i>例えばこんな感じ：感情分析</h2>
+                        <p>文章がポジティブかネガティブか判断させたい時…</p>
+                         <div class="example-text">
+                            <p><strong>お手本：</strong></p>
+                            <pre><code>文章: 最高！ -> 感情: ポジティブ
+文章: 最悪…。 -> 感情: ネガティブ</code></pre>
+                            <p class="mt-3"><strong>本番のお願い：</strong></p>
+                            <pre><code>文章: がっかりした -> 感情:</code></pre>
+                             <p class="mt-2 text-sm text-teal-700">(AIは「ネガティブ」と答えやすくなる)</p>
+                         </div>
+                     </div>
+                    <div class="mt-auto">
+                        <h2><i class="fas fa-balance-scale"></i>良い点 <i class="fas fa-thumbs-up text-green-500 ml-1"></i> / 注意点 <i class="fas fa-thumbs-down text-red-500 ml-1"></i></h2>
+                        <div class="pros-cons-list">
+                            <ul>
+                                <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">答えの精度アップ！</strong> AIがやるべきことを理解しやすい。</span></li>
+                                <li class="pros"><i class="fas fa-check-circle"></i><span><strong class="font-semibold">答えの形を整えやすい！</strong> 「この書き方で」と示せる。</span></li>
+                                <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">お手本作りが手間。</strong> 良い例を考えるのがちょっと大変。</span></li>
+                                <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">お願い文が長くなる。</strong> たくさん書く必要があるかも。</span></li>
+                                <li class="cons"><i class="fas fa-times-circle"></i><span><strong class="font-semibold">お手本の質が大事！</strong> 変なお手本だと逆効果も。</span></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2 mt-auto">
-            <!-- <span class="text-gray-600">8 / 26</span> -->
+        <div class="slide-number">
+            <!-- <span class="text-gray-600">8 / 33</span> -->
         </div>
     </div>
 </body>

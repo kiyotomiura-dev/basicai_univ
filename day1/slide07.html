@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIの基礎 (大学生・教員向け) - ディープラーニングの概要</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォント指定を維持 */
+            background-color: #f4f4f8; /* 背景色を統一 */
+            overflow: auto;
+        }
+        .slide {
+            max-width: 1280px; /* width を max-width に変更 */
+            min-height: 720px;
+            margin: 40px auto; /* margin 統一 */
+            position: relative;
+            overflow: hidden; /* ヘッダー対応 */
+            /* background: linear-gradient(135deg, #e0f7fa 0%, #bbdefb 100%); 元の背景は維持せず白に変更 */
+            background-color: #fff; /* 背景色を白に統一 */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* shadow 統一 */
+            border-radius: 8px; /* radius 統一 */
+            padding: 40px 60px; /* ヘッダー対応 */
+            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
+            display: flex; /* ヘッダー対応 */
+            flex-direction: column; /* ヘッダー対応 */
+            box-sizing: border-box;
+        }
+        @keyframes fadeInUp { /* アニメーションは追加 */
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+
+        /* --- Day 1 ヘッダースタイル --- */
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; }
+        /* --- ここまでヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ }
+
+        /* --- 元のアニメーションは維持 --- */
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
+        .float-animation { animation: float 4s ease-in-out infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .pulse-animation { animation: pulse 3s ease-in-out infinite; }
+        /* --- ネットワーク図関連スタイルは維持 --- */
+        .brain-node { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; z-index: 2; background-clip: padding-box; font-size: 1rem; } /* サイズ調整 */
+        .network-container { position: relative; height: 250px; /* 高さ調整 */ }
+        #network-svg line { stroke: rgba(107, 114, 128, 0.4); stroke-width: 1; } /* 線を細く、薄く */
+        .layer-label { position: absolute; bottom: -10px; /* 位置調整 */ left: 50%; transform: translateX(-50%); text-align: center; font-size: 0.75rem; color: #4b5563; margin-top: 0.5rem; white-space: nowrap; }
+        .layer-input { left: 10%; }
+        .layer-hidden1 { left: 35%; }
+        .layer-hidden2 { left: 60%; }
+        .layer-output { left: 85%; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <!-- ① ヘッダーを追加/修正 -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
+             <!-- 元のタイトルとアイコンをヘッダー右側に配置 -->
+            <div class="summary-title"><i class="fas fa-brain mr-2"></i>ディープラーニングの概要</div>
+        </div>
+
+        <!-- コンテンツ部分をラップし、アニメーションを適用 -->
+        <div class="slide-content fade-in-up">
+             <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
+            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
+
+            <div class="bg-gray-100 rounded-xl p-3 mb-6 max-w-xl mx-auto text-center border"> <!-- 背景色変更、ボーダー追加 -->
+                <p class="text-lg text-gray-700">ディープラーニングは、人間の神経回路を模倣した多層のニューラルネットワークを用いた機械学習の手法です。</p>
+            </div>
+
+            <!-- 人間の脳とANNの比較セクション -->
+            <div class="flex flex-col md:flex-row justify-between mb-6 gap-6">
+                 <div class="md:w-1/2">
+                     <div class="bg-pink-50 rounded-xl p-3 text-center mb-3 border"> <!-- 色変更、ボーダー追加 -->
+                         <h3 class="text-lg font-bold text-pink-700">人間の脳の構造</h3>
+                     </div>
+                     <div class="bg-white rounded-xl p-4 shadow-md border"> <!-- ボーダー追加 -->
+                         <ul class="space-y-2">
+                             <li class="flex items-start">
+                                 <div class="bg-pink-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1"><i class="fas fa-check text-pink-600 text-xs"></i></div>
+                                 <p class="text-sm text-gray-700">神経細胞（ニューロン）が複雑に連携し、情報伝達を行う。</p>
+                             </li>
+                             <li class="flex items-start">
+                                 <div class="bg-pink-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1"><i class="fas fa-check text-pink-600 text-xs"></i></div>
+                                 <p class="text-sm text-gray-700">経験を通じてシナプスの結合が変化し、パターン認識能力を獲得する。</p>
+                             </li>
+                             <li class="flex items-start">
+                                 <div class="bg-pink-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1"><i class="fas fa-check text-pink-600 text-xs"></i></div>
+                                 <p class="text-sm text-gray-700">高度な認知機能（思考、記憶、学習など）を実現する。</p>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+
+                 <div class="md:w-1/2">
+                     <div class="bg-blue-50 rounded-xl p-3 text-center mb-3 border"> <!-- 色変更、ボーダー追加 -->
+                         <h3 class="text-lg font-bold text-blue-700">人工ニューラルネットワーク</h3>
+                     </div>
+                     <div class="bg-white rounded-xl p-4 shadow-md border"> <!-- ボーダー追加 -->
+                         <ul class="space-y-2">
+                             <li class="flex items-start">
+                                 <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1"><i class="fas fa-check text-blue-600 text-xs"></i></div>
+                                 <p class="text-sm text-gray-700">人工ニューロンが層状に接続され、複雑な演算処理を行う。</p>
+                             </li>
+                             <li class="flex items-start">
+                                 <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1"><i class="fas fa-check text-blue-600 text-xs"></i></div>
+                                 <p class="text-sm text-gray-700">大量のデータから特徴量を自動的に抽出し、パターンを学習する。</p>
+                             </li>
+                             <li class="flex items-start">
+                                 <div class="bg-blue-100 rounded-full p-1 mr-2 flex-shrink-0 mt-1"><i class="fas fa-check text-blue-600 text-xs"></i></div>
+                                 <p class="text-sm text-gray-700">画像認識、自然言語処理など、複雑な問題解決に適用可能である。</p>
+                             </li>
+                         </ul>
+                     </div>
+                 </div>
+            </div>
+
+            <!-- ネットワーク図セクション -->
+            <div class="bg-indigo-50 rounded-xl p-5 mb-4 relative border"> <!-- ボーダー追加 -->
+                <h3 class="text-lg font-bold text-indigo-800 text-center mb-3">多層ニューラルネットワークの概念図</h3>
+                <div class="network-container relative">
+                    <svg id="network-svg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1; pointer-events: none;"></svg>
+                    <div class="relative w-full h-full">
+                        <!-- 各層のノード配置（IDとクラスは維持） -->
+                        <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-input">
+                            <div class="brain-node bg-green-200" id="input1"><i class="fas fa-arrow-right text-green-700"></i></div>
+                            <div class="brain-node bg-green-200" id="input2"><i class="fas fa-arrow-right text-green-700"></i></div>
+                            <div class="brain-node bg-green-200" id="input3"><i class="fas fa-arrow-right text-green-700"></i></div>
+                            <div class="layer-label">入力層</div>
+                        </div>
+                        <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-hidden1">
+                            <div class="brain-node bg-blue-200" id="hidden1_1"><i class="fas fa-cog text-blue-700"></i></div>
+                            <div class="brain-node bg-blue-200" id="hidden1_2"><i class="fas fa-cog text-blue-700"></i></div>
+                            <div class="brain-node bg-blue-200" id="hidden1_3"><i class="fas fa-cog text-blue-700"></i></div>
+                            <div class="brain-node bg-blue-200" id="hidden1_4"><i class="fas fa-cog text-blue-700"></i></div>
+                             <div class="layer-label">隠れ層1</div>
+                        </div>
+                        <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-hidden2">
+                            <div class="brain-node bg-purple-200" id="hidden2_1"><i class="fas fa-cog text-purple-700"></i></div>
+                            <div class="brain-node bg-purple-200" id="hidden2_2"><i class="fas fa-cog text-purple-700"></i></div>
+                            <div class="brain-node bg-purple-200" id="hidden2_3"><i class="fas fa-cog text-purple-700"></i></div>
+                             <div class="layer-label">隠れ層2</div>
+                        </div>
+                        <div class="absolute top-0 h-full flex flex-col items-center justify-around layer-output">
+                            <div class="brain-node bg-red-200" id="output1"><i class="fas fa-flag-checkered text-red-700"></i></div>
+                            <div class="brain-node bg-red-200" id="output2"><i class="fas fa-flag-checkered text-red-700"></i></div>
+                             <div class="layer-label">出力層</div>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- 応用例セクション -->
+            <div class="bg-gray-100 rounded-xl p-4 border mt-auto"> <!-- 背景色変更、ボーダー追加、位置調整 -->
+                 <h3 class="text-md font-bold text-indigo-800 mb-3 text-center">ディープラーニングの応用例</h3>
+                 <div class="flex flex-wrap justify-around gap-y-3"> <!-- gap調整 -->
+                     <div class="text-center w-1/3 md:w-auto">
+                         <i class="fas fa-image text-indigo-600 text-2xl mb-1"></i>
+                         <p class="text-xs text-gray-700">画像認識/生成</p>
+                     </div>
+                     <div class="text-center w-1/3 md:w-auto">
+                         <i class="fas fa-comment-dots text-indigo-600 text-2xl mb-1"></i>
+                         <p class="text-xs text-gray-700">自然言語処理</p>
+                     </div>
+                     <div class="text-center w-1/3 md:w-auto">
+                         <i class="fas fa-microphone-alt text-indigo-600 text-2xl mb-1"></i>
+                         <p class="text-xs text-gray-700">音声認識/合成</p>
+                     </div>
+                     <div class="text-center w-1/3 md:w-auto">
+                         <i class="fas fa-gamepad text-indigo-600 text-2xl mb-1"></i>
+                         <p class="text-xs text-gray-700">ゲームAI</p>
+                     </div>
+                     <div class="text-center w-1/3 md:w-auto">
+                         <i class="fas fa-car text-indigo-600 text-2xl mb-1"></i>
+                         <p class="text-xs text-gray-700">自動運転技術</p>
+                     </div>
+                     <div class="text-center w-1/3 md:w-auto">
+                         <i class="fas fa-heartbeat text-indigo-600 text-2xl mb-1"></i> <!-- 追加例 -->
+                         <p class="text-xs text-gray-700">医療診断支援</p>
+                     </div>
+                 </div>
+            </div>
+
+        </div> <!-- slide-content fade-in-up の閉じタグ -->
+
+        <!-- ② スライド番号をコメントアウト -->
+        <!--
+        <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
+            <span class="text-gray-600">7 / 48</span>
+        </div>
+         -->
+    </div> <!-- slide の閉じタグ -->
+
+    <!-- JavaScriptは変更なし -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const svg = document.getElementById('network-svg');
+            const container = document.querySelector('.network-container');
+            if (!svg || !container) {
+                console.error("SVG container or network container not found.");
+                return;
+            }
+
+            const layers = [
+                ['input1', 'input2', 'input3'],
+                ['hidden1_1', 'hidden1_2', 'hidden1_3', 'hidden1_4'],
+                ['hidden2_1', 'hidden2_2', 'hidden2_3'],
+                ['output1', 'output2']
+            ];
+
+            let containerRect = container.getBoundingClientRect(); // letに変更
+
+            const getNodeCenter = (nodeId) => {
+                const node = document.getElementById(nodeId);
+                if (!node) return null;
+                const rect = node.getBoundingClientRect();
+                // コンテナの現在の座標を基準にする
+                const currentContainerRect = container.getBoundingClientRect();
+                const x = rect.left - currentContainerRect.left + rect.width / 2;
+                const y = rect.top - currentContainerRect.top + rect.height / 2;
+                return { x, y };
+            };
+
+            const drawLine = (startNodeId, endNodeId) => {
+                const start = getNodeCenter(startNodeId);
+                const end = getNodeCenter(endNodeId);
+
+                if (start && end) {
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', start.x);
+                    line.setAttribute('y1', start.y);
+                    line.setAttribute('x2', end.x);
+                    line.setAttribute('y2', end.y);
+                    svg.appendChild(line);
+                } else {
+                    console.warn(`Could not draw line between ${startNodeId} and ${endNodeId}. Node not found.`);
+                }
+            };
+
+            const redrawLines = () => { // 関数化
+                 while (svg.firstChild) {
+                     svg.removeChild(svg.firstChild);
+                 }
+                 containerRect = container.getBoundingClientRect(); // 再取得
+                 for (let i = 0; i < layers.length - 1; i++) {
+                     const currentLayer = layers[i];
+                     const nextLayer = layers[i+1];
+                     currentLayer.forEach(startNodeId => {
+                         nextLayer.forEach(endNodeId => {
+                             drawLine(startNodeId, endNodeId);
+                         });
+                     });
+                 }
+            };
+
+            redrawLines(); // 初期描画
+
+             let resizeTimeout;
+             window.addEventListener('resize', () => {
+                 clearTimeout(resizeTimeout);
+                 resizeTimeout = setTimeout(redrawLines, 250); // リサイズ後に再描画
+             });
+        });
+    </script>
+
+</body>
+</html>

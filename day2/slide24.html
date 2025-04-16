@@ -3,104 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIの「個性」を調整？ Temperature と Top-p</title>
+    <title>応用編：AIに「考えさせる」技術 (CoT)</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #f97316; /* Orange 500 */ display: flex; flex-direction: column; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #f59e0b; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .explanation-box { background-color: #fff7ed; border-radius: 8px; padding: 20px; margin-bottom: 20px;}
-        .explanation-box h2 { font-size: 1.4rem; font-weight: 600; color: #c2410c; margin-bottom: 10px; }
-        .explanation-box p { font-size: 1.05rem; color: #9a3412; line-height: 1.7; word-break: keep-all; }
-        .param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; margin-top: 15px; }
-        .param-card { background-color: #fefce8; /* Yellow 50 */ border: 1px solid #fef9c3; /* Yellow 100 */ border-radius: 8px; padding: 20px; }
-        .param-card h3 { font-size: 1.3rem; font-weight: 600; color: #a16207; /* Yellow 700 */ margin-bottom: 10px; display: flex; align-items: center; }
-        .param-card h3 i { color: #facc15; /* Yellow 400 */ margin-right: 10px; }
-        .param-card p { font-size: 1rem; color: #854d0e; /* Yellow 800 */ margin-bottom: 10px; line-height: 1.6; word-break: keep-all; }
-        /* --- 画像の代わりにアイコンとテキストでイメージを補完 --- */
-        .diagram { text-align: center; margin-top: 15px; display: flex; justify-content: center; align-items: center; }
-        .diagram .icon-container { background-color: white; border: 1px solid #fef08a; border-radius: 50%; padding: 15px; display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; margin: 0 10px; }
-        .diagram i { font-size: 1.5rem; }
-        .diagram .arrow { font-size: 1.5rem; color: #f59e0b; }
-        .caption { font-size: 0.85rem; color: #713f12; margin-top: 5px; }
-        /* --- 修正箇所ここまで --- */
-        .param-card .value-effect { display: flex; justify-content: space-between; font-size: 0.9rem; margin-top: 10px; }
-        .param-card .effect-low { color: #1d4ed8; font-weight: 500; } /* Blue */
-        .param-card .effect-high { color: #be185d; font-weight: 500; } /* Pink */
-        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #d97706; background-color: #fef3c7; padding: 15px; border-radius: 8px; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; display: flex; flex-direction: column;}
+        .explanation-box { background-color: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .explanation-box h2 { font-size: 1.5rem; font-weight: 600; color: #b45309; margin-bottom: 10px; }
+        .explanation-box p { font-size: 1.1rem; color: #92400e; line-height: 1.7; word-break: keep-all; }
+        .cot-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; flex-grow: 1; align-items: stretch;} /* margin-top削除, align-items追加 */
+        .comparison-card { background-color: #f7fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; display: flex; flex-direction: column;}
+        .comparison-card h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; text-align: center; display: flex; align-items: center; justify-content: center;}
+        .without-cot h3 { color: #dc2626; } .without-cot h3 i { color: #f87171; }
+        .with-cot h3 { color: #16a34a; } .with-cot h3 i { color: #4ade80; }
+        .prompt-area { margin-bottom: 15px; }
+        .prompt-area .label { font-weight: 500; color: #4b5563; margin-bottom: 5px; font-size: 0.9rem; }
+        .prompt-text { background-color: white; border: 1px solid #e5e7eb; padding: 10px; border-radius: 4px; font-style: italic; font-size: 0.95em; }
+        .output-area { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 15px; border-radius: 4px; min-height: 100px; flex-grow: 1; display: flex; flex-direction: column; justify-content: center;} /* flex関連追加 */
+        .output-area .label { font-weight: 500; color: #4b5563; margin-bottom: 5px; font-size: 0.9rem; }
+        .output-text { font-size: 1rem; color: #1f2937; word-break: keep-all; line-height: 1.6;}
+        .output-text .reasoning { color: #059669; font-style: italic; background-color: #dcfce7; padding: 5px; border-radius: 3px; margin-bottom: 8px; display: block;}
+        .takeaway { text-align: center; margin-top: 25px; font-size: 1.2rem; font-weight: 600; color: #d97706; background-color: #fef3c7; padding: 15px; border-radius: 8px; margin-bottom: 10px;}
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="text-4xl font-bold text-orange-700">AIの「個性」を調整？ Temperature と Top-p</h1>
-            <div><i class="fas fa-sliders-h text-orange-300 text-4xl"></i></div>
-        </div>
-
-        <!-- 説明 -->
-        <div class="explanation-box">
-            <h2 class="text-orange-800"><i class="fas fa-dice-d6 mr-2"></i> AIの応答は確率で決まる</h2>
-            <p>
-                LLMは、次に来る単語を<strong class="text-orange-700">確率</strong>で予測します。例えば「今日は良い天気ですね。次は…」→「散歩(40%)」「公園(30%)」「洗濯(10%)」のように。
-            </p>
-            <p>
-                <strong class="text-orange-700">Temperature</strong>と<strong class="text-orange-700">Top-p</strong>は、この確率に基づいてどの単語を選ぶかを調整するパラメータです。（主にAPI利用時に設定）
-            </p>
-        </div>
-
-        <!-- パラメータ説明 -->
-        <div class="param-grid">
-            <div class="param-card">
-                <h3><i class="fas fa-thermometer-half"></i> Temperature (温度)</h3>
-                <p>値域は通常 0 ～ 1 (またはそれ以上)。確率分布の「形」を調整し、選択肢の広さを変えます。</p>
-                <div class="diagram">
-                     <div class="icon-container"><i class="fas fa-arrow-alt-circle-down text-blue-500"></i></div>
-                     <i class="fas fa-exchange-alt arrow"></i>
-                     <div class="icon-container"><i class="fas fa-arrow-alt-circle-up text-pink-500"></i></div>
-                     <!-- <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Temperature%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E4%BD%8E%E3%81%84%E2%86%92%E5%B0%96%E3%82%8B%E3%80%81%E9%AB%98%E3%81%84%E2%86%92%E5%B9%B3%E5%9D%A6)" alt="Temperature Effect Diagram"> -->
-                 </div>
-                <div class="value-effect">
-                    <span class="effect-low"><i class="fas fa-arrow-down"></i> 低い値 (例: 0.2):</span>
-                    <span class="effect-high"><i class="fas fa-arrow-up"></i> 高い値 (例: 0.8):</span>
-                </div>
-                <div class="value-effect">
-                    <span class="effect-low">→ 確率が最も高い単語を選びやすい (堅実、決まりきった答え)</span>
-                    <span class="effect-high">→ 確率が低い単語も選びやすい (多様、創造的、時にランダム)</span>
-                </div>
-                 <p class="text-xs text-gray-500 mt-2">Self-Consistencyでは、高い値で多様な思考を促すことがある。</p>
+    <div class="slide">
+         <!-- 新しいヘッダー -->
+         <div class="slide-header">
+             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-brain mr-2"></i>応用：考えさせる技術 (CoT)</div>
+         </div>
+         <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+             <div class="explanation-box">
+                 <h2><i class="fas fa-comment-dots mr-2"></i>Chain-of-Thought (CoT) って？</h2>
+                <p>
+                    複雑な問題（計算や推理など）をAIに解かせたい時、いきなり答えだけを求めると間違えやすいことがあります。
+                </p>
+                <p>
+                    そこで、<strong class="text-amber-600">「答えと一緒に、そこに至るまでの考え方の手順（途中式）も書いてね」</strong>とお願いするのが Chain-of-Thought (思考の連鎖) というテクニックです。
+                 </p>
+                 <p>
+                     人間が難しい問題を解く時に、ステップを踏んで考えるのと同じように、<strong class="text-amber-600">AIにも段階的に考えさせることで、正解にたどり着きやすく</strong>なります！
+                 </p>
              </div>
-             <div class="param-card">
-                 <h3><i class="fas fa-chart-pie"></i> Top-p (確率合計)</h3>
-                <p>値域は通常 0 ～ 1。確率の高い単語から累積し、合計確率が p を超えるまでの候補の中から単語を選びます。</p>
-                <div class="diagram">
-                     <div class="icon-container"><i class="fas fa-grip-horizontal text-blue-500"></i></div>
-                     <i class="fas fa-exchange-alt arrow"></i>
-                     <div class="icon-container"><i class="fas fa-grip-lines-vertical text-pink-500"></i></div>
-                     <!-- <img src="https://via.placeholder.com/300x100/fefce8/a16207?text=Top-p%E3%81%AE%E5%BD%B1%E9%9F%BF%E3%82%A4%E3%83%A1%E3%83%BC%E3%82%B8%0A(%E7%A2%BA%E7%8E%87%E4%B8%8A%E4%BD%8D%E3%81%8B%E3%82%89%E9%81%B8%E6%8A%9E)" alt="Top-p Effect Diagram"> -->
-                 </div>
-                 <div class="value-effect">
-                     <span class="effect-low"><i class="fas fa-arrow-down"></i> 低い値 (例: 0.1):</span>
-                    <span class="effect-high"><i class="fas fa-arrow-up"></i> 高い値 (例: 0.9):</span>
+            <div class="cot-comparison">
+                <div class="comparison-card without-cot">
+                     <h3><i class="far fa-times-circle mr-2"></i>考えさせないと… (間違いやすい)</h3>
+                     <div class="prompt-area">
+                        <p class="label">プロンプト:</p>
+                         <div class="prompt-text">リンゴが5個あります。バナナを3個もらいました。その後、リンゴを2個食べました。今、果物は全部で何個？</div>
+                    </div>
+                    <div class="output-area">
+                        <p class="label">AIの答え:</p>
+                        <p class="output-text">答えは 6個 です。</p> <!-- 正しい答えだがプロセスがない -->
+                     </div>
                 </div>
-                 <div class="value-effect">
-                    <span class="effect-low">→ 非常に確率の高いごく少数の候補から選ぶ (より決定的)</span>
-                    <span class="effect-high">→ 幅広い候補から選ぶ (より多様)</span>
-                 </div>
-                 <p class="text-xs text-gray-500 mt-2">Temperatureと併用されることが多い。通常はどちらか一方を調整。</p>
-             </div>
+                 <div class="comparison-card with-cot">
+                     <h3><i class="far fa-check-circle mr-2"></i>考えさせると！ (正解しやすい)</h3>
+                    <div class="prompt-area">
+                        <p class="label">プロンプト:</p>
+                        <div class="prompt-text">リンゴが5個あります。バナナを3個もらいました。その後、リンゴを2個食べました。今、果物は全部で何個？ <strong class='text-amber-700'>ステップバイステップで考えてください。</strong></div>
+                     </div>
+                    <div class="output-area">
+                         <p class="label">AIの答え:</p>
+                        <p class="output-text">
+                            <span class="reasoning">1. 最初リンゴは5個です。</span>
+                            <span class="reasoning">2. バナナを3個もらったので、果物は 5 + 3 = 8個 になります。</span>
+                            <span class="reasoning">3. その後リンゴを2個食べたので、残りの果物は 8 - 2 = 6個 です。</span>
+                            答えは 6個 です。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="takeaway mt-auto">
+                <p><i class="fas fa-star mr-2"></i>難しい問題は「考え方の手順も一緒に教えて」と頼んでみよう！</p>
+            </div>
         </div>
-
-         <!-- まとめ / Takeaway -->
-        <div class="takeaway mt-auto">
-            <p><i class="fas fa-star mr-2"></i>TemperatureやTop-pを調整して、AIの答えの「堅実さ」と「斬新さ」のバランスを取ろう！</p>
-        </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">追加F</span> -->
+        <div class="slide-number">
+             <!-- <span class="text-gray-600">24 / 33</span> -->
         </div>
     </div>
 </body>

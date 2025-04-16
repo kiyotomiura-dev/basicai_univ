@@ -8,98 +8,80 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f8; overflow: auto; }
-        .slide { max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto; background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px; padding: 60px; border-top: 4px solid #22c55e; /* Green 500 */ display: flex; flex-direction: column; justify-content: center; }
+        .slide {
+            max-width: 1280px; min-height: 720px; margin: 40px auto; position: relative; overflow: auto;
+            background-color: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border-radius: 8px;
+            /* border-top: 4px solid #22c55e; ← Day3スタイルで上書き */
+            display: flex; flex-direction: column; padding: 40px 60px;
+        }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-        .intro-text { text-align: center; margin-bottom: 30px; } /* margin調整 */
-        .combo-example { background-color: #f0fdf4; /* Green 50 */ border: 2px dashed #86efac; /* Green 300 */ border-radius: 12px; padding: 25px 30px; max-width: 850px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .combo-example h2 { font-size: 1.6rem; font-weight: 600; color: #15803d; /* Green 700 */ margin-bottom: 15px; text-align: center; }
+        /* Day3 ヘッダー用スタイル */
+        .slide { border-top: 8px solid #4A90E2; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; text-align: right; }
+        /* --- ここまで Day3ヘッダー用スタイル --- */
+        .slide-content { flex-grow: 1; padding-top: 10px; display: flex; flex-direction: column; justify-content: center; }
+        .intro-text { text-align: center; margin-bottom: 30px; }
+        .intro-text p { font-size: 1.2rem; color: #374151; line-height: 1.7; }
+        .intro-text strong { color: #16a34a; } /* 元のアクセントカラー */
+        .combo-example { background-color: #f0fdf4; border: 2px dashed #86efac; border-radius: 12px; padding: 25px 30px; max-width: 850px; margin: 0 auto; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .combo-example h2 { font-size: 1.6rem; font-weight: 600; color: #15803d; margin-bottom: 15px; text-align: center; }
         .prompt-breakdown { margin-bottom: 20px; border: 1px solid #bbf7d0; background-color: white; border-radius: 8px; padding: 15px;}
-        .prompt-part { margin-bottom: 12px; display: flex; align-items: center; /* align-items変更 */ gap: 12px; padding: 8px; border-radius: 6px; border-left-width: 4px; }
+        .prompt-part { margin-bottom: 12px; display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 6px; border-left-width: 4px; }
         .prompt-part:last-child { margin-bottom: 0; }
-        .prompt-part.persona { border-color: #a855f7; background-color: #f5f3ff; } /* Purple */
-        .prompt-part.goal { border-color: #22c55e; background-color: #dcfce7; } /* Green */
-        .prompt-part.constraints { border-color: #0ea5e9; background-color: #f0f9ff; } /* Sky */
-        .prompt-part.format { border-color: #ec4899; background-color: #fdf2f8; } /* Pink */
-        .prompt-part i { color: #4b5563; /* Gray 600 */ font-size: 1.1rem; /* margin-top: 3px; ← 不要に */ width: 20px; text-align: center; flex-shrink: 0; } /* flex-shrink追加 */
-        .prompt-part .label { font-weight: 600; color: #374151; /* Gray 700 */ min-width: 80px; font-size: 0.9rem; }
-        /* --- 修正箇所： word-break と line-height を追加 --- */
-        .prompt-part .content {
-            color: #1f2937; /* Gray 800 */
-            font-size: 1rem;
-            flex-grow: 1;
-            word-break: keep-all; /* 日本語の単語途中で改行しない */
-            line-height: 1.6;     /* 行間を少し広めに */
-        }
-        /* --- 修正箇所ここまで --- */
+        .prompt-part.persona { border-color: #a855f7; background-color: #f5f3ff; }
+        .prompt-part.goal { border-color: #22c55e; background-color: #dcfce7; }
+        .prompt-part.constraints { border-color: #0ea5e9; background-color: #f0f9ff; }
+        .prompt-part.format { border-color: #ec4899; background-color: #fdf2f8; }
+        .prompt-part i { color: #4b5563; font-size: 1.1rem; width: 20px; text-align: center; flex-shrink: 0; }
+        .prompt-part .label { font-weight: 600; color: #374151; min-width: 80px; font-size: 0.9rem; }
+        .prompt-part .content { color: #1f2937; font-size: 1rem; flex-grow: 1; word-break: keep-all; line-height: 1.6; }
         .final-prompt-box { margin-top: 10px; }
-        /* --- 修正箇所： h3 の font-weight はクラスで指定 --- */
-        .final-prompt-box h3 { text-align: center; /* font-weight: 600; ← 削除 */ color: #16a34a; margin-bottom: 5px; font-size: 1.1rem; }
-        .final-prompt { background-color: #ffffff; border: 1px solid #d1fae5; padding: 15px; border-radius: 8px; font-style: italic; color: #064e3b; /* Green 900 */ font-size: 1rem; line-height: 1.6;}
-        .takeaway { text-align: center; margin-top: 30px; font-size: 1.2rem; font-weight: 600; color: #16a34a; /* Green 600 */ }
-
+        .final-prompt-box h3 { text-align: center; font-weight: 600; color: #16a34a; margin-bottom: 5px; font-size: 1.1rem; }
+        .final-prompt { background-color: #ffffff; border: 1px solid #d1fae5; padding: 15px; border-radius: 8px; font-style: italic; color: #064e3b; font-size: 1rem; line-height: 1.6;}
+        .takeaway { text-align: center; margin-top: 25px; font-size: 1.2rem; font-weight: 600; color: #16a34a; margin-bottom: 10px;} /* margin調整 */
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        /* CSS構文エラーチェック: OK */
     </style>
 </head>
 <body>
-    <div class="slide fade-in-up">
-        <!-- ヘッダー -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-green-700 inline-flex items-center">
-                <i class="fas fa-puzzle-piece mr-3"></i> 合わせ技でパワーアップ！ コツの組み合わせ
-            </h1>
+    <div class="slide">
+        <!-- 新しいヘッダー -->
+        <div class="slide-header">
+            <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 2</div>
+             <div class="summary-title"><i class="fas fa-puzzle-piece mr-2"></i>コツの合わせ技</div>
         </div>
-
-        <div class="intro-text">
-            <p class="text-xl text-gray-700">
-                これまで紹介したコツは、<strong class="text-green-600">単独でも効果あり</strong>ですが、<br>
-                <strong class="text-green-600">組み合わせることで、さらにAIに意図が伝わりやすく</strong>なります！
-            </p>
-        </div>
-
-        <!-- 組み合わせ例 -->
-        <div class="combo-example">
-             <h2><i class="fas fa-tasks mr-2"></i>例：旅行プラン作成のお願い</h2>
-            <div class="prompt-breakdown">
-                 <p class="text-center text-sm text-gray-500 mb-2">▼ プロンプトの部品を組み立てる！ ▼</p>
-                 <div class="prompt-part persona">
-                    <i class="fas fa-user-tie"></i>
-                    <span class="label">役割</span>
-                    <span class="content">あなたはプロの旅行プランナーです。</span>
-                </div>
-                <div class="prompt-part goal">
-                     <i class="fas fa-bullseye"></i>
-                    <span class="label">目的</span>
-                     <span class="content">家族（大人2, 小学生1）向け、夏の北海道3泊4日プラン作成。</span>
-                </div>
-                 <div class="prompt-part constraints">
-                     <i class="fas fa-info-circle"></i>
-                    <span class="label">条件</span>
-                     <span class="content">自然体験重視、レンタカー移動、予算30万円以内。</span>
-                 </div>
-                 <div class="prompt-part format">
-                    <i class="fas fa-ruler-combined"></i>
-                    <span class="label">形式</span>
-                    <span class="content">1日ごとのスケジュールを箇条書きで、予算目安も付けて。</span>
-                 </div>
+        <!-- コンテンツ部分 -->
+        <div class="slide-content fade-in-up">
+            <div class="intro-text">
+                <p>
+                    これまで紹介したコツは、<strong class="text-green-600">単独でも効果あり</strong>ですが、<br>
+                    <strong class="text-green-600">組み合わせることで、さらにAIに意図が伝わりやすく</strong>なります！
+                </p>
             </div>
-
-             <div class="final-prompt-box">
-                 <!-- --- 修正箇所： h3 に font-semibold クラスを追加 --- -->
-                 <h3 class="font-semibold">完成したプロンプト：</h3>
-                 <div class="final-prompt">
-                    あなたはプロの旅行プランナーです。家族（大人2, 小学生1）向け、夏の北海道3泊4日プランを作成してください。自然体験重視、レンタカー移動、予算30万円以内です。1日ごとのスケジュールを箇条書きで、予算目安も付けてください。
+            <div class="combo-example">
+                 <h2><i class="fas fa-tasks mr-2"></i>例：旅行プラン作成のお願い</h2>
+                <div class="prompt-breakdown">
+                     <p class="text-center text-sm text-gray-500 mb-2">▼ プロンプトの部品を組み立てる！ ▼</p>
+                     <div class="prompt-part persona"> <i class="fas fa-user-tie"></i> <span class="label">役割</span> <span class="content">あなたはプロの旅行プランナーです。</span> </div>
+                    <div class="prompt-part goal"> <i class="fas fa-bullseye"></i> <span class="label">目的</span> <span class="content">家族（大人2, 小学生1）向け、夏の北海道3泊4日プラン作成。</span> </div>
+                    <div class="prompt-part constraints"> <i class="fas fa-info-circle"></i> <span class="label">条件</span> <span class="content">自然体験重視、レンタカー移動、予算30万円以内。</span> </div>
+                    <div class="prompt-part format"> <i class="fas fa-ruler-combined"></i> <span class="label">形式</span> <span class="content">1日ごとのスケジュールを箇条書きで、予算目安も付けて。</span> </div>
+                </div>
+                 <div class="final-prompt-box">
+                     <h3 class="font-semibold">完成したプロンプト：</h3>
+                     <div class="final-prompt"> あなたはプロの旅行プランナーです。家族（大人2, 小学生1）向け、夏の北海道3泊4日プランを作成してください。自然体験重視、レンタカー移動、予算30万円以内です。1日ごとのスケジュールを箇条書きで、予算目安も付けてください。 </div>
                 </div>
             </div>
+            <div class="takeaway mt-auto">
+                <p><i class="fas fa-lightbulb mr-2"></i>色々なコツを組み合わせて、AIに「これだ！」と思わせる具体的で分かりやすい指示を作ろう！</p>
+            </div>
         </div>
-
-        <!-- まとめ / Takeaway -->
-        <div class="takeaway mt-auto">
-            <p><i class="fas fa-lightbulb mr-2"></i>色々なコツを組み合わせて、AIに「これだ！」と思わせる具体的で分かりやすい指示を作ろう！</p>
-        </div>
-
         <!-- スライド番号 -->
-        <div class="absolute bottom-6 right-10 bg-gray-100 rounded-full px-5 py-2">
-            <!-- <span class="text-gray-600">19 / 33</span> --> <!-- 新しい番号体系に合わせる -->
+        <div class="slide-number">
+            <!-- <span class="text-gray-600">19 / 33</span> -->
         </div>
     </div>
 </body>
