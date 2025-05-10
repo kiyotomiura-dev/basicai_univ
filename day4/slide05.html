@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 5: どうやって声を作る？</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1>【さわり】どうやって声を作る？ <span style="font-size:0.7em; color:#555;">- TTSモデルの仕組み (超入門)</span></h1>
+        </div>
+        <div class="slide-content">
+            <p>専門的な仕組みはとても複雑ですが、ここではAIがテキストから声を合成するまでの大まかな流れを、<strong>3つのステップ</strong>に分けて見てみましょう。</p>
+            <p>難しい言葉は使わず、イメージで捉えてみてくださいね！</p>
+
+            <div class="diagram-container" style="margin-top: 1rem; flex-direction: column; align-items: stretch; gap: 0.8rem; max-width: 800px;">
+                <div class="diagram-step">
+                    <i class="fas fa-language icon"></i>
+                    <div class="diagram-step-content">
+                        <h3>ステップ1：テキスト解析 (Text Analysis)</h3>
+                        <p>入力された文章をAIが読み解き、意味や構造、読み方（フリガナ）、アクセント、どこで区切るかなどを解析します。<br><span style="font-size:0.9em; color:#555;">例：「これはペンです。」→「コレワ / ペン デス。」（アクセントや区切りを把握）</span></p>
+                    </div>
+                </div>
+
+                <div class="diagram-arrow-vertical"><i class="fas fa-arrow-down"></i></div>
+
+                <div class="diagram-step">
+                    <i class="fas fa-cogs icon"></i> <!-- 以前は fa-brain, 統一感を出すためfa-cogsも可 -->
+                    <div class="diagram-step-content">
+                        <h3>ステップ2：音響特徴の予測 (Acoustic Feature Prediction)</h3>
+                        <p>解析したテキスト情報をもとに、声の高さ、強さ、速さ、リズム、音色といった「声の設計図」（音響特徴）を予測・生成します。</p>
+                    </div>
+                </div>
+
+                <div class="diagram-arrow-vertical"><i class="fas fa-arrow-down"></i></div>
+
+                <div class="diagram-step">
+                    <i class="fas fa-waveform-lines icon"></i> <!-- Font Awesome 6.4.0 に fa-waveform-lines がない場合、fa-wave-square などで代替 -->
+                    <div class="diagram-step-content">
+                        <h3>ステップ3：音声波形の合成 (Waveform Generation)</h3>
+                        <p>予測された「声の設計図」を使って、実際の音声データ（音の波形）を合成し、スピーカーから聞こえる「声」を作り出します。</p>
+                    </div>
+                </div>
+            </div>
+            <p class="note">
+                <i class="fas fa-microchip"></i>これらの処理を高度なニューラルネットワーク（AIの一種）が行うことで、人間のように自然な音声が生まれます。
+            </p>
+        </div>
+        <div class="slide-number-display">
+            <span>5 / 25</span>
+        </div>
+        <!-- 5 / 25 -->
+    </div>
+</body>
+</html>

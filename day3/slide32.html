@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day3 スライド 31: 演習ツール紹介</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Day2で定義したカスタムスタイル */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .slide { border-top: 8px solid #4A90E2; background-color: #F9FAFB; width: 1024px; height: 768px; margin: 20px auto; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; position: relative; }
+        .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
+        .slide-header .title { font-size: 1.5rem; font-weight: bold; color: #1F2937; }
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4A90E2; }
+        .slide-header .tools-title { font-size: 1.5rem; font-weight: bold; color: #4A90E2; }
+        .slide-content { flex-grow: 1; overflow-y: auto; /* 内容が多い場合にスクロール */ }
+        .slide-number { position: absolute; bottom: 20px; right: 30px; font-size: 0.875rem; color: #9CA3AF; }
+        h2 { font-size: 2rem; font-weight: bold; color: #111827; margin-bottom: 20px; text-align: center; }
+        .tool-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .tool-card { background-color: #fff; border: 1px solid #D1D5DB; border-radius: 8px; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .tool-card-header { display: flex; align-items: center; margin-bottom: 12px; }
+        .tool-card-header i { font-size: 1.8rem; color: #4A90E2; margin-right: 12px; width: 30px; text-align: center; }
+        .tool-card-header h3 { font-size: 1.3rem; font-weight: bold; color: #1F2937; margin-bottom: 0; }
+        .tool-card p { font-size: 0.95rem; color: #4B5563; line-height: 1.7; margin-bottom: 10px; word-break: break-word; }
+        .tool-card ul { list-style: disc; padding-left: 20px; margin-bottom: 10px; }
+        .tool-card li { font-size: 0.9rem; color: #4B5563; margin-bottom: 5px; line-height: 1.6; }
+        .tool-card a { display: inline-block; margin-top: auto; background-color: #4A90E2; color: white; padding: 8px 12px; border-radius: 5px; text-decoration: none; font-size: 0.9rem; text-align: center; transition: background-color 0.3s; }
+        .tool-card a:hover { background-color: #3B82F6; }
+        p, li, span { word-break: break-word; line-height: 1.8; }
+        span { min-width: 0; }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo"><i class="fa-solid fa-cubes-stacked mr-2"></i>Day 3</div>
+            <div class="tools-title"><i class="fa-solid fa-tools mr-2"></i>演習で活用するAIツール</div>
+        </div>
+        <div class="slide-content">
+            <h2 class="mb-6">これらのツールを使って、AIの可能性を探ってみましょう！</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <i class="fa-brands fa-gg-circle"></i>
+                        <h3>Genspark</h3>
+                    </div>
+                    <p>AIを活用した検索エンジンおよびアイデア生成ツールです。質問応答、ブレインストーミング、コンテンツの要約など、多様な用途で情報収集や発想をサポートします。</p>
+                    <ul>
+                        <li>キーワードや質問でAIが関連情報を整理</li>
+                        <li>アイデアの壁打ち相手として活用</li>
+                        <li>リサーチの効率化</li>
+                    </ul>
+                    <a href="https://www.genspark.ai/" target="_blank">Genspark を試す <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <i class="fa-solid fa-palette"></i>
+                        <h3>Canva</h3>
+                    </div>
+                    <p>オンラインで使えるデザインツール。豊富なテンプレートや素材に加え、AIによる画像生成・編集機能（Magic Designなど）も搭載し、誰でも簡単に魅力的なビジュアルを作成できます。</p>
+                    <ul>
+                        <li>プレゼン資料、SNS投稿画像、ポスター作成</li>
+                        <li>AI画像生成、背景除去、オブジェクト消去</li>
+                        <li>共同編集も可能</li>
+                    </ul>
+                    <a href="https://www.canva.com/" target="_blank">Canva を試す <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <i class="fa-solid fa-file-powerpoint"></i>
+                        <h3>Gamma</h3>
+                    </div>
+                    <p>AIがテキスト入力から自動でプレゼンテーション資料やドキュメント、Webページを生成してくれるツールです。構成案作成からデザインまでを大幅に効率化できます。</p>
+                    <ul>
+                        <li>アイデアを入力するだけで資料の叩き台を作成</li>
+                        <li>デザインの知識がなくても見栄えの良い資料に</li>
+                        <li>Webページとしても公開可能</li>
+                    </ul>
+                    <a href="https://gamma.app/" target="_blank">Gamma を試す <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></a>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-card-header">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <h3>Napkin</h3>
+                    </div>
+                    <p>AIを活用した新しい形のノート・アイデア整理ツール。「第二の脳」のように、メモした情報間の関連性をAIが見つけ出し、思考を深める手助けをします。</p>
+                    <ul>
+                        <li>断片的なアイデアやメモを蓄積</li>
+                        <li>AIが関連する情報を自動で提示</li>
+                        <li>思考の整理と新しい発見を促進</li>
+                    </ul>
+                    <a href="https://app.napkin.ai/" target="_blank">Napkin を試す <i class="fa-solid fa-arrow-up-right-from-square fa-xs ml-1"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number"><!-- 31 / 31 --></div>
+    </div>
+</body>
+</html>

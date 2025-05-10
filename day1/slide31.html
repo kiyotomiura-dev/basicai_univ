@@ -8,63 +8,72 @@
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; /* 元のフォント */ background-color: #f0f9ff; /* 元の背景色 */ overflow: auto; }
+        body { margin: 0; padding: 0; font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f0f9ff; overflow: auto; }
         .slide {
-            /* 元のサイズ・スタイルを基本に、ヘッダー用調整を追加 */
-            max-width: 1280px; /* width を max-width に変更 */
+            max-width: 1280px;
             min-height: 720px;
-            margin: 40px auto; /* 元の margin を維持しつつ調整 */
+            margin: 40px auto;
             position: relative;
-            overflow: hidden; /* ヘッダー対応 */
-            /* 元の背景グラデーションを維持 */
+            overflow: hidden;
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); /* 元の影 */
-            border-radius: 12px; /* 元の角丸 */
-            padding: 40px 60px; /* ヘッダー対応 */
-            border-top: 4px solid #4c6ef5; /* Day 1 スタイル */
-            display: flex; /* ヘッダー対応 */
-            flex-direction: column; /* ヘッダー対応 */
-            box-sizing: border-box; /* 追加 */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 40px 60px;
+            border-top: 4px solid #4c6ef5;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
         }
-        @keyframes fadeInUp { /* アニメーション追加 */
+        @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
-
-        /* --- Day 1 ヘッダースタイル --- */
         .slide-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid #D1D5DB; }
-        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ }
-        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; /* Day 1 スタイル */ text-align: right; display: flex; align-items: center; } /* flex追加 */
-        /* --- ここまでヘッダー用スタイル --- */
-        .slide-content { flex-grow: 1; /* 残りの高さを埋める */ display: flex; flex-direction: column; } /* justify-content: center; は削除 */
-
-        /* --- 元のコンテンツスタイルは変更しない --- */
+        .slide-header .logo { font-size: 1.25rem; font-weight: bold; color: #4c6ef5; }
+        .slide-header .summary-title { font-size: 1.5rem; font-weight: bold; color: #4c6ef5; text-align: right; display: flex; align-items: center; }
+        .slide-content { flex-grow: 1; display: flex; flex-direction: column; }
         .example-card { background-color: white; border-radius: 12px; padding: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 15px; }
         .prompt-text { background-color: #f3f4f6; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 6px; font-family: monospace; font-size: 0.85rem; margin-bottom: 10px; }
         .image-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
-        .image-placeholder { width: 100%; height: 150px; background-color: #e5e7eb; border-radius: 8px; display: flex; align-items: center; justify-content: center; text-align: center; color: #6b7280; font-size: 0.8rem; }
+        .image-placeholder {
+            width: 100%;
+            height: 150px;
+            background-color: #e5e7eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.8rem;
+            overflow: hidden; /* --- 修正: はみ出しを隠す --- */
+        }
+        /* --- 追加: image-placeholder 内の img タグのスタイル --- */
+        .image-placeholder img {
+            max-width: 100%;      /* 親要素の幅を超えない */
+            max-height: 100%;     /* 親要素の高さを超えない */
+            width: auto;          /* アスペクト比維持 */
+            height: auto;         /* アスペクト比維持 */
+            object-fit: contain;  /* アスペクト比を保ちコンテナ内に収める */
+            border-radius: 8px;   /* 画像自体にも角丸を適用 */
+        }
+        /* --- 修正ここまで --- */
         .try-button { display: inline-block; background-color: #0ea5e9; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background-color 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .try-button:hover { background-color: #0284c7; }
     </style>
 </head>
 <body>
      <div class="slide">
-        <!-- ① ヘッダーを追加/修正 -->
         <div class="slide-header">
             <div class="logo"><i class="fas fa-chalkboard-teacher mr-2"></i>Day 1</div>
-             <!-- 元のタイトルとアイコンを使用 -->
             <div class="summary-title">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Microsoft_Copilot_logo.svg/1024px-Microsoft_Copilot_logo.svg.png" alt="Microsoft Copilot Logo" class="w-8 h-8 inline mr-2"> <!-- アイコンサイズ調整 -->
+                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2JnwChV32H6PPFBwjde-NXzlNWDhphxkN9g&s" alt="Microsoft Copilot Logo" class="w-8 h-8 inline mr-2">
                 生成AIの実例①：Microsoft Copilot (画像生成)
             </div>
         </div>
 
-         <!-- コンテンツ部分をラップ -->
         <div class="slide-content fade-in-up">
-             <!-- 元のタイトル表示部分はヘッダーに統合されたため削除 -->
-            <!-- <div class="flex justify-between items-center mb-6"> ... </div> -->
-
             <div class="text-center mb-6">
                  <p class="text-lg text-gray-800 mb-3">Microsoftアカウントで無料で利用可能。<br>内部でDALL-E 3という高性能モデルが使われており、<span class="font-bold">複雑な指示にも比較的強い</span>のが特徴。</p>
                 <a href="https://copilot.microsoft.com/" target="_blank" class="try-button">
@@ -79,10 +88,10 @@
                     <p class="font-semibold mb-1">プロンプト例 (研究室の猫):</p>
                     <p class="prompt-text">研究室で白衣を着て、フラスコを興味深そうに見つめている猫、リアルな写真スタイル、背景は少しぼかす</p>
                     <div class="image-grid">
-                        <div class="image-placeholder"><img src="slide13-03image1.png" alt="生成画像1のイメージ"></div>
-                        <div class="image-placeholder">(生成画像2のイメージ)</div>
-                        <div class="image-placeholder">(生成画像3のイメージ)</div>
-                        <div class="image-placeholder">(生成画像4のイメージ)</div>
+                        <div class="image-placeholder"><img src="https://tse3.mm.bing.net/th?id=OIG3.s1E9_SV9fX3cudzXXvSi&pid=ImgGn" alt=""></div>
+                        <div class="image-placeholder"><img src="https://tse1.mm.bing.net/th?id=OIG4.tm7wquMucVp9vrmfXe3G&pid=ImgGn" alt=""></div>
+                        <div class="image-placeholder"><img src="https://tse4.mm.bing.net/th?id=OIG3.npq8ojkSjVMiDd7loEsw&pid=ImgGn" alt=""></div>
+                        <div class="image-placeholder"><img src="https://tse4.mm.bing.net/th/id/OIG2.MSyv0CmCxkslD4SjdVyX?pid=ImgGn" alt=""></div>
                     </div>
                      <p class="text-xs text-right text-gray-500 mt-1">※通常、複数の候補画像が生成されます</p>
                 </div>
@@ -91,17 +100,19 @@
                     <p class="font-semibold mb-1">プロンプト例 (プレゼン表紙):</p>
                     <p class="prompt-text">プレゼンテーションの表紙に使える背景画像、青と緑を基調とした抽象的で未来的なデザイン、明るい雰囲気、文字を入れるスペースを考慮して</p>
                     <div class="image-grid">
-                        <div class="image-placeholder">(生成画像1のイメージ)</div>
-                        <div class="image-placeholder">(生成画像2のイメージ)</div>
-                        <div class="image-placeholder">(生成画像3のイメージ)</div>
-                        <div class="image-placeholder">(生成画像4のイメージ)</div>
+                        <!-- --- 修正: style="max" を削除 --- -->
+                        <div class="image-placeholder"><img src="https://tse4.mm.bing.net/th?id=OIG2.oMMOcJA2LiNcIvUKbfjC&pid=ImgGn" alt="生成画像例"></div>
+                        <!-- --- 修正ここまで --- -->
+                        <div class="image-placeholder"><img src="https://tse3.mm.bing.net/th/id/OIG2.avwGmVf6kYSf2GXAmdw4?pid=ImgGn" alt=""></div>
+                        <div class="image-placeholder"><img src="https://tse2.mm.bing.net/th?id=OIG3.OGatvUe5edT5p_sMgPOL&pid=ImgGn" alt=""></div>
+                        <div class="image-placeholder"><img src="https://tse3.mm.bing.net/th/id/OIG3.a_oX8RyzVGRxKRQwu_SC?pid=ImgGn" alt=""></div>
                     </div>
                 </div>
                  <p class="text-center text-sm text-gray-700 mt-4">Copilotはチャット形式で「～の画像を作成して」と頼むだけで簡単に試せます！</p>
             </div>
         </div>
 
-        <!-- ② スライド番号をコメントアウト -->
+        <!-- スライド番号はコメントアウトされたまま -->
         <!--
         <div class="absolute bottom-4 right-8 bg-white bg-opacity-70 rounded-full px-4 py-1">
             <span class="text-gray-600">15-3 / 20</span>
