@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 12: 動画制作の基本フロー</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .flow-container {
+            display: flex;
+            flex-direction: column; /* 縦方向にステップを並べる */
+            align-items: center; /* 中央揃え */
+            gap: 0.5rem; /* ステップ間の隙間を少し狭める */
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 700px; /* コンテナの最大幅 */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            background-color: #f3f4f6; /* gray-100 */
+            padding: 0.8rem 1.5rem; /* パディング調整 */
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+            width: 100%; /* 幅をコンテナに合わせる */
+            border: 1px solid #e5e7eb; /* gray-200 */
+        }
+        .flow-step .step-number {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #4f46e5; /* indigo-600 */
+            margin-right: 1rem;
+            min-width: 30px; /* 番号の幅を確保 */
+            text-align: right;
+        }
+        .flow-step .step-content h3 {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #3730a3; /* indigo-800 */
+            margin-bottom: 0.2rem;
+        }
+        .flow-step .step-content p {
+            font-size: 0.85em;
+            line-height: 1.5;
+            color: #4b5563; /* gray-600 */
+            margin-bottom: 0;
+        }
+        .flow-arrow {
+            font-size: 1.8em;
+            color: #a5b4fc; /* indigo-300 */
+            margin: 0.1rem 0; /* 矢印の上下マージン調整 */
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1>動画制作の基本フロー</h1>
+        </div>
+        <div class="slide-content">
+            <p>AIを活用する前に、まずは一般的な動画制作がどのような流れで進むのかを理解しておきましょう。大きく分けて5つのステップがあります。</p>
+
+            <div class="flow-container">
+                <!-- ステップ 1: 企画 -->
+                <div class="flow-step">
+                    <div class="step-number">1.</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-lightbulb" style="margin-right:0.5em; color:#fbbf24;"></i>企画 (Planning)</h3>
+                        <p>どんな動画を作る？ 目的は？ ターゲットは誰？ 動画のテーマ、伝えたいメッセージ、おおまかな内容や長さを決めます。</p>
+                    </div>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+
+                <!-- ステップ 2: 構成 -->
+                <div class="flow-step">
+                    <div class="step-number">2.</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-sitemap" style="margin-right:0.5em; color:#38bdf8;"></i>構成 (Structuring)</h3>
+                        <p>企画をもとに、動画の具体的な流れ（シナリオや絵コンテ）を作成します。どの順番で何を見せるか、ナレーションやテロップの内容などを考えます。</p>
+                    </div>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+
+                <!-- ステップ 3: 素材収集 -->
+                <div class="flow-step">
+                    <div class="step-number">3.</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-photo-film" style="margin-right:0.5em; color:#34d399;"></i>素材収集 (Material Gathering)</h3>
+                        <p>動画に必要な映像（撮影、ストック素材）、画像、音声（BGM、効果音、ナレーション録音）などを集めます。<strong>AI生成もここで活躍します。</strong></p>
+                    </div>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+
+                <!-- ステップ 4: 編集 -->
+                <div class="flow-step">
+                    <div class="step-number">4.</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-cut" style="margin-right:0.5em; color:#fb923c;"></i>編集 (Editing)</h3>
+                        <p>集めた素材を編集ソフトでつなぎ合わせ、カット、テロップ挿入、BGM調整、色調整などを行います。動画として完成させる工程です。</p>
+                    </div>
+                </div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+
+                <!-- ステップ 5: 公開 -->
+                <div class="flow-step">
+                    <div class="step-number">5.</div>
+                    <div class="step-content">
+                        <h3><i class="fas fa-share-square" style="margin-right:0.5em; color:#a78bfa;"></i>公開 (Publishing)</h3>
+                        <p>完成した動画をYouTube、SNS、ウェブサイトなどで公開します。必要に応じて、説明文やタグなども設定します。</p>
+                    </div>
+                </div>
+            </div>
+            <p style="margin-top:1.5rem; text-align:center;">この基本的な流れを頭に入れておくと、AIをどの部分で効果的に使えるかが見えてきます。</p>
+        </div>
+        <div class="slide-number-display">
+            <span>12 / 25</span>
+        </div>
+        <!-- 12 / 25 -->
+    </div>
+</body>
+</html>

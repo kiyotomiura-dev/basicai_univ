@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 14: 動画生成AIのトレンド</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .trend-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .trend-card {
+            background-color: white;
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1.2rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+        }
+        .trend-card h3 {
+            font-size: 1.25em;
+            font-weight: 600;
+            color: #4338ca; /* indigo-700 */
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        .trend-card h3 i { margin-right: 0.6rem; font-size: 1.3em; color: #6366f1; }
+        .trend-card p {
+            font-size: 0.95em;
+            line-height: 1.7;
+            margin-bottom: 0.8rem;
+        }
+        .trend-card .tool-examples {
+            font-size: 0.85em;
+            color: #4b5563; /* gray-600 */
+        }
+        .trend-card .tool-examples strong { color: #1f2937; font-weight: 500;}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1>動画生成AIのトレンド <span style="font-size:0.7em; color:#555;">- 簡単な紹介</span></h1>
+        </div>
+        <div class="slide-content">
+            <p>テキストや画像から直接動画を生成するAIも急速に進化しており、注目を集めています。まだ発展途上の技術も多いですが、今後の可能性は非常に大きいです。</p>
+            <p class="text-sm text-gray-600">（ここでは深入りせず、概要のみの紹介とします。）</p>
+
+            <div class="trend-card-container">
+                <div class="trend-card">
+                    <h3><i class="fas fa-file-video"></i>テキスト to 動画 (Text-to-Video)</h3>
+                    <p>入力されたテキストプロンプト（指示文）に基づいて、AIが全く新しい動画クリップを生成する技術です。「夕焼けのビーチを歩く猫」のような指示で、短い動画が作られます。</p>
+                    <p class="tool-examples"><strong>代表的なツール例:</strong> Sora (OpenAI - 開発中/限定公開), Runway Gen-2 (一部機能), Pika Labs (一部機能), Pictory (ブログ記事から動画など)</p>
+                </div>
+
+                <div class="trend-card">
+                    <h3><i class="fas fa-image-to-video"></i>画像 to 動画 (Image-to-Video)</h3>
+                    <p>1枚の静止画を元に、その画像が動き出すような短いアニメーション動画を生成する技術です。画像内の対象物がズームしたり、カメラがパンしたり、特定の要素が動いたりします。</p>
+                    <p class="tool-examples"><strong>代表的なツール例:</strong> Runway Gen-2 (Image to Video機能), Pika Labs, LeiaPix Converter (3D写真アニメーション)</p>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="margin-top:1.5rem;">現在の主な特徴と課題</h2>
+            <ul class="icon-list" style="font-size:0.95em;">
+                <li><i class="fas fa-hourglass-half list-icon" style="color:#f59e0b;"></i><span class="list-text"><strong>生成時間と品質:</strong> 高品質な動画を生成するには時間がかかる場合があり、まだ不自然な動きや破綻が見られることもあります。</span></li>
+                <li><i class="fas fa-ruler-combined list-icon" style="color:#f59e0b;"></i><span class="list-text"><strong>尺の限界:</strong> 生成できる動画の長さは数秒～数十秒程度が主流で、長編動画の全自動生成は難しいです。</span></li>
+                <li><i class="fas fa-puzzle-piece list-icon" style="color:#f59e0b;"></i><span class="list-text"><strong>一貫性の維持:</strong> 特に複数のシーンを生成する場合、キャラクターや背景の一貫性を保つのが難しい場合があります。</span></li>
+                <li><i class="fas fa-dollar-sign list-icon" style="color:#f59e0b;"></i><span class="list-text"><strong>コスト:</strong> 高度な動画生成AIは、利用にコストがかかることが多いです。</span></li>
+            </ul>
+            <p style="margin-top:1rem;">これらの技術は主に、動画の<strong>一部のシーン（Bロール映像など）を補完したり、アイデアを視覚化したりする</strong>のに役立ちます。今後の発展に期待しましょう。</p>
+        </div>
+        <div class="slide-number-display">
+            <span>14 / 25</span>
+        </div>
+        <!-- 14 / 25 -->
+    </div>
+</body>
+</html>

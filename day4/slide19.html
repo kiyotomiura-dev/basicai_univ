@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 19: 演習準備2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .tool-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+            justify-content: space-around; /* 中央寄せで均等配置 */
+        }
+        .tool-item {
+            background-color: #f8fafc; /* slate-50 */
+            border: 1px solid #cbd5e1; /* slate-300 */
+            border-radius: 0.5rem;
+            padding: 1.2rem;
+            width: calc(50% - 0.75rem); /* 2カラムベース */
+            min-width: 280px; /* 最小幅 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        .tool-item h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1e293b; /* slate-800 */
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .tool-item h3 i { margin-right: 0.6rem; font-size: 1.3em; }
+        .tool-item p { font-size: 0.95em; line-height: 1.6; margin-bottom: 0.5rem; flex-grow:1; }
+        .tool-item .tags span {
+            font-size: 0.8em;
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.25rem;
+            margin-right: 0.4rem;
+            background-color: #e2e8f0; /* slate-200 */
+            color: #475569; /* slate-600 */
+            font-weight: 500;
+        }
+        @media (max-width: 640px) { /* スマホなどでは1カラムに */
+            .tool-item { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1>【演習準備2】動画編集ツールに触れてみよう</h1>
+        </div>
+        <div class="slide-content">
+            <p>AIで生成した音声や画像素材を実際に動画にするためには、動画編集ソフトが必要です。ここでは、無料で始められる代表的なツールをいくつか紹介します。</p>
+            <p>これらのツールは基本的な動画編集機能（カット、テロップ挿入、BGM追加など）を備えています。</p>
+
+            <div class="tool-showcase">
+                <div class="tool-item">
+                    <h3><i class="fas fa-mobile-alt" style="color:#ef4444;"></i>CapCut (キャップカット)</h3>
+                    <p>スマートフォンアプリとして非常に人気ですが、PC版（Windows/Mac）も提供されています。直感的な操作性が特徴で、初心者でも扱いやすいです。AI関連機能（自動字幕起こし、一部AIボイスなど）も豊富に搭載されています。</p>
+                    <div class="tags">
+                        <span>無料</span><span>スマホ/PC</span><span>初心者向け</span><span>AI機能</span>
+                    </div>
+                </div>
+                <div class="tool-item">
+                    <h3><i class="fab fa-windows" style="color:#3b82f6;"></i>Clipchamp (クリップチャンプ)</h3>
+                    <p>Microsoftが提供する動画編集ツールで、Windowsに標準搭載されている場合もあります。Webブラウザ版とデスクトップアプリ版があり、基本的な編集機能に加え、ストック素材やテンプレートも利用可能です。テキスト読み上げ機能も内蔵。</p>
+                    <div class="tags">
+                        <span>無料 (一部有料)</span><span>Web/PC</span><span>初心者～中級者</span><span>テンプレート</span>
+                    </div>
+                </div>
+            </div>
+             <h2 class="section-title" style="margin-top:1.5rem;"><i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>その他の選択肢</h2>
+            <ul class="icon-list" style="font-size:0.95em; margin-top:0.5rem;">
+                <li><i class="fas fa-film list-icon"></i><span class="list-text"><strong>DaVinci Resolve:</strong> プロも使用する高機能ソフトですが、無料版でも非常に多くの機能が使えます。多機能な分、学習コストはやや高め。</span></li>
+                <li><i class="fab fa-apple list-icon"></i><span class="list-text"><strong>iMovie (Macユーザー向け):</strong> Macに標準搭載されている無料の動画編集ソフト。シンプルで使いやすいです。</span></li>
+            </ul>
+
+            <p style="margin-top:1.5rem;"><strong>演習に向けて:</strong><br>
+            事前にこれらのツールのいずれかをPCにインストールしておくか、Web版が利用できる状態にしておくとスムーズです。（講師から指定がある場合はそれに従ってください）<br>
+            基本的な操作（素材の取り込み、タイムラインへの配置、カット、テキスト追加）に慣れておきましょう。
+            </p>
+        </div>
+        <div class="slide-number-display">
+            <span>19 / 25</span>
+        </div>
+        <!-- 19 / 25 -->
+    </div>
+</body>
+</html>

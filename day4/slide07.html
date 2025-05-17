@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 7: 音声生成のプロンプト/設定のコツ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1>音声生成のプロンプト/設定のコツ</h1>
+        </div>
+        <div class="slide-content">
+            <p>AIに自然で意図した通りの音声を生成してもらうためには、入力するテキスト（プロンプト）やツールの設定にいくつかのコツがあります。具体的に見ていきましょう。</p>
+
+            <h2 class="section-title"><i class="fas fa-wrench" style="margin-right: 0.5rem;"></i>ツール設定の一般的な調整ポイント</h2>
+            <ul class="icon-list">
+                <li><i class="fas fa-tachometer-alt list-icon"></i><span class="list-text"><strong>話速 (Speed):</strong> 標準より少しゆっくりめにすると、聞き取りやすくなることが多いです。コンテンツの対象年齢や内容に応じて調整しましょう。</span></li>
+                <li><i class="fas fa-sliders-h list-icon"></i><span class="list-text"><strong>声の高さ (Pitch/Tone):</strong> 声の高低を調整します。高すぎたり低すぎたりすると不自然になるため、プレビューしながら最適なポイントを探します。</span></li>
+                <li><i class="fas fa-volume-up list-icon"></i><span class="list-text"><strong>音量 (Volume):</strong> 他の音素材（BGMなど）と組み合わせる場合、適切な音量バランスが重要です。</span></li>
+                <li><i class="fas fa-smile list-icon"></i><span class="list-text"><strong>感情表現 (Emotion/Style):</strong> ツールによっては「喜び」「悲しみ」「落ち着いた」「ニュースキャスター風」などのスタイルを選べる場合があります。原稿の内容に合わせて選択します。</span></li>
+                <li><i class="fas fa-pause list-icon"></i><span class="list-text"><strong>間の調整 (Pause):</strong> 単語間や文末の間の長さを調整できるツールもあります。句読点を工夫することでも間をコントロールできます。</span></li>
+            </ul>
+
+            <h2 class="section-title" style="margin-top:1.5rem;"><i class="fas fa-file-alt" style="margin-right: 0.5rem;"></i>テキスト（プロンプト）作成のコツ</h2>
+            <ul class="icon-list">
+                <li><i class="fas fa-spell-check list-icon"></i><span class="list-text"><strong>誤字脱字をなくす:</strong> AIは書かれた通りに読もうとするため、基本的なミスは避けましょう。</span></li>
+                <li><i class="fas fa-paragraph list-icon"></i><span class="list-text"><strong>適切な句読点:</strong> 読点（、）や句点（。）を適切に使うことで、自然な区切りや抑揚が生まれやすくなります。特に「間」を意識して読点を打ちましょう。</span></li>
+                <li><i class="fas fa-language list-icon"></i><span class="list-text"><strong>読み方を指定 (ツールによる):</strong> 固有名詞や専門用語で特殊な読み方をする場合、ひらがなやカタカナでフリガナを振るか、ツールによっては読み方指定機能（SSMLなど）を使います。
+                    <code class="prompt-code" style="margin-top:0.3rem; font-size:0.85em; padding:0.5rem 0.8rem;">例: 「AI（エーアイ）は進化しています。」のように括弧で補足する、など。</code>
+                </span></li>
+                 <li><i class="fas fa-comment-dots list-icon"></i><span class="list-text"><strong>短い文章に区切る:</strong> あまりにも長い一文は、AIが息継ぎや抑揚をうまく処理できないことがあります。適度に区切ることを意識しましょう。</span></li>
+            </ul>
+            <p style="margin-top:1rem;"><strong>ポイント：</strong>生成された音声を必ずプレビューし、微調整を繰り返すことが高品質な音声への近道です。</p>
+        </div>
+        <div class="slide-number-display">
+            <span>7 / 25</span>
+        </div>
+        <!-- 7 / 25 -->
+    </div>
+</body>
+</html>

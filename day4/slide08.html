@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 8: 主要ツール紹介</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .tool-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+        .tool-card {
+            background-color: #f9fafb; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-radius: 0.5rem; /* rounded-lg */
+            padding: 1rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .tool-card h3 {
+            font-size: 1.15em;
+            font-weight: 600;
+            color: #4f46e5; /* indigo-600 */
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .tool-card h3 i { margin-right: 0.5rem; font-size: 1.2em; }
+        .tool-card p {
+            font-size: 0.9em;
+            line-height: 1.6;
+            margin-bottom: 0.3rem;
+            color: #374151; /* gray-700 */
+        }
+        .tool-card ul {
+            font-size: 0.85em;
+            line-height: 1.6;
+            list-style-type: disc;
+            padding-left: 1.2em;
+            margin-top: 0.3rem;
+            color: #4b5563; /* gray-600 */
+            flex-grow: 1; /* 内容の高さ揃え */
+        }
+        .tool-card .label {
+            font-size: 0.75em;
+            padding: 0.15rem 0.5rem;
+            border-radius: 0.25rem;
+            margin-right: 0.3rem;
+            font-weight: 500;
+        }
+        .label-free { background-color: #d1fae5; color: #065f46; } /* green-100, green-700 */
+        .label-paid { background-color: #fee2e2; color: #991b1b; } /* red-100, red-700 */
+        .label-quality { background-color: #e0e7ff; color: #3730a3; } /* indigo-100, indigo-800 */
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1>主要な音声生成（TTS）ツール紹介</h1>
+        </div>
+        <div class="slide-content">
+            <p>世の中には多くの音声生成ツールがあります。ここでは代表的なものをいくつか紹介します。それぞれ特徴があるので、目的に合わせて選びましょう。（情報は2025年5月現在の一般的な評価です）</p>
+
+            <div class="tool-card-container">
+                <div class="tool-card">
+                    <h3><i class="fas fa-star"></i>ElevenLabs</h3>
+                    <p><span class="label label-paid">有料主体</span><span class="label label-quality">高品質</span> 非常に自然で感情豊かな音声が特徴。声のクローン機能も。</p>
+                    <ul>
+                        <li>メリット：トップクラスの自然さ、多様な声、API提供。</li>
+                        <li>注意点：無料版は制限あり。商用利用は有料プラン推奨。</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3><i class="fas fa-user-friends"></i>CoeFont (コエフォント)</h3>
+                    <p><span class="label label-free">無料あり</span><span class="label label-paid">有料プランも</span> 日本発。アニメ声や有名人の声（許諾済み）などユニークな声も。</p>
+                    <ul>
+                        <li>メリット：日本語に強い、多様なキャラクターボイス、API提供。</li>
+                        <li>注意点：一部高品質ボイスや商用利用は有料。</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3><i class="fas fa-desktop"></i>VOICEVOX</h3>
+                    <p><span class="label label-free">完全無料</span> オープンソース。多くのキャラクターボイスが利用可能。ローカルPCで動作。</p>
+                    <ul>
+                        <li>メリット：無料で商用利用可能な声が多い（要クレジット）。細かな調整機能。</li>
+                        <li>注意点：PCへのインストールが必要。キャラクター毎に利用規約確認。</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3><i class="fab fa-windows"></i>Azure TTS (Microsoft)</h3>
+                    <p><span class="label label-paid">有料主体</span><span class="label label-quality">高品質</span> Microsoftのクラウドサービス。自然で安定した品質。多言語対応。</p>
+                    <ul>
+                        <li>メリット：ビジネス用途にも耐える品質、多言語、カスタマイズ性。</li>
+                        <li>注意点：従量課金制。個人利用にはやや敷居が高い場合も。</li>
+                    </ul>
+                </div>
+                <div class="tool-card">
+                    <h3><i class="fab fa-google"></i>Google Cloud TTS</h3>
+                    <p><span class="label label-paid">有料主体</span><span class="label label-quality">高品質</span> Googleのクラウドサービス。WaveNetなど高品質な音声モデル。</p>
+                    <ul>
+                        <li>メリット：自然な音声、多言語対応、大規模利用にも対応。</li>
+                        <li>注意点：従量課金制。Azure同様、個人での手軽さはやや劣る。</li>
+                    </ul>
+                </div>
+                 <div class="tool-card">
+                    <h3><i class="fas fa-ellipsis-h"></i>その他</h3>
+                    <p>上記以外にも、特定の用途に特化したツールや新しいサービスが次々と登場しています。</p>
+                    <ul>
+                        <li>動画編集ソフト内蔵TTS (CapCut, Clipchampなど)</li>
+                        <li>ブラウザ拡張機能型TTS</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top: 1rem; font-size:0.9em; text-align: center;">※各ツールの最新情報、料金、利用規約は必ず公式サイトで確認してください。</p>
+        </div>
+        <div class="slide-number-display">
+            <span>8 / 25</span>
+        </div>
+        <!-- 8 / 25 -->
+    </div>
+</body>
+</html>

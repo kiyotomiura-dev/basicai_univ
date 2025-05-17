@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 24: 質疑応答</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%; /* コンテンツエリア全体を使う */
+            padding-bottom: 50px; /* スライド番号との重複を避ける */
+        }
+        .qa-container i {
+            font-size: 5em; /* text-7xl or 8xl */
+            color: #6366f1; /* indigo-500 */
+            margin-bottom: 1.5rem;
+        }
+        .qa-container h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem); /* text-5xl or 6xl */
+            font-weight: 700; /* bold */
+            color: #3730a3; /* indigo-800 */
+            margin-bottom: 1rem;
+        }
+        .qa-container p {
+            font-size: clamp(1.1rem, 2.2vw, 1.3rem); /* text-lg or xl */
+            color: #4b5563; /* gray-600 */
+            max-width: 650px;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide" style="padding-top:0; padding-bottom:0;"> <!-- ヘッダーなし、パディング調整 -->
+        <!-- slide-header は表示しない -->
+        <div class="slide-content" style="padding-right:0;"> <!-- パディング調整 -->
+            <div class="qa-container">
+                <i class="fas fa-comments"></i>
+                <h1>質疑応答</h1>
+                <p>本日の講義内容や演習について、ご質問はありますか？<br>
+                AI音声生成、動画制作、その他関連する内容で気になる点があれば、お気軽にお尋ねください。
+                </p>
+            </div>
+        </div>
+        <div class="slide-number-display">
+            <span>24 / 25</span>
+        </div>
+        <!-- 24 / 25 -->
+    </div>
+</body>
+</html>
