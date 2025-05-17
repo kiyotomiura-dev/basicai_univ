@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day4 スライド 26: 課題テーマ例と難易度</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .difficulty-section { margin-bottom: 1.2rem; }
+        .difficulty-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #fff; /* White text */
+            padding: 0.4rem 1rem;
+            border-radius: 0.375rem 0.375rem 0 0; /* Rounded top corners */
+            display: inline-block;
+            margin-bottom:0; /* 下の枠線とくっつける */
+        }
+        .difficulty-title.easy { background-color: #22c55e; } /* green-500 */
+        .difficulty-title.medium { background-color: #f97316; } /* orange-500 */
+        .difficulty-title.hard { background-color: #ef4444; } /* red-500 */
+
+        .theme-examples {
+            border: 2px solid;
+            border-radius: 0 0.375rem 0.375rem 0.375rem; /* Rounded other corners */
+            padding: 0.8rem 1rem;
+            font-size: 0.95em;
+        }
+        .theme-examples.easy-border { border-color: #22c55e; }
+        .theme-examples.medium-border { border-color: #f97316; }
+        .theme-examples.hard-border { border-color: #ef4444; }
+
+        .theme-examples ul { list-style-type: disc; padding-left: 1.5em; margin-top:0.5rem; }
+        .theme-examples li { margin-bottom: 0.4rem; line-height: 1.6; }
+        .theme-examples strong { font-weight: 600; color: #1f2937;}
+    </style>
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <h1>課題のテーマ例と難易度別アプローチ</h1>
+        </div>
+        <div class="slide-content" style="overflow-y: scroll; padding-bottom:30px;"> <!-- 内容が多い可能性があるのでスクロール -->
+            <p>何から手をつけて良いか分からない方向けに、テーマ例と取り組みやすさの目安（難易度）をいくつかご紹介します。これらを参考に、自分なりのアレンジを加えてみてください！</p>
+
+            <div class="difficulty-section">
+                <h2 class="difficulty-title easy"><i class="fas fa-star" style="margin-right:0.3em; font-size:0.9em;"></i> 難易度 ★☆☆ (手軽に挑戦！)</h2>
+                <div class="theme-examples easy-border">
+                    <ul>
+                        <li><strong>プロンプトエンジニアリング探求:</strong> 特定のテーマ（例: 授業の要約、旅行プラン作成）で、テキスト生成AIから最高の出力を引き出すためのプロンプトを複数試し、結果を比較・考察する。優れたプロンプトのパターンをまとめてみる。</li>
+                        <li><strong>AI活用ショートコンテンツ作成:</strong> テキスト生成AIで短い詩やキャッチコピーを考え、画像生成AIでそれに合うイラストを生成し、1枚のポスターやSNS投稿風のコンテンツを作成する。</li>
+                         <li><strong>AIツールお試しレポート:</strong> これまで紹介した、あるいは自身で見つけたAIツール（テキスト、画像、音声、動画のいずれか）を1つ選び、実際に使ってみた感想、長所・短所、面白い使い方などをまとめる。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="difficulty-section">
+                <h2 class="difficulty-title medium"><i class="fas fa-star" style="margin-right:0.3em; font-size:0.9em;"></i><i class="fas fa-star" style="margin-right:0.3em; font-size:0.9em;"></i> 難易度 ★★☆ (少しステップアップ！)</h2>
+                <div class="theme-examples medium-border">
+                    <ul>
+                        <li><strong>AIナレーション付きショート解説動画 (30秒～1分程度):</strong> Day4の演習の発展形。特定のトピック（例: 自分の研究テーマの概要、好きな本の紹介、操作手順の説明）について、AIでナレーションと画像を生成し、より情報を整理して分かりやすいショート動画を制作する。</li>
+                        <li><strong>複数AIツール連携ミニ企画:</strong> テキスト生成AIで簡単な物語や企画の骨子を作成 → 主要シーンを画像生成AIでビジュアル化 → ティザー予告風のナレーションを音声AIで作成し、それらを組み合わせてプレゼン資料やコンセプトボードとしてまとめる。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="difficulty-section">
+                <h2 class="difficulty-title hard"><i class="fas fa-star" style="margin-right:0.3em; font-size:0.9em;"></i><i class="fas fa-star" style="margin-right:0.3em; font-size:0.9em;"></i><i class="fas fa-star" style="margin-right:0.3em; font-size:0.9em;"></i> 難易度 ★★★ (本格的にチャレンジ！)</h2>
+                <div class="theme-examples hard-border">
+                    <ul>
+                        <li><strong>特定課題解決のためのAI活用提案:</strong> 身の回りの課題（例: 学内の情報伝達の非効率さ、地域イベントの集客不足など）に対し、本講座で学んだ生成AIツールをどのように活用すれば解決に貢献できるか、具体的なプロセスや期待効果を提案し、可能なら一部デモを作成する。</li>
+                        <li><strong>オリジナルAI学習教材のプロトタイプ制作:</strong> 特定の学習単元（例: 歴史の一場面、科学の法則、プログラミングの基本概念など）について、テキスト・画像・音声AIを駆使して、視覚的・聴覚的に分かりやすいインタラクティブな学習教材のアイデアと、その一部を実際に制作してみる。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number-display">
+            <span>26 / 28</span>
+        </div>
+        <!-- 26 / 28 -->
+    </div>
+</body>
+</html>
