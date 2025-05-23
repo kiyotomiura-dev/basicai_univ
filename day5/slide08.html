@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day5 スライド8</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f0f0;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            color: #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 6rem;
+        }
+        .slide-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 6rem;
+            background-color: #4f46e5;
+            color: white;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        .slide-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+        }
+        .slide-content {
+            margin-top: 8rem; /* Space for header */
+            flex-grow: 1;
+            width: 100%;
+            line-height: 1.6;
+        }
+        .slide-number-display {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        /* common.css styles for content */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #4338ca;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        .list-icon {
+            font-size: 1.5rem;
+            color: #4f46e5;
+            margin-right: 0.8rem;
+            width: 1.5em;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .list-text {
+            font-size: 1.15rem;
+            line-height: 1.5;
+            color: #334155;
+        }
+    </style>
+</head>
+<body>
+    <!-- 8 / 10 -->
+    <div class="slide">
+        <div class="slide-header">
+            <h1>Gemini 大幅アップデートの紹介</h1>
+        </div>
+        <div class="slide-content">
+            <p class="text-lg text-gray-700 mb-6">Google I/O 2025で発表されたGeminiの最新情報をご紹介します。AIがさらに身近に、強力になります！</p>
+
+            <h2 class="section-title"><i class="fas fa-magic" style="margin-right: 0.5rem;"></i> 主なアップデートポイント</h2>
+            <ul class="icon-list">
+                <li><i class="fas fa-camera list-icon"></i><span class="list-text"><strong>Gemini Liveのカメラ・画面共有機能:</strong> スマートフォンをかざして話すだけで、現状を理解し、トラブル解決やアドバイスを提供します。（Android/iOSで無料提供） [2]</span></li>
+                <li><i class="fas fa-image list-icon"></i><span class="list-text"><strong>画像生成「Imagen 4」:</strong> 高画質、優れたテキスト描写、高速処理が特徴の新しい画像生成モデル。 [2]</span></li>
+                <li><i class="fas fa-video list-icon"></i><span class="list-text"><strong>動画生成「Veo 3」:</strong> シンプルなテキストから、効果音や会話もサポートするダイナミックな動画を生成します。 [2]</span></li>
+                <li><i class="fas fa-search list-icon"></i><span class="list-text"><strong>Deep ResearchとCanvasの強化:</strong> 膨大な情報から詳細レポート作成、自身のプライベートデータも組み合わせた分析が可能に。 [2]</span></li>
+                <li><i class="fab fa-chrome list-icon"></i><span class="list-text"><strong>ChromeでのGemini利用:</strong> 閲覧中のウェブページの要約や説明をGeminiに直接依頼できます。 [2]</span></li>
+            </ul>
+
+            <h2 class="section-title"><i class="fas fa-gift" style="margin-right: 0.5rem;"></i> 大学生向け特別特典</h2>
+            <p class="text-lg text-gray-700">これらの最新AI機能を、大学生はGoogle AI Proへの無料アップグレードで、さらに深く体験できます。</p>
+        </div>
+        <div class="slide-number-display"><span>8 / 10</span></div>
+    </div>
+</body>
+</html>

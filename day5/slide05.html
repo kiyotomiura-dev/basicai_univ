@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day5 スライド5</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f0f0;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            color: #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 6rem;
+        }
+        .slide-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 6rem;
+            background-color: #4f46e5;
+            color: white;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        .slide-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+        }
+        .slide-content {
+            margin-top: 8rem; /* Space for header */
+            flex-grow: 1;
+            width: 100%;
+            line-height: 1.6;
+        }
+        .slide-number-display {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        /* common.css styles for content */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #4338ca;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        .list-icon {
+            font-size: 1.5rem;
+            color: #4f46e5;
+            margin-right: 0.8rem;
+            width: 1.5em;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .list-text {
+            font-size: 1.15rem;
+            line-height: 1.5;
+            color: #334155;
+        }
+        /* Flow diagram styles for common.css (mimicking Day4 slide 12) */
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .flow-step {
+            background-color: #eff6ff; /* Indigo-50 */
+            border: 1px solid #c7d2fe; /* Indigo-200 */
+            border-radius: 0.5rem;
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 0.5rem;
+            width: 100%;
+            max-width: 400px; /* Adjust as needed for column width */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        .flow-step h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #312e81; /* Indigo-900 */
+            margin-top: 0;
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+        }
+        .flow-step p {
+            font-size: 0.85rem;
+            color: #4b5563; /* Gray-700 */
+            margin-bottom: 0;
+        }
+        .flow-arrow {
+            margin: 0.2rem 0;
+            font-size: 1.5rem;
+            color: #6366f1; /* Indigo-500 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 5 / 7 -->
+    <div class="slide">
+        <div class="slide-header">
+            <h1>デモンストレーションにおける汎用的な制作ステップ</h1>
+        </div>
+        <div class="slide-content">
+            <h2 class="section-title" style="margin-top:0;"><i class="fas fa-drafting-compass" style="margin-right:0.5rem;"></i> 汎用的な制作ステップ (例)</h2>
+            <p class="text-lg text-gray-700">選択テーマを、以下のような汎用的なステップでAIを活用しながら制作します。（選択テーマによりステップは調整）</p>
+            <div class="diagram-container">
+                <div class="flow-step"><h3><i class="fas fa-cogs" style="margin-right:0.5em; color:#6366f1;"></i>1. 目的・テーマ設定</h3><p style="font-size:0.9em;">何を作るか、誰のためか、どんな情報を含めるか</p></div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                <div class="flow-step"><h3><i class="fas fa-file-alt" style="margin-right:0.5em; color:#6366f1;"></i>2. テキストコンテンツ生成</h3><p style="font-size:0.9em;">AIで紹介文、説明文、ナレーション原稿などを作成</p></div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                <div class="flow-step"><h3><i class="fas fa-image" style="margin-right:0.5em; color:#6366f1;"></i>3. ビジュアル素材生成/収集</h3><p style="font-size:0.9em;">AIで関連画像・アイコン作成、またはフリー素材活用</p></div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                <div class="flow-step"><h3><i class="fas fa-microphone-alt" style="margin-right:0.5em; color:#6366f1;"></i>4. (必要な場合) 音声生成</h3><p style="font-size:0.9em;">TTSでナレーション作成、BGM選定</p></div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                <div class="flow-step"><h3><i class="fas fa-tools" style="margin-right:0.5em; color:#6366f1;"></i>5. 編集・組み立て</h3><p style="font-size:0.9em;">各素材をWebページとして構成、または動画編集ソフトで結合</p></div>
+                <div class="flow-arrow"><i class="fas fa-arrow-down"></i></div>
+                <div class="flow-step"><h3><i class="fas fa-tv" style="margin-right:0.5em; color:#6366f1;"></i>6. 完成＆お披露目</h3><p style="font-size:0.9em;">成果物を提示し、工夫点やAIツールのポイントを解説</p></div>
+            </div>
+        </div>
+        <div class="slide-number-display"><span>5 / 7</span></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day5 スライド10</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="common.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f0f0;
+        }
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            color: #333;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            padding: 4rem 6rem;
+        }
+        .slide-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem 6rem;
+            background-color: #4f46e5;
+            color: white;
+            text-align: left;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        .slide-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 0;
+            color: white;
+        }
+        .slide-content {
+            margin-top: 8rem; /* Space for header */
+            flex-grow: 1;
+            width: 100%;
+            line-height: 1.6;
+        }
+        .slide-number-display {
+            position: absolute;
+            bottom: 1.5rem;
+            right: 2rem;
+            background-color: #4f46e5;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-width: 50px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+        /* common.css styles for content */
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #4338ca;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+        .icon-list li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        .list-icon {
+            font-size: 1.5rem;
+            color: #4f46e5;
+            margin-right: 0.8rem;
+            width: 1.5em;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .list-text {
+            font-size: 1.15rem;
+            line-height: 1.5;
+            color: #334155;
+        }
+    </style>
+</head>
+<body>
+    <!-- 10 / 10 -->
+    <div class="slide">
+        <div class="slide-header">
+            <h1>学生生活を革新するGemini活用術</h1>
+        </div>
+        <div class="slide-content">
+            <p class="text-lg text-gray-700 mb-6">強化されたGeminiは、学業から創造活動まで、皆さんの学生生活を強力にサポートします。</p>
+
+            <h2 class="section-title"><i class="fas fa-laptop-house" style="margin-right: 0.5rem;"></i> 学業での強力なサポート</h2>
+            <ul class="icon-list">
+                <li><i class="fas fa-graduation-cap list-icon"></i><span class="list-text"><strong>試験対策:</strong> ノートやスライドから学習ガイド、模擬テスト、さらにはポッドキャストを作成して、効率的に学習できます。 [1]</span></li>
+                <li><i class="fas fa-pencil-alt list-icon"></i><span class="list-text"><strong>文章作成:</strong> エッセイの初稿作成から論点の構築、校正、履歴書のブラッシュアップまで、文章作成のあらゆる段階を支援します。 [1]</span></li>
+                <li><i class="fas fa-clipboard-list list-icon"></i><span class="list-text"><strong>宿題・課題解決:</strong> 取り組んでいる課題の画像やファイルをアップロードすれば、ステップごとに分解し、解決策を見つける手助けをします。 [1]</span></li>
+            </ul>
+
+            <h2 class="section-title"><i class="fas fa-lightbulb list-icon"></i> 最新AI機能で創造性を発揮</h2>
+            <ul class="icon-list">
+                <li><i class="fas fa-comment-dots list-icon"></i><span class="list-text"><strong>Gemini Live:</strong> 音声でリアルタイムにブレーンストーミングしたり、カメラ・画面共有機能で「見せて解決」を実現し、視覚的なフィードバックを得られます。 [1, 2]</span></li>
+                <li><i class="fas fa-brain list-icon"></i><span class="list-text"><strong>Deep Research:</strong> 膨大な情報から詳細なレポートを生成し、さらに疑問を投げかけることで深い洞察を得られます。個人のデータも活用可能です。 [1, 2]</span></li>
+                <li><i class="fas fa-palette list-icon"></i><span class="list-text"><strong>Imagen 4 & Veo 3:</strong> テキスト指示から高品質な画像や動画を生成し、プレゼンテーションやクリエイティブなプロジェクトに活用できます。 [1, 2]</span></li>
+            </ul>
+        </div>
+        <div class="slide-number-display"><span>10 / 10</span></div>
+    </div>
+</body>
+</html>
